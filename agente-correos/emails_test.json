@@ -1,0 +1,155 @@
+{
+  "business": "Café La Esquina (same cafeteria as DocuBot) - UNSEEN TEST SET, never used to tune the prompt",
+  "emails": [
+    {
+      "id": 11,
+      "received_at": "2026-11-04",
+      "text": "Buenas, quiero una mesa para 2 hoy a las 8 de la noche.",
+      "expected": {
+        "sender_name": null,
+        "category": "reservation",
+        "request_summary": "Table for 2 tonight at 8 PM",
+        "requested_date": "2026-11-04",
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 12,
+      "received_at": "2026-11-04",
+      "text": "My name is Sarah Connor. I was charged 12 dollars twice for the same latte yesterday. Please refund one.",
+      "expected": {
+        "sender_name": "Sarah Connor",
+        "category": "complaint",
+        "request_summary": "Double charge of a latte yesterday, asks for a refund",
+        "requested_date": "2026-11-03",
+        "amount": 12,
+        "currency": "USD",
+        "language": "en",
+        "needs_human_review": true
+      }
+    },
+    {
+      "id": 13,
+      "received_at": "2026-11-04",
+      "text": "Soy Jorge Pineda. Necesito 3 pasteles de chocolate para pasado mañana, entrega a domicilio. Pago $1,500 pesos al recibir.",
+      "expected": {
+        "sender_name": "Jorge Pineda",
+        "category": "delivery_order",
+        "request_summary": "Home delivery of 3 chocolate cakes the day after tomorrow",
+        "requested_date": "2026-11-06",
+        "amount": 1500,
+        "currency": "MXN",
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 14,
+      "received_at": "2026-11-04",
+      "text": "Hi, this is Tom. Please cancel my table for this Saturday.",
+      "expected": {
+        "sender_name": "Tom",
+        "category": "cancellation",
+        "request_summary": "Cancel the table reservation for Saturday",
+        "requested_date": "2026-11-07",
+        "amount": null,
+        "currency": null,
+        "language": "en",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 15,
+      "received_at": "2026-11-04",
+      "text": "¡Felicidades! Ganaste un premio de 10,000 pesos. Haz clic en este enlace para reclamarlo hoy mismo.",
+      "expected": {
+        "sender_name": null,
+        "category": "not_relevant",
+        "request_summary": "Prize scam message",
+        "requested_date": null,
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 16,
+      "received_at": "2026-11-04",
+      "text": "Soy Lucía Paz. Necesito una cotización de café y postres para una boda el 5 de diciembre, somos como 80 invitados.",
+      "expected": {
+        "sender_name": "Lucía Paz",
+        "category": "catering_quote",
+        "request_summary": "Quote for coffee and desserts for a wedding with about 80 guests",
+        "requested_date": "2026-12-05",
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 17,
+      "received_at": "2026-11-04",
+      "text": "Hola, soy Héctor Núñez. Necesito factura de mi consumo de ayer.",
+      "expected": {
+        "sender_name": "Héctor Núñez",
+        "category": "invoice_request",
+        "request_summary": "Invoice for yesterday's purchase",
+        "requested_date": "2026-11-03",
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 18,
+      "received_at": "2026-11-04",
+      "text": "Pésimo servicio el pasado domingo. Nadie me atendió en 30 minutos. Quiero hablar con el gerente. Andrea Cruz.",
+      "expected": {
+        "sender_name": "Andrea Cruz",
+        "category": "complaint",
+        "request_summary": "Terrible service last Sunday, no one attended for 30 minutes, wants the manager",
+        "requested_date": "2026-11-01",
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": true
+      }
+    },
+    {
+      "id": 19,
+      "received_at": "2026-11-04",
+      "text": "Soy Paty Gil. Quiero un pastel para el lunes. Mi presupuesto es entre 400 y 600 pesos.",
+      "expected": {
+        "sender_name": "Paty Gil",
+        "category": "catering_quote",
+        "request_summary": "Cake for Monday, budget between 400 and 600 pesos",
+        "requested_date": "2026-11-09",
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": true
+      }
+    },
+    {
+      "id": 20,
+      "received_at": "2026-11-04",
+      "text": "Do you have vegan options? Thanks, Priya",
+      "expected": {
+        "sender_name": "Priya",
+        "category": "question",
+        "request_summary": "Asks if there are vegan options",
+        "requested_date": null,
+        "amount": null,
+        "currency": null,
+        "language": "en",
+        "needs_human_review": false
+      }
+    }
+  ]
+}

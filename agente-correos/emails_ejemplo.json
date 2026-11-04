@@ -1,0 +1,165 @@
+{
+  "business": "Café La Esquina (same cafeteria as DocuBot)",
+  "schema": {
+    "sender_name": "string or null",
+    "category": "reservation | catering_quote | complaint | question | delivery_order | invoice_request | cancellation | not_relevant",
+    "request_summary": "short sentence in English",
+    "requested_date": "YYYY-MM-DD or null",
+    "amount": "number or null",
+    "currency": "MXN | USD | null",
+    "language": "es | en",
+    "needs_human_review": "true or false"
+  },
+  "emails": [
+    {
+      "id": 1,
+      "received_at": "2026-11-03",
+      "text": "Hola, soy Ana Torres. Quisiera reservar una mesa para 6 personas el sábado 14 de noviembre a las 4 de la tarde. Gracias.",
+      "expected": {
+        "sender_name": "Ana Torres",
+        "category": "reservation",
+        "request_summary": "Table for 6 people on Saturday at 4 PM",
+        "requested_date": "2026-11-14",
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 2,
+      "received_at": "2026-11-03",
+      "text": "Buenas tardes, le escribe Luis Herrera. Tenemos un evento de oficina el viernes 20 de noviembre y necesitamos café para 40 personas. Nuestro presupuesto es de 2,000 pesos. ¿Me pueden cotizar?",
+      "expected": {
+        "sender_name": "Luis Herrera",
+        "category": "catering_quote",
+        "request_summary": "Quote for coffee for 40 people at an office event",
+        "requested_date": "2026-11-20",
+        "amount": 2000,
+        "currency": "MXN",
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 3,
+      "received_at": "2026-11-03",
+      "text": "Ayer (2 de noviembre) me sirvieron el café frío y nadie lo cambió. Pido que me devuelvan los 85 pesos. Marta Ruiz.",
+      "expected": {
+        "sender_name": "Marta Ruiz",
+        "category": "complaint",
+        "request_summary": "Cold coffee on Nov 2, asks for a refund",
+        "requested_date": "2026-11-02",
+        "amount": 85,
+        "currency": "MXN",
+        "language": "es",
+        "needs_human_review": true
+      }
+    },
+    {
+      "id": 4,
+      "received_at": "2026-11-03",
+      "text": "Hola, ¿abren los domingos? Saludos, Pedro",
+      "expected": {
+        "sender_name": "Pedro",
+        "category": "question",
+        "request_summary": "Asks if the cafeteria is open on Sundays",
+        "requested_date": null,
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 5,
+      "received_at": "2026-11-03",
+      "text": "Necesito que me lleven 2 pasteles mañana a mi casa. Me dijeron que son 640 pesos en total. Sofía Mena.",
+      "expected": {
+        "sender_name": "Sofía Mena",
+        "category": "delivery_order",
+        "request_summary": "Delivery of 2 cakes tomorrow",
+        "requested_date": "2026-11-04",
+        "amount": 640,
+        "currency": "MXN",
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 6,
+      "received_at": "2026-11-03",
+      "text": "Hi! I'm John Miller, visiting Mexico. Can you make a birthday cake for November 28? My budget is 50 USD. Thanks!",
+      "expected": {
+        "sender_name": "John Miller",
+        "category": "catering_quote",
+        "request_summary": "Birthday cake for Nov 28, budget 50 USD",
+        "requested_date": "2026-11-28",
+        "amount": 50,
+        "currency": "USD",
+        "language": "en",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 7,
+      "received_at": "2026-11-03",
+      "text": "Buen día. Soy Carolina Lima de Grupo Lima. Necesitamos factura de la compra del 30 de octubre por $1,230.50. Adjunto nuestros datos fiscales.",
+      "expected": {
+        "sender_name": "Carolina Lima",
+        "category": "invoice_request",
+        "request_summary": "Invoice for the Oct 30 purchase",
+        "requested_date": "2026-10-30",
+        "amount": 1230.5,
+        "currency": "MXN",
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 8,
+      "received_at": "2026-11-03",
+      "text": "Dear owner, we can put your website on the first page of Google in 7 days. Reply now for a special price!",
+      "expected": {
+        "sender_name": null,
+        "category": "not_relevant",
+        "request_summary": "Unsolicited SEO sales offer",
+        "requested_date": null,
+        "amount": null,
+        "currency": null,
+        "language": "en",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 9,
+      "received_at": "2026-11-03",
+      "text": "Hola, soy Diego Salas. Necesito cancelar mi reservación del martes 10 de noviembre. Disculpen la molestia.",
+      "expected": {
+        "sender_name": "Diego Salas",
+        "category": "cancellation",
+        "request_summary": "Cancel the reservation for Nov 10",
+        "requested_date": "2026-11-10",
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": false
+      }
+    },
+    {
+      "id": 10,
+      "received_at": "2026-11-03",
+      "text": "Hola, soy Elena Vega. Quiero una mesa para 4 el viernes en la noche. Y también, ¿tienen pastel sin gluten?",
+      "expected": {
+        "sender_name": "Elena Vega",
+        "category": "reservation",
+        "request_summary": "Table for 4 on Friday night; also asks about gluten-free cake",
+        "requested_date": "2026-11-06",
+        "amount": null,
+        "currency": null,
+        "language": "es",
+        "needs_human_review": true
+      }
+    }
+  ]
+}
