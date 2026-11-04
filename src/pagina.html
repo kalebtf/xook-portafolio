@@ -1,10 +1,8 @@
 <title>Xook IA Mérida</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Software con inteligencia artificial para negocios de Mérida y México: reseñas, facturas CFDI, cobranza, manuales, inmuebles y citas.">
+<meta name="description" content="Software con inteligencia artificial para negocios de Mérida y México: reseñas en inglés, facturas CFDI, cobranza, manuales, inmuebles y citas. Pruébalo gratis.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one long page. Sticky header, hero with a live "panel", a tabbed demo studio, then process, prices, docs and contact. Palette from Mérida: cenote teal, Izamal yellow, limestone walls, henequén green. */
 :root{
   --bg:#F3F5F2; --surface:#FFFFFF; --sunk:#E7ECE8; --line:#D3DBD6;
   --fg:#14211F; --muted:#56655F;
@@ -228,8 +226,61 @@ td.num,th.num{text-align:right}
 footer{padding-block:32px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-</style>
 
+/* ===== v2: illustrations, explainers, downloads ===== */
+:root{--pink:#E8A99C;--ochre:#E7B54A;--sky:#CFE4E2;--art-line:#14211F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--pink:#B9786C;--ochre:#C99A34;--sky:#16393A;--art-line:#06191A}}
+:root[data-theme="dark"]{--pink:#B9786C;--ochre:#C99A34;--sky:#16393A;--art-line:#06191A}
+.f-t{fill:var(--teal)}.f-ts{fill:var(--teal-soft)}.f-y{fill:var(--yellow)}.f-ys{fill:var(--yellow-soft)}
+.f-s{fill:var(--surface)}.f-k{fill:var(--sunk)}.f-l{fill:var(--line)}.f-g{fill:var(--green)}.f-r{fill:var(--red)}
+.f-p{fill:var(--pink)}.f-o{fill:var(--ochre)}.f-sky{fill:var(--sky)}.f-fg{fill:var(--fg)}.f-m{fill:var(--muted)}
+.s-a{stroke:var(--art-line);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-m{stroke:var(--muted);stroke-width:2;stroke-linecap:round}
+.s-s{stroke:var(--surface);stroke-width:3;stroke-linecap:round}
+.s-a:not([class*="f-"]),.s-m:not([class*="f-"]),.s-s:not([class*="f-"]){fill:none}
+
+/* hero art + panel overlap */
+.hero-visual{position:relative;display:grid}
+.hero-art{width:100%;height:auto;display:block;border-radius:22px;background:var(--sky)}
+.hero-visual .panel{margin:-56px 18px 0;position:relative}
+@media (max-width:520px){.hero-visual .panel{margin:-50px 0 0}}
+
+/* demo header with art + explainer */
+.demo-top{display:grid;grid-template-columns:170px minmax(0,1fr) auto;align-items:start}
+.demo-art{width:170px;height:auto;border-radius:14px;background:var(--sky)}
+@media (max-width:820px){.demo-top{grid-template-columns:minmax(0,1fr) auto}.demo-art{grid-column:1/-1;width:100%;max-width:340px;max-height:170px}}
+@media (max-width:640px){.demo-top{grid-template-columns:1fr}.demo-art{max-width:none}}
+.psr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:6px}
+@media (max-width:640px){.psr{grid-template-columns:1fr}}
+.psr div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:.86rem;line-height:1.4}
+.psr b{display:block;font:600 .68rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:2px}
+.try{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0;padding:0;list-style:none;font-size:.84rem;color:var(--muted)}
+.try li{counter-increment:t}
+.try{counter-reset:t}
+.try li::before{content:counter(t);display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--yellow);color:var(--yellow-ink);font:700 .7rem var(--mono);margin-right:6px}
+.tab{grid-template-columns:auto 1fr;column-gap:10px;align-items:center}
+.tab .ti{grid-row:span 2;width:30px;height:30px;border-radius:8px;background:var(--sunk);display:grid;place-items:center}
+.tab[aria-selected="true"] .ti{background:var(--surface)}
+.tab .ti svg{width:20px;height:20px}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.okmsg{color:var(--green);font-weight:600}
+.errmsg{color:var(--red);font-weight:600}
+.step-ico{width:44px;height:44px}
+.cal-row{display:flex;gap:8px;flex-wrap:wrap}
+.code-list{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}
+@media (max-width:820px){.code-list{grid-template-columns:1fr}}
+.howai{font-size:.84rem;color:var(--muted);max-width:44em}
+
+@media (min-width:900px){.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible}.tab{min-width:0}}
+/* Illustrations keep the light palette in dark mode (read as printed cards) */
+svg.demo-art,svg.hero-art,.ti svg{
+  --bg:#F3F5F2;--surface:#FFFFFF;--sunk:#E7ECE8;--line:#D3DBD6;--fg:#14211F;--muted:#56655F;
+  --teal:#0D5C61;--teal-ink:#FFFFFF;--teal-soft:#D7E8E6;--yellow:#E2A919;--yellow-ink:#2A1F00;--yellow-soft:#F8EBC4;
+  --green:#3D7A3A;--red:#B3392E;--amber:#A86A00;--pink:#E8A99C;--ochre:#E7B54A;--sky:#CFE4E2;--art-line:#14211F}
+@media (max-width:640px){.demo-art{max-height:120px}}
+
+</style>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Xook IA, inicio">
@@ -240,7 +291,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
       <a href="#demos">Demos</a>
       <a href="#proceso">Cómo trabajamos</a>
       <a href="#precios">Precios</a>
-      <a href="#guias">Guías</a>
+      <a href="#codigo">Código</a>
       <a class="cta" href="#contacto">Auditoría gratis</a>
     </nav>
   </div>
@@ -252,20 +303,56 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
       <div>
         <p class="eyebrow">Software con IA para negocios de Yucatán</p>
         <h1 style="margin-top:14px">Tu negocio atiende, ordena y <em>cobra</em> mientras tú trabajas.</h1>
-        <p class="lede">Herramientas sencillas con inteligencia artificial, hechas en Mérida: contestan tus reseñas en español e inglés, ordenan tus facturas CFDI, recuerdan a tus clientes lo que te deben y agendan citas. Nosotros lo instalamos. Tú solo lo usas.</p>
+        <p class="lede">Herramientas sencillas con inteligencia artificial, hechas en Mérida. Contestan tus reseñas en español e inglés, ordenan tus facturas CFDI, recuerdan a tus clientes lo que te deben y agendan citas. Nosotros lo instalamos; tú solo lo usas.</p>
         <div class="hero-ctas">
           <a class="btn primary" href="#demos">Probar los demos</a>
           <a class="btn ghost" href="#contacto">Pedir auditoría gratis</a>
         </div>
-        <div class="trust"><span>Precios en pesos, con factura</span><span>Sin contrato forzoso</span><span>Instalación en días, no meses</span></div>
+        <div class="trust"><span>Precios en pesos, con factura</span><span>Sin contrato forzoso</span><span>Funciona con tu Excel y tu WhatsApp</span></div>
       </div>
-      <div class="panel" aria-label="Ejemplo de lo que hace Xook en un día">
-        <div class="panel-head"><span><span class="dot"></span>Hoy en Cocina Doña Elvira · Calle 60</span><span>ejemplo</span></div>
-        <div class="feed">
-          <div class="feed-item"><div class="feed-ico chip info">★</div><div><b>Reseña de turista contestada en inglés</b><small>“Amazing cochinita…” · aprobada por el dueño</small></div><span class="chip ok">listo</span></div>
-          <div class="feed-item"><div class="feed-ico chip info">XML</div><div><b>3 facturas de gastos clasificadas</b><small>1 sin complemento de pago</small></div><span class="chip warn">revisar</span></div>
-          <div class="feed-item"><div class="feed-ico chip info">$</div><div><b>Recordatorio de pago enviado</b><small>Factura A-1042 · 18 días vencida</small></div><span class="chip ok">promesa: viernes</span></div>
-          <div class="feed-item"><div class="feed-ico chip info">CITA</div><div><b>Cita confirmada por WhatsApp</b><small>Limpieza dental · jueves 10:30</small></div><span class="chip ok">confirmada</span></div>
+      <div class="hero-visual">
+        <svg class="hero-art" viewBox="0 0 560 300" role="img" aria-label="Ilustración: fachadas coloniales de colores en una calle de Mérida">
+          <circle class="f-ys" cx="478" cy="62" r="40"/>
+          <rect class="f-k" x="0" y="262" width="560" height="38"/>
+          <rect class="f-l" x="0" y="252" width="560" height="12"/>
+          <!-- casa rosa -->
+          <rect class="f-p s-a" x="22" y="112" width="160" height="140"/>
+          <rect class="f-s s-a" x="14" y="100" width="176" height="14" rx="2"/>
+          <path class="f-t s-a" d="M66 252V196a36 36 0 0 1 72 0v56z"/>
+          <path class="s-s" d="M102 162v90"/>
+          <circle class="f-r" cx="30" cy="96" r="7"/><circle class="f-r" cx="44" cy="92" r="6"/><circle class="f-g" cx="38" cy="102" r="6"/><circle class="f-r" cx="56" cy="97" r="5"/>
+          <!-- casa ocre -->
+          <rect class="f-o s-a" x="182" y="78" width="190" height="174"/>
+          <rect class="f-s s-a" x="174" y="66" width="206" height="14" rx="2"/>
+          <rect class="f-t s-a" x="200" y="120" width="42" height="72" rx="3"/>
+          <path class="s-s" d="M211 124v64M221 124v64M231 124v64"/>
+          <rect class="f-s s-a" x="196" y="192" width="50" height="8" rx="2"/>
+          <path class="f-t s-a" d="M254 252v-66a23 23 0 0 1 46 0v66z"/>
+          <rect class="f-t s-a" x="312" y="120" width="42" height="72" rx="3"/>
+          <path class="s-s" d="M323 124v64M333 124v64M343 124v64"/>
+          <rect class="f-s s-a" x="308" y="192" width="50" height="8" rx="2"/>
+          <rect class="f-s s-a" x="244" y="94" width="66" height="18" rx="3"/>
+          <path class="s-m" d="M256 103h42"/>
+          <!-- casa turquesa -->
+          <rect class="f-ts s-a" x="372" y="128" width="168" height="124"/>
+          <rect class="f-s s-a" x="364" y="116" width="184" height="14" rx="2"/>
+          <path class="f-t s-a" d="M392 212v-40a18 18 0 0 1 36 0v40z"/>
+          <path class="s-s" d="M404 160v50M416 160v50"/>
+          <path class="f-t s-a" d="M482 212v-40a18 18 0 0 1 36 0v40z"/>
+          <path class="s-s" d="M494 160v50M506 160v50"/>
+          <path class="f-y s-a" d="M440 252v-44h28v44z"/>
+          <!-- palma -->
+          <path class="s-a" d="M548 252c-6-40-4-80 6-118" style="stroke-width:5"/>
+          <path class="f-g s-a" d="M554 134c-20-14-40-12-52 2 18-4 34 0 52-2z"/>
+          <path class="f-g s-a" d="M554 134c-6-22-22-34-38-32 14 8 26 18 38 32z"/>
+        </svg>
+        <div class="panel" aria-label="Ejemplo de lo que hace Xook en un día">
+          <div class="panel-head"><span><span class="dot"></span>Hoy en Cocina Doña Elvira</span><span>ejemplo</span></div>
+          <div class="feed">
+            <div class="feed-item"><div class="feed-ico chip info">★</div><div><b>Reseña de turista contestada en inglés</b><small>“Amazing cochinita…” · aprobada por el dueño</small></div><span class="chip ok">listo</span></div>
+            <div class="feed-item"><div class="feed-ico chip info">XML</div><div><b>3 facturas de gastos clasificadas</b><small>1 sin complemento de pago</small></div><span class="chip warn">revisar</span></div>
+            <div class="feed-item"><div class="feed-ico chip info">$</div><div><b>Recordatorio de pago enviado</b><small>Factura A-1042 · 18 días vencida</small></div><span class="chip ok">promesa: viernes</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -278,7 +365,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
         <h2 id="porque">La IA genérica ya es gratis. Lo valioso es conectarla con tu negocio.</h2>
       </div>
       <div class="facts">
-        <div class="fact"><span class="num">1 de 4</span><p>negocios en Yucatán usa internet: 41,860 de 157,391. Quien se digitaliza primero, se queda con los clientes.</p><cite>INEGI, Censos Económicos 2024</cite></div>
+        <div class="fact"><span class="num">1 de 4</span><p>negocios en Yucatán usa internet: 41,860 de 157,391. Quien se digitaliza primero se queda con los clientes.</p><cite>INEGI, Censos Económicos 2024</cite></div>
         <div class="fact"><span class="num">62 días</span><p>tardan en promedio en pagar los clientes que pagan tarde. En empresas que venden a otras empresas, 42% tiene pagos atrasados.</p><cite>ASEM, Radiografía del Emprendimiento 2025</cite></div>
         <div class="fact"><span class="num">+25%</span><p>creció el turismo internacional con pernocta en Yucatán en julio de 2025. Más clientes que escriben y reseñan en inglés.</p><cite>Datatur vía Por Esto!, sept. 2025</cite></div>
       </div>
@@ -290,30 +377,45 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
       <div class="sec-head">
         <p class="eyebrow">Demos que funcionan</p>
         <h2 id="demos-h">Pruébalo tú mismo, con datos de ejemplo</h2>
-        <p class="muted">Cada demo resuelve un problema real de negocios en Mérida. Los ejemplos son ficticios. <span id="ai-status" class="ai-badge">Revisando IA en vivo…</span></p>
+        <p class="muted">Cada demo resuelve un problema real de negocios en Mérida. Los negocios y datos son ficticios. <span id="ai-status" class="ai-badge">Revisando IA…</span></p>
+        <p class="howai" id="ai-explain"></p>
       </div>
       <div class="tabs" role="tablist" aria-label="Demos">
-        <button class="tab" role="tab" id="tab-resenas" aria-controls="demo-resenas" aria-selected="true" data-demo="resenas"><b>Reseñas y web bilingüe</b><small>Restaurantes, hoteles, tours</small></button>
-        <button class="tab" role="tab" id="tab-cfdi" aria-controls="demo-cfdi" aria-selected="false" data-demo="cfdi"><b>Bandeja CFDI</b><small>Despachos contables</small></button>
-        <button class="tab" role="tab" id="tab-cobranza" aria-controls="demo-cobranza" aria-selected="false" data-demo="cobranza"><b>Cobranza amable</b><small>Distribuidoras B2B</small></button>
-        <button class="tab" role="tab" id="tab-manuales" aria-controls="demo-manuales" aria-selected="false" data-demo="manuales"><b>Pregúntale a tus manuales</b><small>Empresas medianas</small></button>
-        <button class="tab" role="tab" id="tab-inmuebles" aria-controls="demo-inmuebles" aria-selected="false" data-demo="inmuebles"><b>Fichas de inmuebles</b><small>Inmobiliarias ES/EN</small></button>
-        <button class="tab" role="tab" id="tab-agenda" aria-controls="demo-agenda" aria-selected="false" data-demo="agenda"><b>Citas y recordatorios</b><small>Dentistas, clínicas</small></button>
+        <button class="tab" role="tab" id="tab-resenas" aria-controls="demo-resenas" aria-selected="true" data-demo="resenas"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="f-y" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg></span><b>Reseñas y web bilingüe</b><small>Restaurantes, hoteles, tours</small></button>
+        <button class="tab" role="tab" id="tab-cfdi" aria-controls="demo-cfdi" aria-selected="false" data-demo="cfdi"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="f-s s-a" d="M6 2.5h8l4 4v15H6z"/><path class="s-m" d="M9 11h6M9 15h6"/></svg></span><b>Bandeja CFDI</b><small>Despachos contables</small></button>
+        <button class="tab" role="tab" id="tab-cobranza" aria-controls="demo-cobranza" aria-selected="false" data-demo="cobranza"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="f-g" cx="12" cy="12" r="9.5"/><path class="s-s" d="M14.8 8.6c-.6-.8-1.6-1.2-2.8-1.2-1.6 0-2.8.8-2.8 2.1 0 3 5.8 1.6 5.8 4.6 0 1.3-1.3 2.2-3 2.2-1.3 0-2.4-.5-3-1.4M12 5.5v13" style="stroke-width:1.8"/></svg></span><b>Cobranza amable</b><small>Distribuidoras B2B</small></button>
+        <button class="tab" role="tab" id="tab-manuales" aria-controls="demo-manuales" aria-selected="false" data-demo="manuales"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><rect class="f-t" x="4" y="3" width="14" height="18" rx="2"/><rect class="f-y" x="18" y="6" width="3" height="4" rx="1"/><path class="s-s" d="M8 8h6M8 12h6" style="stroke-width:2"/></svg></span><b>Pregúntale a tus manuales</b><small>Empresas medianas</small></button>
+        <button class="tab" role="tab" id="tab-inmuebles" aria-controls="demo-inmuebles" aria-selected="false" data-demo="inmuebles"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><rect class="f-o" x="3" y="8" width="18" height="13"/><rect class="f-s s-a" x="2" y="6" width="20" height="3" rx="1" style="stroke-width:1.2"/><path class="f-t" d="M9.5 21v-5a2.5 2.5 0 0 1 5 0v5z"/></svg></span><b>Fichas de inmuebles</b><small>Inmobiliarias ES/EN</small></button>
+        <button class="tab" role="tab" id="tab-agenda" aria-controls="demo-agenda" aria-selected="false" data-demo="agenda"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><rect class="f-s s-a" x="3" y="5" width="18" height="16" rx="2" style="stroke-width:1.5"/><rect class="f-r" x="3" y="5" width="18" height="5" rx="2"/><path class="s-a" d="M8.5 15l2.2 2.2 4.8-4.6" style="stroke:var(--green)"/></svg></span><b>Citas y recordatorios</b><small>Dentistas, clínicas</small></button>
       </div>
 
       <div class="studio">
         <!-- 1. RESEÑAS -->
         <div class="demo" id="demo-resenas" role="tabpanel" aria-labelledby="tab-resenas">
           <div class="demo-top">
-            <div class="who"><p class="eyebrow">Presencia local con IA</p><h3>Cada reseña de Google contestada en minutos, en el idioma del cliente</h3><p class="muted">Elige una reseña. La IA redacta la respuesta con el tono de tu negocio; tú la apruebas con un clic. Incluye una web sencilla en español e inglés.</p></div>
+            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: patio de restaurante con una reseña de cinco estrellas">
+              <rect class="f-l" x="0" y="122" width="200" height="18"/>
+              <path class="f-p s-a" d="M14 124V62a52 52 0 0 1 104 0v62z"/>
+              <path class="f-ys" d="M30 124V66a36 36 0 0 1 72 0v58z"/>
+              <circle class="f-g s-a" cx="40" cy="112" r="10"/><rect class="f-o s-a" x="33" y="112" width="14" height="12"/>
+              <rect class="f-t s-a" x="56" y="98" width="40" height="6" rx="2"/><path class="s-a" d="M62 104v18M90 104v18"/>
+              <ellipse class="f-s s-a" cx="70" cy="95" rx="9" ry="3"/><ellipse class="f-s s-a" cx="84" cy="95" rx="7" ry="3"/>
+              <rect class="f-s s-a" x="112" y="18" width="80" height="52" rx="10"/><path class="f-s s-a" d="M126 70l-6 12 16-12"/>
+              <g class="f-y"><polygon transform="translate(127 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/><polygon transform="translate(140 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/><polygon transform="translate(153 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/><polygon transform="translate(166 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/><polygon transform="translate(179 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/></g>
+              <path class="s-m" d="M122 50h60M122 59h40"/>
+            </svg>
+            <div class="who"><p class="eyebrow">Presencia local con IA</p><h3>Cada reseña de Google contestada en minutos, en el idioma del cliente</h3>
+              <div class="psr"><div><b>Problema</b>Reseñas sin contestar, sobre todo las de turistas en inglés.</div><div><b>Qué hace</b>Redacta la respuesta con el tono de tu negocio; tú la apruebas.</div><div><b>Ganas</b>Mejor imagen en Google y más turistas que te eligen.</div></div>
+              <ol class="try"><li>Elige una reseña</li><li>Elige el tono</li><li>Pulsa “Redactar respuesta”</li></ol>
+            </div>
             <div class="price"><span class="note">Desde</span><b>$490 / mes</b><span class="note">+ instalación $3,000</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
-              <span class="pane-label">1 · Reseñas recientes</span>
+              <span class="pane-label">1 · Reseñas recientes de Cocina Doña Elvira</span>
               <div id="reviews" class="feed"></div>
               <label>Tono de la respuesta
-                <select id="rv-tone"><option value="cálido y cercano">Cálido y cercano</option><option value="profesional">Profesional</option><option value="breve">Muy breve</option></select>
+                <select id="rv-tone"><option value="calido">Cálido y cercano</option><option value="profesional">Profesional</option><option value="breve">Muy breve</option></select>
               </label>
               <div class="row"><button class="btn primary" id="rv-go">Redactar respuesta</button><button class="btn ghost small" id="rv-copy">Copiar</button></div>
             </div>
@@ -330,7 +432,21 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
         <!-- 2. CFDI -->
         <div class="demo" id="demo-cfdi" role="tabpanel" aria-labelledby="tab-cfdi" hidden>
           <div class="demo-top">
-            <div class="who"><p class="eyebrow">Bandeja CFDI para contadores</p><h3>Tus clientes reenvían sus facturas a un correo. La bandeja las lee, las clasifica y te avisa qué falta.</h3><p class="muted">Lee el XML del SAT (CFDI 4.0) con reglas exactas, sin adivinar. Detecta facturas que no son de tu cliente, sin timbre, PPD sin complemento de pago o “sin efectos fiscales”.</p></div>
+            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: facturas XML revisadas con una lupa">
+              <rect class="f-k s-a" x="30" y="30" width="70" height="92" rx="6"/>
+              <rect class="f-s s-a" x="44" y="20" width="72" height="96" rx="6"/>
+              <path class="f-t" d="M50 21h60a5 5 0 0 1 5 5v13H45V26a5 5 0 0 1 5-5z"/>
+              <text x="80" y="35" text-anchor="middle" style="font:700 11px var(--mono);fill:var(--teal-ink)">XML</text>
+              <path class="s-m" d="M54 54h52M54 66h52M54 78h34M54 90h44"/>
+              <circle class="f-ts s-a" cx="134" cy="84" r="24"/><path class="s-a" d="M151 101l20 20" style="stroke-width:7"/>
+              <path class="s-a" d="M124 84l7 7 13-14" style="stroke:var(--green);stroke-width:3"/>
+              <circle class="f-y s-a" cx="164" cy="34" r="14"/><path class="s-a" d="M164 27v9M164 41v.5" style="stroke-width:3"/>
+              <circle class="f-g s-a" cx="22" cy="104" r="11"/><path class="s-s" d="M17 104l4 4 7-7" style="stroke-width:2.5"/>
+            </svg>
+            <div class="who"><p class="eyebrow">Bandeja CFDI para contadores</p><h3>Tus clientes reenvían sus facturas a un correo. La bandeja las lee, las clasifica y te avisa qué falta.</h3>
+              <div class="psr"><div><b>Problema</b>Cientos de XML sueltos en WhatsApp y correo cada mes.</div><div><b>Qué hace</b>Lee el XML del SAT con reglas exactas y marca errores.</div><div><b>Ganas</b>Horas de captura menos y nada se te pasa en la declaración.</div></div>
+              <ol class="try"><li>Pulsa un ejemplo y “Leer y agregar”</li><li>O sube tus .xml (no salen de tu navegador)</li><li>Descarga el Excel</li></ol>
+            </div>
             <div class="price"><span class="note">Por despacho</span><b>$590 / mes</b><span class="note">hasta 300 facturas</span></div>
           </div>
           <div class="demo-body">
@@ -340,21 +456,22 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
                 <input type="text" id="cf-rfc" value="CACX7605101P8" autocomplete="off">
               </label>
               <div class="seg" role="group" aria-label="Facturas de ejemplo" id="cf-samples"></div>
-              <label>XML (puedes pegar uno tuyo; no sale de tu navegador)
+              <label>XML (puedes pegar uno tuyo)
                 <textarea class="code" id="cf-xml" spellcheck="false"></textarea>
               </label>
               <div class="row">
                 <button class="btn primary" id="cf-add">Leer y agregar</button>
-                <label class="btn ghost small" style="display:inline-flex;cursor:pointer">Subir .xml<input type="file" id="cf-file" accept=".xml,text/xml" multiple class="sr"></label>
-                <button class="btn ghost small" id="cf-reset">Reiniciar</button>
+                <span class="btn ghost small filebtn">Subir .xml<input type="file" id="cf-file" accept=".xml,text/xml" multiple aria-label="Subir archivos XML"></span>
+                <button class="btn ghost small" id="cf-reset">Vaciar</button>
               </div>
-              <p class="note">RFC de prueba del SAT. Datos ficticios.</p>
+              <p class="note">¿No tienes XML a la mano? <a href="#" id="cf-dl-sample">Descarga el ejemplo seleccionado</a> y vuelve a subirlo. RFC de prueba del SAT; datos ficticios.</p>
             </div>
             <div class="pane">
               <span class="pane-label">2 · Bandeja ordenada</span>
               <div class="kpis"><div class="kpi"><small>Facturas</small><b id="cf-k1">0</b></div><div class="kpi"><small>Total</small><b id="cf-k2">$0</b></div><div class="kpi"><small>Por revisar</small><b id="cf-k3">0</b></div></div>
               <div class="tbl-wrap"><table><thead><tr><th>Emisor</th><th>Categoría</th><th class="num">Total</th><th>Avisos</th></tr></thead><tbody id="cf-body"><tr><td colspan="4" class="muted">Aún no hay facturas.</td></tr></tbody></table></div>
-              <div class="row"><button class="btn ghost small" id="cf-csv">Copiar para Excel</button><span class="note" id="cf-msg"></span></div>
+              <div class="row"><button class="btn yellow small" id="cf-xlsx">Descargar Excel</button><button class="btn ghost small" id="cf-csv">Copiar tabla</button></div>
+              <p class="note" id="cf-msg" role="status"></p>
             </div>
           </div>
         </div>
@@ -362,22 +479,45 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
         <!-- 3. COBRANZA -->
         <div class="demo" id="demo-cobranza" role="tabpanel" aria-labelledby="tab-cobranza" hidden>
           <div class="demo-top">
-            <div class="who"><p class="eyebrow">Cobranza que lee tus CFDI</p><h3>Sabe quién te debe, cuánto y desde cuándo. Y redacta el recordatorio correcto para cada cliente.</h3><p class="muted">Recordatorios amables por correo o WhatsApp (solo a clientes que aceptaron recibirlos), registro de promesas de pago y reporte semanal.</p></div>
+            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: camión de reparto, factura y calendario">
+              <rect class="f-l" x="0" y="124" width="200" height="16"/>
+              <rect class="f-t s-a" x="14" y="70" width="96" height="44" rx="4"/>
+              <path class="f-ts s-a" d="M110 82h22l14 16v16h-36z"/><path class="f-s s-a" d="M116 88h14l8 10h-22z"/>
+              <circle class="f-fg" cx="40" cy="116" r="10"/><circle class="f-s" cx="40" cy="116" r="4"/>
+              <circle class="f-fg" cx="126" cy="116" r="10"/><circle class="f-s" cx="126" cy="116" r="4"/>
+              <path class="s-s" d="M26 88h40M26 98h26"/>
+              <rect class="f-s s-a" x="134" y="12" width="54" height="64" rx="6"/>
+              <text x="161" y="44" text-anchor="middle" style="font:800 24px var(--display);fill:var(--green)">$</text>
+              <path class="s-m" d="M144 58h34M144 66h22"/>
+              <rect class="f-s s-a" x="20" y="14" width="52" height="44" rx="5"/><rect class="f-r" x="21" y="15" width="50" height="12" rx="4"/>
+              <text x="46" y="50" text-anchor="middle" style="font:800 18px var(--display);fill:var(--fg)">18</text>
+            </svg>
+            <div class="who"><p class="eyebrow">Cobranza que lee tu Excel o tus CFDI</p><h3>Sabe quién te debe, cuánto y desde cuándo. Y redacta el recordatorio correcto para cada cliente.</h3>
+              <div class="psr"><div><b>Problema</b>Cobrar da pena y se olvida; el dinero se queda en la calle.</div><div><b>Qué hace</b>Ordena tu cartera por atraso y escribe recordatorios amables.</div><div><b>Ganas</b>Cobras antes, sin perder la buena relación con tu cliente.</div></div>
+              <ol class="try"><li>Pulsa “Recordar” en un cliente</li><li>Cambia a WhatsApp</li><li>Sube tu propio Excel y descarga el reporte</li></ol>
+            </div>
             <div class="price"><span class="note">Desde</span><b>$990 / mes</b><span class="note">+ instalación $3,000</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
-              <span class="pane-label">1 · Cartera de Materiales del Sureste (ejemplo)</span>
+              <span class="pane-label" id="cb-title">1 · Cartera de Materiales del Sureste (ejemplo)</span>
+              <div class="row">
+                <span class="btn ghost small filebtn">Subir mi Excel<input type="file" id="cb-file" accept=".xlsx,.xls,.csv" aria-label="Subir Excel de cartera"></span>
+                <button class="btn ghost small" id="cb-template">Descargar plantilla</button>
+                <button class="btn ghost small" id="cb-reset">Volver al ejemplo</button>
+              </div>
+              <p class="note" id="cb-msg" role="status">Columnas: Cliente, Contacto, Folio, Saldo, Vence. Tu archivo no sale de tu navegador.</p>
               <div class="kpis"><div class="kpi"><small>Por cobrar</small><b id="cb-k1">$0</b></div><div class="kpi"><small>Vencido</small><b id="cb-k2">$0</b></div><div class="kpi"><small>Atraso promedio</small><b id="cb-k3">0 d</b></div></div>
               <div><div class="aging" id="cb-aging" aria-hidden="true"></div><p class="note" id="cb-aging-l" style="margin-top:6px"></p></div>
               <div class="tbl-wrap"><table><thead><tr><th>Cliente</th><th class="num">Saldo</th><th><span class="sr">Acción</span></th></tr></thead><tbody id="cb-body"></tbody></table></div>
+              <div class="row"><button class="btn yellow small" id="cb-xlsx">Descargar reporte Excel</button></div>
             </div>
             <div class="pane">
               <span class="pane-label">2 · Recordatorio <span id="cb-src"></span></span>
               <div class="seg" role="group" aria-label="Canal"><button id="cb-ch-mail" aria-pressed="true">Correo</button><button id="cb-ch-wa" aria-pressed="false">WhatsApp</button></div>
-              <div id="cb-out" class="out">Elige una factura y pulsa “Recordar”.</div>
-              <div class="row"><button class="btn ghost small" id="cb-ai">Mejorar con IA</button><button class="btn ghost small" id="cb-copy">Copiar</button></div>
-              <p class="note">El tono sube poco a poco: aviso amable, recordatorio, llamada personal. Nunca amenaza. Cada WhatsApp incluye “BAJA” para dejar de recibir mensajes.</p>
+              <div id="cb-out" class="out">Pulsa “Recordar” en un cliente.</div>
+              <div class="row"><button class="btn ghost small" id="cb-ai" hidden>Mejorar con IA</button><button class="btn ghost small" id="cb-copy">Copiar</button></div>
+              <p class="note">El tono sube poco a poco: aviso amable, recordatorio, propuesta de pagos, llamada del gerente. Nunca amenaza. Cada WhatsApp incluye “BAJA” para dejar de recibir mensajes.</p>
             </div>
           </div>
         </div>
@@ -385,7 +525,21 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
         <!-- 4. MANUALES -->
         <div class="demo" id="demo-manuales" role="tabpanel" aria-labelledby="tab-manuales" hidden>
           <div class="demo-top">
-            <div class="who"><p class="eyebrow">Pregúntale a tus manuales</p><h3>Tu equipo pregunta y la IA contesta solo con lo que dicen tus documentos, citando la sección.</h3><p class="muted">Políticas, procedimientos, fichas técnicas. Si la respuesta no está en tus documentos, lo dice. Basado en DocuBot (búsqueda híbrida, evaluado 16/16).</p></div>
+            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: manual de la empresa y una pregunta en un globo de chat">
+              <rect class="f-t s-a" x="26" y="24" width="78" height="100" rx="6"/>
+              <path class="s-a" d="M38 24v100"/>
+              <rect class="f-s s-a" x="50" y="44" width="42" height="26" rx="3"/><path class="s-m" d="M56 53h30M56 61h20"/>
+              <rect class="f-y s-a" x="104" y="34" width="10" height="16" rx="3"/><rect class="f-p s-a" x="104" y="56" width="10" height="16" rx="3"/><rect class="f-g s-a" x="104" y="78" width="10" height="16" rx="3"/>
+              <rect class="f-s s-a" x="122" y="20" width="68" height="38" rx="12"/><path class="f-s s-a" d="M134 58l-4 10 14-10"/>
+              <text x="156" y="47" text-anchor="middle" style="font:800 22px var(--display);fill:var(--teal)">?</text>
+              <rect class="f-ts s-a" x="118" y="80" width="74" height="40" rx="12"/>
+              <path class="s-a" d="M128 94h52M128 106h34" style="stroke-width:2.5"/>
+              <text x="182" y="114" text-anchor="end" style="font:600 9px var(--mono);fill:var(--teal)">§2</text>
+            </svg>
+            <div class="who"><p class="eyebrow">Pregúntale a tus manuales</p><h3>Tu equipo pregunta y la IA contesta solo con lo que dicen tus documentos, citando la sección.</h3>
+              <div class="psr"><div><b>Problema</b>Siempre le preguntan lo mismo a la misma persona.</div><div><b>Qué hace</b>Busca en tus políticas y contesta citando la sección exacta.</div><div><b>Ganas</b>Respuestas en segundos; si no está escrito, lo dice.</div></div>
+              <ol class="try"><li>Pulsa una pregunta sugerida</li><li>Escribe la tuya</li><li>Prueba algo que no esté (Cancún)</li></ol>
+            </div>
             <div class="price"><span class="note">Piloto por área</span><b>desde $30,000</b><span class="note">+ $5,000 / mes</span></div>
           </div>
           <div class="demo-body">
@@ -408,7 +562,22 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
         <!-- 5. INMUEBLES -->
         <div class="demo" id="demo-inmuebles" role="tabpanel" aria-labelledby="tab-inmuebles" hidden>
           <div class="demo-top">
-            <div class="who"><p class="eyebrow">Fichas de inmuebles bilingües</p><h3>Escribe los datos de la propiedad. Recibe la ficha lista para portales, en español y en inglés.</h3><p class="muted">Para inmobiliarias de Mérida y la costa que atienden compradores de otros estados y del extranjero. Sin inventar datos.</p></div>
+            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: casa colonial con palmera y etiqueta ES/EN">
+              <rect class="f-l" x="0" y="126" width="200" height="14"/>
+              <rect class="f-o s-a" x="18" y="48" width="126" height="78"/>
+              <rect class="f-s s-a" x="12" y="38" width="138" height="12" rx="2"/>
+              <path class="f-t s-a" d="M66 126V96a15 15 0 0 1 30 0v30z"/>
+              <rect class="f-t s-a" x="30" y="66" width="22" height="38" rx="2"/><path class="s-s" d="M37 69v32M45 69v32" style="stroke-width:2"/>
+              <rect class="f-t s-a" x="110" y="66" width="22" height="38" rx="2"/><path class="s-s" d="M117 69v32M125 69v32" style="stroke-width:2"/>
+              <path class="s-a" d="M172 126c-4-26-2-48 4-70" style="stroke-width:4"/>
+              <path class="f-g s-a" d="M176 56c-14-10-28-8-36 2 13-3 24 0 36-2z"/><path class="f-g s-a" d="M176 56c10-10 22-10 22 0-8-2-14-1-22 0z"/><path class="f-g s-a" d="M176 56c-4-14-14-22-26-20 10 6 18 12 26 20z"/>
+              <rect class="f-y s-a" x="132" y="10" width="58" height="22" rx="11"/>
+              <text x="161" y="25" text-anchor="middle" style="font:700 10px var(--mono);fill:var(--yellow-ink)">ES / EN</text>
+            </svg>
+            <div class="who"><p class="eyebrow">Fichas de inmuebles bilingües</p><h3>Escribe los datos de la propiedad. Recibe la ficha lista para portales, en español y en inglés.</h3>
+              <div class="psr"><div><b>Problema</b>Compradores extranjeros y fichas solo en español.</div><div><b>Qué hace</b>Escribe la ficha en ES y EN con precio en USD y sq ft.</div><div><b>Ganas</b>Publicas más rápido y llegas a compradores de fuera.</div></div>
+              <ol class="try"><li>Cambia los datos</li><li>Pulsa “Crear ficha”</li><li>Cambia a English</li></ol>
+            </div>
             <div class="price"><span class="note">Desde</span><b>$1,490 / mes</b><span class="note">fichas ilimitadas</span></div>
           </div>
           <div class="demo-body">
@@ -430,6 +599,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
               <span class="pane-label">2 · Ficha lista <span id="re-src"></span></span>
               <div class="seg" role="group" aria-label="Idioma de la ficha"><button id="re-es" aria-pressed="true">Español</button><button id="re-en" aria-pressed="false">English</button></div>
               <div id="re-out" class="out">Pulsa “Crear ficha ES / EN”.</div>
+              <p class="note" id="re-note" hidden></p>
               <div class="row"><button class="btn ghost small" id="re-copy">Copiar</button></div>
             </div>
           </div>
@@ -438,12 +608,25 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
         <!-- 6. AGENDA -->
         <div class="demo" id="demo-agenda" role="tabpanel" aria-labelledby="tab-agenda" hidden>
           <div class="demo-top">
-            <div class="who"><p class="eyebrow">Citas y recordatorios</p><h3>Tus pacientes eligen horario, reciben confirmación y un recordatorio un día antes.</h3><p class="muted">Conectado a tu Google Calendar. Si el paciente responde “2”, la cita se libera y pasa a tu recepción. Ejemplo: Clínica Dental Montejo.</p></div>
+            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: calendario con cita confirmada, diente y mensaje de WhatsApp">
+              <rect class="f-s s-a" x="18" y="22" width="92" height="96" rx="8"/>
+              <path class="f-t" d="M26 23h76a7 7 0 0 1 7 7v14H19V30a7 7 0 0 1 7-7z"/>
+              <g class="f-k"><rect x="28" y="54" width="16" height="12" rx="2"/><rect x="50" y="54" width="16" height="12" rx="2"/><rect x="72" y="54" width="16" height="12" rx="2"/><rect x="28" y="74" width="16" height="12" rx="2"/><rect x="72" y="74" width="16" height="12" rx="2"/><rect x="28" y="94" width="16" height="12" rx="2"/><rect x="50" y="94" width="16" height="12" rx="2"/><rect x="72" y="94" width="16" height="12" rx="2"/></g>
+              <rect class="f-y" x="50" y="74" width="16" height="12" rx="2"/>
+              <path class="f-s s-a" d="M138 22c-7 0-12 6-11 15 1 9 5 14 6 26 1 7 8 7 9 0l2-10 2 10c1 7 8 7 9 0 1-12 5-17 6-26 1-9-4-15-11-15-4 0-6 2-6.5 2s-2.5-2-6.5-2z"/>
+              <path class="f-y" d="M174 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
+              <rect class="f-g s-a" x="118" y="90" width="74" height="30" rx="12"/>
+              <path class="s-s" d="M134 105l6 6 12-12" style="stroke-width:3"/><path class="s-s" d="M160 101h20M160 109h12" style="stroke-width:2"/>
+            </svg>
+            <div class="who"><p class="eyebrow">Citas y recordatorios</p><h3>Tus pacientes eligen horario, reciben confirmación y un recordatorio un día antes.</h3>
+              <div class="psr"><div><b>Problema</b>Pacientes que no llegan y huecos en la agenda.</div><div><b>Qué hace</b>Confirma por WhatsApp y recuerda un día antes.</div><div><b>Ganas</b>Menos inasistencias y recepción más libre.</div></div>
+              <ol class="try"><li>Elige servicio y horario</li><li>Responde “1” o “2”</li><li>Agrega la cita a tu calendario</li></ol>
+            </div>
             <div class="price"><span class="note">Como extra de Presencia local</span><b>+$300 / mes</b><span class="note">o $790 / mes solo</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
-              <span class="pane-label">1 · Elige servicio y horario</span>
+              <span class="pane-label">1 · Clínica Dental Montejo (ejemplo): servicio y horario</span>
               <label>Servicio<select id="ag-svc"></select></label>
               <label>Nombre del paciente<input type="text" id="ag-name" value="Mariana Pech" autocomplete="off"></label>
               <div id="ag-days"></div>
@@ -452,6 +635,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
               <span class="pane-label">2 · Lo que recibe el paciente</span>
               <div class="wa" id="ag-wa"><div class="bubble">Elige un horario para ver la confirmación.</div></div>
               <div class="row"><button class="btn ghost small" id="ag-r1">Paciente responde “1”</button><button class="btn ghost small" id="ag-r2">Paciente responde “2”</button></div>
+              <span class="pane-label" style="margin-top:6px">3 · En tu calendario</span>
+              <div class="cal-row"><a class="btn ghost small" id="ag-gcal" href="#" target="_blank" rel="noopener">Agregar a Google Calendar</a><button class="btn ghost small" id="ag-ics">Descargar .ics (iPhone, Outlook)</button></div>
+              <p class="note">En la versión real, la cita entra sola al Google Calendar de la clínica.</p>
             </div>
           </div>
         </div>
@@ -463,9 +649,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
     <div class="wrap">
       <div class="sec-head"><p class="eyebrow">Cómo trabajamos</p><h2 id="proc-h">Primero ves resultados, luego decides</h2></div>
       <div class="steps">
-        <div class="step"><h3>Auditoría gratis</h3><p class="muted">Revisamos tus reseñas, tu web y cómo atiendes mensajes. Te entregamos una hoja con lo que pierdes hoy y cómo arreglarlo.</p><span class="when">1 página · sin compromiso</span></div>
-        <div class="step"><h3>Piloto de 2 semanas</h3><p class="muted">Instalamos la herramienta con tus datos reales. Precio fijo, con factura. Al final ves números: reseñas contestadas, pesos cobrados, citas confirmadas.</p><span class="when">precio fijo · 50% de la instalación</span></div>
-        <div class="step"><h3>Mensualidad sin contrato</h3><p class="muted">Si te sirve, sigues pagando mes a mes. Si no, lo cancelas. Recibes un reporte mensual y soporte por WhatsApp.</p><span class="when">pago por SPEI o tarjeta · CFDI</span></div>
+        <div class="step"><svg class="step-ico" viewBox="0 0 44 44" aria-hidden="true"><circle class="f-ts" cx="22" cy="22" r="22"/><circle class="s-a" cx="20" cy="20" r="8" style="stroke:var(--teal);stroke-width:3"/><path class="s-a" d="M26 26l7 7" style="stroke:var(--teal);stroke-width:3"/></svg><h3>Auditoría gratis</h3><p class="muted">Revisamos tus reseñas, tu web y cómo atiendes mensajes. Te entregamos una hoja con lo que pierdes hoy y cómo arreglarlo.</p><span class="when">1 página · sin compromiso</span></div>
+        <div class="step"><svg class="step-ico" viewBox="0 0 44 44" aria-hidden="true"><circle class="f-ys" cx="22" cy="22" r="22"/><path class="s-a" d="M14 30l6-6 5 4 7-10" style="stroke:var(--amber);stroke-width:3"/><path class="s-a" d="M28 18h4v4" style="stroke:var(--amber);stroke-width:3"/></svg><h3>Piloto de 2 semanas</h3><p class="muted">Instalamos la herramienta con tus datos reales. Precio fijo, con factura. Al final ves números: reseñas contestadas, pesos cobrados, citas confirmadas.</p><span class="when">precio fijo · 50% de la instalación</span></div>
+        <div class="step"><svg class="step-ico" viewBox="0 0 44 44" aria-hidden="true"><circle class="f-ts" cx="22" cy="22" r="22"/><rect class="s-a" x="12" y="13" width="20" height="19" rx="3" style="stroke:var(--teal);stroke-width:2.5"/><path class="s-a" d="M17 23l4 4 6-7" style="stroke:var(--green);stroke-width:3"/></svg><h3>Mensualidad sin contrato</h3><p class="muted">Si te sirve, sigues pagando mes a mes. Si no, lo cancelas. Recibes un reporte mensual y soporte por WhatsApp.</p><span class="when">pago por SPEI o tarjeta · CFDI</span></div>
       </div>
     </div>
   </section>
@@ -476,24 +662,21 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
       <div class="prices">
         <div class="pc feat"><span class="chip info tag">Más rápido de instalar</span><h3>Presencia local con IA</h3><p class="amt">$490 <small>/ mes</small></p><p class="note">Instalación desde $3,000</p><ul><li>Web bilingüe ES/EN de una página</li><li>Respuestas a reseñas de Google</li><li>Chat con tu menú, horarios y precios</li><li>Reporte mensual</li></ul></div>
         <div class="pc"><h3>Bandeja CFDI</h3><p class="amt">$590 <small>/ mes</small></p><p class="note">Por despacho, hasta 300 facturas</p><ul><li>Correo de reenvío para tus clientes</li><li>Clasificación por cliente y gasto</li><li>Avisos de XML faltante o con errores</li><li>Exportación a Excel</li></ul></div>
-        <div class="pc"><h3>Cobranza amable</h3><p class="amt">$990 <small>/ mes</small></p><p class="note">Instalación desde $3,000</p><ul><li>Lee tus CFDI emitidos y pagos</li><li>Recordatorios por correo y WhatsApp</li><li>Promesas de pago y reporte semanal</li></ul></div>
+        <div class="pc"><h3>Cobranza amable</h3><p class="amt">$990 <small>/ mes</small></p><p class="note">Instalación desde $3,000</p><ul><li>Lee tu Excel o tus CFDI emitidos</li><li>Recordatorios por correo y WhatsApp</li><li>Promesas de pago y reporte semanal</li></ul></div>
         <div class="pc"><h3>Citas y recordatorios</h3><p class="amt">$790 <small>/ mes</small></p><p class="note">O +$300 junto con Presencia local</p><ul><li>Agenda en Google Calendar</li><li>Confirmación y recordatorio</li><li>Paso a tu recepción</li></ul></div>
         <div class="pc"><h3>Fichas de inmuebles</h3><p class="amt">$1,490 <small>/ mes</small></p><p class="note">Fichas ilimitadas ES/EN</p><ul><li>Textos para portales y redes</li><li>Resumen de cada prospecto</li></ul></div>
-        <div class="pc"><h3>Empresas medianas</h3><p class="amt">desde $30,000</p><p class="note">Piloto por área, 4 a 6 semanas</p><ul><li>Asistente sobre tus manuales</li><li>Hoja de seguridad y NDA</li><li>Taller “IA aplicada” para tu equipo</li></ul></div>
+        <div class="pc"><h3>Empresas medianas</h3><p class="amt">desde $30,000</p><p class="note">Piloto por área, 4 a 6 semanas</p><ul><li>Asistente sobre tus manuales</li><li>Hoja de seguridad y acuerdo de confidencialidad</li><li>Taller “IA aplicada” para tu equipo</li></ul></div>
       </div>
     </div>
   </section>
 
-  <section id="guias" class="band" aria-labelledby="gu-h">
+  <section id="codigo" class="band" aria-labelledby="gu-h">
     <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">Guías y código</p><h2 id="gu-h">Todo el plan, la investigación y el código, en un solo lugar</h2><p class="muted">Las guías de Google Drive son privadas (solo para el equipo). El código está en GitHub.</p></div>
-      <div class="docs">
-        <a class="doc" href="https://docs.google.com/document/d/14W_P0mqIuHa6TT0eWa_fPWDLXKKfXJ5wLV1fSBlEo1s/edit" target="_blank" rel="noopener"><span class="n">08</span><span><b>Guía: Oportunidades IA en Mérida y México</b><small>Investigación, productos, precios, plan de 30 y 90 días</small></span></a>
-        <a class="doc" href="https://docs.google.com/document/d/1xW9lVHET13HoHAmZnm2g8dUv2yQzrUHxGcTuQY83-5M/edit" target="_blank" rel="noopener"><span class="n">07</span><span><b>Business plan: AI products for Mexican SMBs</b><small>Primera investigación (inglés)</small></span></a>
-        <a class="doc" href="https://docs.google.com/document/d/1Tr1zyNfGBvEdFbF8JSS24s3ptHP2JwWtp70AXk-lbnA/edit" target="_blank" rel="noopener"><span class="n">00</span><span><b>Contexto y siguiente paso</b><small>Estado actual del proyecto</small></span></a>
-        <a class="doc" href="https://docs.google.com/document/d/1ANhCtRo8yyQ1__4wE1Z4H21QQVCRfPGnnX54kdQFZuo/edit" target="_blank" rel="noopener"><span class="n">02</span><span><b>Historial de sesiones</b><small>Decisiones y avances</small></span></a>
-        <a class="doc" href="https://github.com/kalebtf/docubot" target="_blank" rel="noopener"><span class="n">GH</span><span><b>DocuBot (código)</b><small>Asistente sobre documentos · Python · evaluación 16/16</small></span></a>
-        <a class="doc" href="https://docs.google.com/document/d/129iAiBxpos_PWH3iPZuw16NndkNPJLGOUcb-DCeusiI/edit" target="_blank" rel="noopener"><span class="n">06</span><span><b>DocuBot: README</b><small>Cómo funciona y resultados</small></span></a>
+      <div class="sec-head"><p class="eyebrow">Código abierto</p><h2 id="gu-h">Puedes revisar cómo está hecho</h2><p class="muted">Para equipos técnicos: el código de los demos y de los proyectos base está en GitHub.</p></div>
+      <div class="code-list">
+        <a class="doc" href="https://github.com/kalebtf/docubot" target="_blank" rel="noopener"><span class="n">GH</span><span><b>DocuBot</b><small>Asistente que contesta con tus documentos, citando la fuente. Probado con 16 de 16 preguntas correctas.</small></span></a>
+        <a class="doc" href="https://github.com/kalebtf/xook-portafolio/tree/main/agente-correos" target="_blank" rel="noopener"><span class="n">GH</span><span><b>Agente de correos</b><small>Lee correos de clientes y extrae reservas, cotizaciones y quejas a una base de datos.</small></span></a>
+        <a class="doc" href="https://github.com/kalebtf/xook-portafolio" target="_blank" rel="noopener"><span class="n">GH</span><span><b>Este sitio y sus demos</b><small>HTML y JavaScript. Lectura de CFDI y Excel en el navegador.</small></span></a>
       </div>
     </div>
   </section>
@@ -503,17 +686,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
       <div class="sec-head" style="margin:0">
         <p class="eyebrow">Auditoría gratis</p>
         <h2 id="ct-h">Te decimos qué te está haciendo perder clientes, en una página</h2>
-        <p class="muted">Escríbenos el nombre de tu negocio y cómo encontrarte en Google. En 48 horas te mandamos la auditoría. Sin costo y sin compromiso.</p>
+        <p class="muted">Escríbenos el nombre de tu negocio. En 48 horas te mandamos la auditoría. Sin costo y sin compromiso.</p>
       </div>
       <form id="ct-form" class="panel" novalidate>
         <label>Nombre del negocio<input type="text" id="ct-biz" required placeholder="Ej. Panadería La Mejorada" autocomplete="organization"></label>
         <label>Giro<select id="ct-type"><option>Restaurante o cafetería</option><option>Hotel, hostal o tours</option><option>Clínica o consultorio</option><option>Despacho contable</option><option>Distribuidora o comercio</option><option>Inmobiliaria</option><option>Otro</option></select></label>
-        <label>¿Qué te interesa más?<select id="ct-need"><option>Reseñas y web bilingüe</option><option>Ordenar facturas</option><option>Cobrar lo que me deben</option><option>Citas y recordatorios</option><option>Asistente para mi equipo</option></select></label>
-        <button class="btn primary" type="submit">Preparar mi mensaje</button>
+        <label>¿Qué te interesa más?<select id="ct-need"><option>Reseñas y web bilingüe</option><option>Ordenar facturas</option><option>Cobrar lo que me deben</option><option>Citas y recordatorios</option><option>Fichas de inmuebles</option><option>Asistente para mi equipo</option></select></label>
+        <button class="btn primary" type="submit">Escribir mi solicitud</button>
         <div id="ct-out" hidden style="display:grid;gap:10px">
-          <p class="note">Copia este mensaje y envíalo a nuestro correo:</p>
           <div class="out filled" id="ct-msg"></div>
-          <div class="copybox"><code id="ct-mail">kalebtf@gmail.com</code><button class="btn small yellow" type="button" id="ct-copy">Copiar correo y mensaje</button></div>
+          <div class="row"><a class="btn yellow" id="ct-mailto" href="#">Enviar por correo</a><a class="btn primary" id="ct-wa" href="#" target="_blank" rel="noopener" hidden>Enviar por WhatsApp</a><button class="btn ghost small" type="button" id="ct-copy">Copiar mensaje</button></div>
+          <p class="note">Si el botón no abre tu correo, copia el mensaje y envíalo a <b class="mono" id="ct-mail">kalebtf@gmail.com</b>.</p>
         </div>
         <p class="note">Al escribirnos aceptas que usemos tus datos solo para responderte. Aviso de privacidad disponible a solicitud.</p>
       </form>
@@ -522,12 +705,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 </main>
 
 <footer>
-  <div class="wrap"><span>Xook IA · Mérida, Yucatán · 2026</span><span>Demos con datos ficticios. RFC de prueba del SAT.</span></div>
+  <div class="wrap"><span>Xook IA · Mérida, Yucatán · 2026</span><span>Demos con negocios y datos ficticios. RFC de prueba del SAT. Ilustraciones propias.</span></div>
 </footer>
 
 <script>
 (() => {
 "use strict";
+/* ============ Configuración ============
+   AI_URL: dirección del servidor de IA (Cloudflare Worker, ver /servidor-ia). Vacío = respuestas de muestra.
+   WHATSAPP: número con lada de país, solo dígitos (ej. "529991234567"). Vacío = se oculta el botón. */
+const CONFIG = { AI_URL: "", WHATSAPP: "", EMAIL: "kalebtf@gmail.com" };
+
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const money = n => "$" + Number(n || 0).toLocaleString("es-MX", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
@@ -538,30 +726,88 @@ async function copyText(text, btn) {
   catch { flash(btn, "Selecciona y copia"); }
 }
 function flash(btn, msg) { if (!btn) return; const t = btn.textContent; btn.textContent = msg; setTimeout(() => btn.textContent = t, 1600); }
-
-/* ---------- Live AI (viewer's Claude account) with example fallback ---------- */
-let sample = null;
-const status = $("#ai-status");
-status.textContent = "Modo ejemplo";
-(async () => {
-  try { sample = window.claude ? await window.claude.use("sample") : null; } catch { sample = null; }
-  status.textContent = sample ? "IA en vivo disponible" : "Modo ejemplo: respuestas pre-escritas";
-})();
-async function askAI(prompt, outEl, srcEl, fallback, opts = {}) {
-  const setSrc = live => { if (srcEl) srcEl.innerHTML = live ? '<span class="ai-badge">IA en vivo</span>' : '<span class="ai-badge">ejemplo</span>'; };
-  outEl.classList.add("filled");
-  if (!sample) { outEl.textContent = fallback; setSrc(false); return fallback; }
-  outEl.textContent = "Pensando…";
-  try {
-    const { text } = await sample(prompt, { modelTier: opts.tier || "quick", onText: ({ text }) => { outEl.textContent = text; } });
-    setSrc(true); return text;
-  } catch (e) {
-    if (e && (e.code === "not_granted" || e.code === "sampling_disabled" || e.code === "capability_disabled" || e.code === "not_declared")) sample = null, status.textContent = "Modo ejemplo: respuestas pre-escritas";
-    outEl.textContent = fallback; setSrc(false); return fallback;
+function say(el, text, kind) { el.textContent = text; el.className = "note" + (kind ? " " + kind : ""); }
+// Dentro de Claude (artifact) las descargas piden permiso al visitante; en un sitio normal, descarga directa.
+let dlCap = null;
+if (window.claude) window.claude.use("downloads").then(d => { dlCap = d; }).catch(() => {});
+async function saveFile(name, data, type) {
+  if (dlCap) {
+    try { await dlCap.save({ filename: name, data: new Blob([data], { type }) }); return; }
+    catch (e) { if (e && e.code === "declined") throw new Error("Descarga cancelada."); }
   }
+  const url = URL.createObjectURL(new Blob([data], { type }));
+  const a = Object.assign(document.createElement("a"), { href: url, download: name });
+  document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+const downloadText = (name, text, type) => saveFile(name, text, type).catch(() => {});
+
+/* ============ Excel (SheetJS, se carga solo cuando se necesita) ============ */
+let xlsxPromise = null;
+function loadXLSX() {
+  if (window.XLSX) return Promise.resolve(window.XLSX);
+  if (xlsxPromise) return xlsxPromise;
+  const add = src => new Promise((ok, fail) => { const s = document.createElement("script"); s.src = src; s.onload = () => window.XLSX ? ok(window.XLSX) : fail(); s.onerror = fail; document.head.append(s); });
+  xlsxPromise = add("vendor/xlsx.full.min.js").catch(() => add("https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"))
+    .catch(() => { xlsxPromise = null; throw new Error("No se pudo cargar el lector de Excel. Revisa tu conexión."); });
+  return xlsxPromise;
+}
+// Fechas como número de serie de Excel (evita el desfase de zona horaria de la librería)
+const xlDate = d => (Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - Date.UTC(1899, 11, 30)) / 864e5;
+async function downloadXLSX(name, sheetName, rows, widths, dateCols = []) {
+  const X = await loadXLSX();
+  const ws = X.utils.json_to_sheet(rows);
+  if (widths) ws["!cols"] = widths.map(w => ({ wch: w }));
+  if (rows.length) {
+    const heads = Object.keys(rows[0]);
+    dateCols.forEach(h => { const c = heads.indexOf(h); if (c < 0) return; for (let r = 1; r <= rows.length; r++) { const cell = ws[X.utils.encode_cell({ r, c })]; if (cell) cell.z = "dd/mm/yyyy"; } });
+  }
+  const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, sheetName);
+  await saveFile(name, X.write(wb, { type: "array", bookType: "xlsx" }), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 }
 
-/* ---------- Tabs + hash routing ---------- */
+/* ============ IA: servidor propio, cuenta de Claude del visitante, o respuestas de muestra ============ */
+let aiMode = "none", sample = null;
+const status = $("#ai-status");
+function setAIStatus() {
+  const live = aiMode !== "none";
+  status.textContent = live ? "IA en vivo" : "Respuestas de muestra";
+  $("#ai-explain").textContent = live
+    ? "Las respuestas de reseñas, manuales, fichas y cobranza se escriben en el momento con IA. Lo demás (leer CFDI y Excel, cartera, citas) funciona aquí mismo."
+    : "En esta página, los textos de IA son respuestas de muestra escritas para cada caso. Con tu negocio, la IA los escribe en el momento con tus datos. Lo demás (leer CFDI y Excel, cartera, citas, calendario) funciona de verdad aquí mismo.";
+  $("#cb-ai").hidden = !live;
+}
+setAIStatus();
+(async () => {
+  if (CONFIG.AI_URL) {
+    try { const r = await fetch(CONFIG.AI_URL.replace(/\/$/, "") + "/salud", { method: "GET" }); if (r.ok) aiMode = "server"; } catch {}
+  }
+  if (aiMode === "none") {
+    try { sample = window.claude ? await window.claude.use("sample") : null; if (sample) aiMode = "claude"; } catch { sample = null; }
+  }
+  setAIStatus();
+})();
+async function runAI(task, data, prompt, json) {
+  if (aiMode === "server") {
+    const r = await fetch(CONFIG.AI_URL.replace(/\/$/, "") + "/ia", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ task, data }) });
+    if (!r.ok) throw new Error("servidor " + r.status);
+    const j = await r.json(); return json ? j.json : j.text;
+  }
+  if (aiMode === "claude") {
+    if (json) return await sample.json(prompt, { modelTier: "quick" });
+    const { text } = await sample(prompt, { modelTier: "quick" }); return text;
+  }
+  throw new Error("sin IA");
+}
+const badge = live => `<span class="ai-badge">${live ? "IA en vivo" : "muestra"}</span>`;
+async function askAI(task, data, prompt, outEl, srcEl, fallback) {
+  outEl.classList.add("filled");
+  if (aiMode === "none") { outEl.textContent = fallback; srcEl.innerHTML = badge(false); return; }
+  outEl.textContent = "Escribiendo…";
+  try { const t = await runAI(task, data, prompt, false); if (!t || !String(t).trim()) throw 0; outEl.textContent = String(t).trim(); srcEl.innerHTML = badge(true); }
+  catch { outEl.textContent = fallback; srcEl.innerHTML = badge(false); }
+}
+
+/* ============ Pestañas ============ */
 const DEMOS = ["resenas", "cfdi", "cobranza", "manuales", "inmuebles", "agenda"];
 function showDemo(name, scroll) {
   if (!DEMOS.includes(name)) return;
@@ -578,14 +824,24 @@ $(".tabs").addEventListener("keydown", e => {
 function fromHash() { const h = location.hash.slice(1); if (DEMOS.includes(h)) showDemo(h, true); }
 window.addEventListener("hashchange", fromHash); fromHash();
 
-/* ---------- 1. Reseñas ---------- */
+/* ============ 1. Reseñas ============ */
+const TONES = { calido: "cálido y cercano", profesional: "profesional y formal (usted)", breve: "muy breve, máximo 30 palabras" };
 const REVIEWS = [
   { name: "Jennifer M.", stars: 5, lang: "en", when: "hace 2 días", text: "Amazing cochinita pibil and the best horchata we had in Mérida! The courtyard is beautiful. Only wish they had an English menu.",
-    reply: "Thank you so much, Jennifer! We're thrilled you enjoyed our cochinita pibil and horchata in the courtyard. Great news: our English menu is now ready, just ask your server or scan the QR at your table. We hope to welcome you back on your next visit to Mérida! — Elvira and the team" },
+    reply: {
+      calido: "Thank you so much, Jennifer! We're thrilled you enjoyed our cochinita pibil and horchata in the courtyard. Great news: our English menu is now ready, just ask your server or scan the QR at your table. We hope to welcome you back on your next visit to Mérida! — Elvira and the team",
+      profesional: "Dear Jennifer, thank you for your kind review. We are delighted you enjoyed our cochinita pibil, horchata and courtyard. We are pleased to share that our English menu is now available; simply ask your server or scan the QR code at your table. We look forward to welcoming you again. — Cocina Doña Elvira",
+      breve: "Thank you, Jennifer! So glad you loved the cochinita and horchata. Our English menu is ready now. See you next time! — Elvira & team" } },
   { name: "Luis Canché", stars: 2, lang: "es", when: "hace 5 días", text: "La comida rica pero esperamos 45 minutos por los panuchos un sábado. Nadie nos avisó que iba a tardar.",
-    reply: "Luis, gracias por decírnoslo y una disculpa por la espera del sábado. Tienes razón: debimos avisarte desde el inicio. Ya ajustamos el turno de cocina de fin de semana y ahora el mesero informa el tiempo estimado al tomar la orden. Nos encantaría invitarte unos panuchos en tu próxima visita; pregunta por Elvira. — Cocina Doña Elvira" },
+    reply: {
+      calido: "Luis, gracias por decírnoslo y una disculpa por la espera del sábado. Tienes razón: debimos avisarte desde el inicio. Ya reforzamos el turno de cocina de fin de semana y ahora el mesero informa el tiempo estimado al tomar la orden. Nos encantaría que nos des otra oportunidad; pregunta por Elvira. — Cocina Doña Elvira",
+      profesional: "Estimado Luis: gracias por su comentario y lamentamos la espera del sábado. Debimos informarle el tiempo desde el inicio. Ya reforzamos el turno de cocina de fin de semana y el mesero ahora indica el tiempo estimado al tomar la orden. Será un gusto atenderle de nuevo. — Cocina Doña Elvira",
+      breve: "Luis, una disculpa por la espera del sábado. Ya reforzamos la cocina en fin de semana y te avisamos el tiempo al ordenar. ¡Esperamos verte pronto! — Doña Elvira" } },
   { name: "Ana Sofía R.", stars: 4, lang: "es", when: "hace 1 semana", text: "Muy buen sazón yucateco y precios justos. El estacionamiento es complicado en la calle 60.",
-    reply: "¡Gracias, Ana Sofía! Nos alegra que disfrutaras el sazón de casa. Sobre el estacionamiento: a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m. Lo agregamos a nuestra página para que sea más fácil llegar. ¡Te esperamos pronto! — Cocina Doña Elvira" }
+    reply: {
+      calido: "¡Gracias, Ana Sofía! Nos alegra que disfrutaras el sazón de casa. Sobre el estacionamiento: a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m. Lo agregamos a nuestra página para que sea más fácil llegar. ¡Te esperamos pronto! — Cocina Doña Elvira",
+      profesional: "Estimada Ana Sofía: muchas gracias por su reseña. Sobre el estacionamiento, a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m.; ya lo indicamos en nuestra página. Será un gusto recibirle de nuevo. — Cocina Doña Elvira",
+      breve: "¡Gracias, Ana Sofía! Tip: hay estacionamiento público en la calle 57, a media cuadra. ¡Te esperamos! — Doña Elvira" } }
 ];
 let rvSel = 0;
 function renderReviews() {
@@ -594,12 +850,13 @@ function renderReviews() {
 }
 renderReviews();
 $("#rv-go").addEventListener("click", async e => {
-  const r = REVIEWS[rvSel]; const tone = $("#rv-tone").value; e.target.disabled = true;
-  const prompt = `Eres el dueño de "Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57). Responde esta reseña de Google en el MISMO idioma de la reseña (${r.lang === "en" ? "inglés" : "español"}), tono ${tone}, máximo 70 palabras. Agradece, si hay queja reconócela sin excusas y di qué se hizo, invita a volver, firma como el equipo. No inventes descuentos ni datos que no estén aquí. Solo el texto de la respuesta.\n\nReseña (${r.stars} estrellas) de ${r.name}: "${r.text}"`;
-  await askAI(prompt, $("#rv-out"), $("#rv-src"), r.reply);
-  e.target.disabled = false;
+  const r = REVIEWS[rvSel]; const tone = $("#rv-tone").value; e.currentTarget.disabled = true; const btn = e.currentTarget;
+  const data = { review: r.text, stars: r.stars, name: r.name, lang: r.lang, tone };
+  const prompt = `Eres el dueño de "Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57). Responde esta reseña de Google en el MISMO idioma de la reseña (${r.lang === "en" ? "inglés" : "español"}), tono ${TONES[tone]}, máximo 70 palabras. Agradece; si hay queja, reconócela sin excusas y di qué se hizo; invita a volver; firma como el equipo. No inventes descuentos ni datos que no estén aquí. Solo el texto de la respuesta.\n\nReseña (${r.stars} estrellas) de ${r.name}: "${r.text}"`;
+  await askAI("resena", data, prompt, $("#rv-out"), $("#rv-src"), r.reply[tone]);
+  btn.disabled = false;
 });
-$("#rv-copy").addEventListener("click", e => copyText($("#rv-out").textContent, e.target));
+$("#rv-copy").addEventListener("click", e => copyText($("#rv-out").textContent, e.currentTarget));
 const SITE = {
   es: { tag: "Cocina yucateca de casa desde 1998", h: "Cocina Doña Elvira", cta: "Reservar por WhatsApp", a: ["Horario", "Lun a dom, 8:00 a 23:00"], b: ["Dirección", "Calle 60 #482, Centro"], c: ["Especialidad", "Cochinita pibil y panuchos"], d: ["Cómo llegar", "Estacionamiento en calle 57"] },
   en: { tag: "Homestyle Yucatecan food since 1998", h: "Cocina Doña Elvira", cta: "Book on WhatsApp", a: ["Hours", "Mon–Sun, 8 am – 11 pm"], b: ["Address", "Calle 60 #482, Downtown"], c: ["Signature dish", "Cochinita pibil & panuchos"], d: ["Getting here", "Parking on Calle 57"] }
@@ -611,7 +868,7 @@ function renderSite(l) {
 }
 $("#ms-es").addEventListener("click", () => renderSite("es")); $("#ms-en").addEventListener("click", () => renderSite("en")); renderSite("es");
 
-/* ---------- 2. CFDI ---------- */
+/* ============ 2. CFDI ============ */
 const CF_SAMPLES = {
   "Gasolina": `<?xml version="1.0" encoding="UTF-8"?>
 <cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="GAS" Folio="88231" Fecha="2026-10-28T09:14:02" FormaPago="04" SubTotal="1034.48" Moneda="MXN" Total="1200.00" TipoDeComprobante="I" Exportacion="01" MetodoPago="PUE" LugarExpedicion="97000">
@@ -634,8 +891,8 @@ const CF_SAMPLES = {
   <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="90101501" Cantidad="1" ClaveUnidad="E48" Descripcion="Consumo de alimentos" ValorUnitario="862.07" Importe="862.07" ObjetoImp="02"/></cfdi:Conceptos>
 </cfdi:Comprobante>`
 };
-const CATS = [["151015", "Combustible"], ["4321", "Equipo de cómputo"], ["901015", "Alimentos y restaurantes"], ["8111", "Servicios de software"], ["7810", "Transporte"], ["8012", "Servicios profesionales"], ["5310", "Papelería y oficina"]];
-let cfRows = [];
+const CATS = [["151015", "Combustible"], ["4321", "Equipo de cómputo"], ["901015", "Alimentos y restaurantes"], ["8111", "Servicios de software"], ["7810", "Transporte"], ["8012", "Servicios profesionales"], ["5310", "Papelería y oficina"], ["4410", "Papelería y oficina"], ["8310", "Servicios de luz, agua o teléfono"], ["8011", "Servicios profesionales"]];
+let cfRows = [], cfSel = "Gasolina";
 function byLocal(doc, name) { return [...doc.getElementsByTagName("*")].filter(el => el.localName === name); }
 function parseCFDI(xml) {
   const doc = new DOMParser().parseFromString(xml, "application/xml");
@@ -646,7 +903,7 @@ function parseCFDI(xml) {
   const clave = conceptos[0]?.getAttribute("ClaveProdServ") || "";
   const cat = (CATS.find(([p]) => clave.startsWith(p)) || [, "Otros gastos"])[1];
   return {
-    version: c.getAttribute("Version"), folio: (c.getAttribute("Serie") || "") + "-" + (c.getAttribute("Folio") || ""),
+    version: c.getAttribute("Version"), folio: [c.getAttribute("Serie"), c.getAttribute("Folio")].filter(Boolean).join("-") || "s/folio",
     fecha: (c.getAttribute("Fecha") || "").slice(0, 10), total: parseFloat(c.getAttribute("Total") || "0"),
     metodo: c.getAttribute("MetodoPago"), tipo: c.getAttribute("TipoDeComprobante"),
     emisor: em?.getAttribute("Nombre") || em?.getAttribute("Rfc") || "¿?", emisorRfc: em?.getAttribute("Rfc") || "",
@@ -661,106 +918,199 @@ function flagsFor(r, rfc) {
   if (r.uso === "S01") f.push(["warn", "Sin efectos fiscales"]);
   if (r.metodo === "PPD") f.push(["warn", "PPD: pedir complemento de pago"]);
   if (r.version !== "4.0") f.push(["warn", "Versión " + r.version]);
+  if (r.tipo && r.tipo !== "I") f.push(["info", r.tipo === "E" ? "Nota de crédito" : r.tipo === "P" ? "Complemento de pago" : "Tipo " + r.tipo]);
   if (!f.length) f.push(["ok", "Correcta"]);
   return f;
 }
 function renderCF() {
   const rfc = $("#cf-rfc").value.trim();
   const body = $("#cf-body");
-  if (!cfRows.length) { body.innerHTML = '<tr><td colspan="4" class="muted">Aún no hay facturas.</td></tr>'; }
+  if (!cfRows.length) body.innerHTML = '<tr><td colspan="4" class="muted">Aún no hay facturas.</td></tr>';
   else body.innerHTML = cfRows.map(r => { const f = flagsFor(r, rfc); return `<tr><td><b>${esc(r.emisor)}</b><br><span class="note mono">${esc(r.folio)} · ${esc(r.fecha)}</span></td><td>${esc(r.cat)}<br><span class="note">${esc(r.desc)}</span></td><td class="num">${money(r.total)}</td><td><div class="flags">${f.map(([k, t]) => `<span class="chip ${k}">${esc(t)}</span>`).join("")}</div></td></tr>`; }).join("");
   $("#cf-k1").textContent = cfRows.length;
   $("#cf-k2").textContent = money(cfRows.reduce((a, r) => a + r.total, 0));
-  $("#cf-k3").textContent = cfRows.filter(r => flagsFor(r, rfc)[0][0] !== "ok").length;
+  $("#cf-k3").textContent = cfRows.filter(r => flagsFor(r, rfc).some(([k]) => k === "bad" || k === "warn")).length;
 }
-function addXML(xml) {
-  try { const r = parseCFDI(xml); if (r.uuid && cfRows.some(x => x.uuid === r.uuid)) { $("#cf-msg").textContent = "Esa factura ya está en la bandeja (mismo UUID)."; return; } cfRows.push(r); $("#cf-msg").textContent = "Factura agregada."; renderCF(); }
-  catch (e) { $("#cf-msg").textContent = e.message; }
+function addXML(xml, name) {
+  const msg = $("#cf-msg");
+  try {
+    const r = parseCFDI(xml);
+    if (r.uuid && cfRows.some(x => x.uuid === r.uuid)) { say(msg, (name ? name + ": " : "") + "esa factura ya está en la bandeja (mismo UUID).", "errmsg"); return false; }
+    cfRows.push(r); renderCF(); say(msg, (name ? name + ": " : "") + "factura agregada.", "okmsg"); return true;
+  } catch (e) { say(msg, (name ? name + ": " : "") + e.message, "errmsg"); return false; }
 }
 const cfSeg = $("#cf-samples");
-Object.keys(CF_SAMPLES).forEach((k, i) => { const b = document.createElement("button"); b.textContent = k; b.setAttribute("aria-pressed", String(i === 0)); b.addEventListener("click", () => { $$("#cf-samples button").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); $("#cf-xml").value = CF_SAMPLES[k]; }); cfSeg.append(b); });
-$("#cf-xml").value = CF_SAMPLES["Gasolina"];
+Object.keys(CF_SAMPLES).forEach(k => { const b = document.createElement("button"); b.type = "button"; b.textContent = k; b.setAttribute("aria-pressed", String(k === cfSel)); b.addEventListener("click", () => { cfSel = k; $$("#cf-samples button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); $("#cf-xml").value = CF_SAMPLES[k]; }); cfSeg.append(b); });
+$("#cf-xml").value = CF_SAMPLES[cfSel];
 $("#cf-add").addEventListener("click", () => addXML($("#cf-xml").value));
-$("#cf-file").addEventListener("change", e => { [...e.target.files].forEach(f => { const rd = new FileReader(); rd.onload = () => addXML(String(rd.result)); rd.readAsText(f); }); e.target.value = ""; });
-$("#cf-reset").addEventListener("click", () => { cfRows = []; $("#cf-msg").textContent = ""; renderCF(); });
+$("#cf-file").addEventListener("change", async e => {
+  const files = [...e.target.files]; let ok = 0;
+  for (const f of files) { if (addXML(await f.text(), files.length > 1 ? f.name : "")) ok++; }
+  if (files.length > 1) say($("#cf-msg"), `${ok} de ${files.length} archivos agregados.`, ok ? "okmsg" : "errmsg");
+  e.target.value = "";
+});
+$("#cf-reset").addEventListener("click", () => { cfRows = []; say($("#cf-msg"), "Bandeja vacía. Agrega facturas para probar."); renderCF(); });
 $("#cf-rfc").addEventListener("input", renderCF);
-$("#cf-csv").addEventListener("click", e => {
+$("#cf-dl-sample").addEventListener("click", e => { e.preventDefault(); downloadText(`ejemplo-${norm(cfSel).replace(/[^a-z0-9]+/g, "-")}.xml`, CF_SAMPLES[cfSel], "application/xml"); });
+function cfTable() {
   const rfc = $("#cf-rfc").value.trim();
-  const lines = [["Fecha", "Folio", "Emisor", "RFC emisor", "Categoría", "Total", "UUID", "Avisos"].join("\t"), ...cfRows.map(r => [r.fecha, r.folio, r.emisor, r.emisorRfc, r.cat, r.total.toFixed(2), r.uuid, flagsFor(r, rfc).map(x => x[1]).join("; ")].join("\t"))];
-  copyText(lines.join("\n"), e.target);
+  return cfRows.map(r => ({ Fecha: r.fecha, Folio: r.folio, Emisor: r.emisor, "RFC emisor": r.emisorRfc, "RFC receptor": r.receptorRfc, Categoría: r.cat, Concepto: r.desc, "Método de pago": r.metodo || "", Total: r.total, UUID: r.uuid, Avisos: flagsFor(r, rfc).map(x => x[1]).join("; ") }));
+}
+$("#cf-xlsx").addEventListener("click", async () => {
+  if (!cfRows.length) return say($("#cf-msg"), "Agrega al menos una factura.", "errmsg");
+  try { await downloadXLSX("bandeja-cfdi.xlsx", "Facturas", cfTable(), [11, 12, 30, 15, 15, 24, 30, 10, 12, 38, 40]); say($("#cf-msg"), "Excel descargado.", "okmsg"); }
+  catch (err) { say($("#cf-msg"), err.message, "errmsg"); }
+});
+$("#cf-csv").addEventListener("click", e => {
+  const t = cfTable(); if (!t.length) return;
+  const head = Object.keys(t[0]);
+  copyText([head.join("\t"), ...t.map(r => head.map(h => r[h]).join("\t"))].join("\n"), e.currentTarget);
 });
 Object.values(CF_SAMPLES).forEach(x => { try { cfRows.push(parseCFDI(x)); } catch {} });
 renderCF();
 
-/* ---------- 3. Cobranza ---------- */
+/* ============ 3. Cobranza ============ */
 const today = new Date(); today.setHours(0, 0, 0, 0);
-const dAdd = n => { const d = new Date(today); d.setDate(d.getDate() + n); return d; };
-const fmtD = d => d.toLocaleDateString("es-MX", { day: "numeric", month: "short" });
-const INV = [
+const DAY = 864e5;
+const dAdd = n => new Date(today.getTime() + n * DAY);
+const fmtD = d => d.toLocaleDateString("es-MX", { day: "numeric", month: "short", year: d.getFullYear() !== today.getFullYear() ? "numeric" : undefined });
+const SAMPLE_INV = [
   { cli: "Constructora Itzimná", contacto: "Ing. Raúl Dzib", folio: "A-1042", saldo: 48720, due: -18 },
   { cli: "Ferretería El Henequén", contacto: "Sra. Lucy May", folio: "A-1051", saldo: 12350, due: -6 },
   { cli: "Desarrollos Costa Progreso", contacto: "Lic. Andrea Cetina", folio: "A-0998", saldo: 136900, due: -47 },
   { cli: "Acabados Montejo", contacto: "Sr. Jorge Uc", folio: "A-1066", saldo: 9800, due: 4 },
   { cli: "Grupo Hotelero Paseo", contacto: "C.P. Mario Pool", folio: "A-0971", saldo: 61400, due: -92 }
-];
-INV.forEach(i => i.date = dAdd(i.due));
-let cbSel = null, cbCh = "mail";
-function stage(days) { return days <= 0 ? ["info", "Al corriente"] : days <= 15 ? ["warn", days + " d vencida"] : days <= 60 ? ["warn", days + " d vencida"] : ["bad", days + " d vencida"]; }
+].map(i => ({ ...i, date: dAdd(i.due) }));
+let INV = SAMPLE_INV.slice(), cbCompany = "Materiales del Sureste", cbSel = null, cbCh = "mail";
+function stage(late) {
+  if (late <= 0) return ["info", "Al corriente", "Aviso"];
+  if (late <= 30) return ["warn", late + " d vencida", "Recordatorio"];
+  if (late <= 60) return ["warn", late + " d vencida", "Propuesta de pagos"];
+  return ["bad", late + " d vencida", "Llamada del gerente"];
+}
 function renderCB() {
-  const total = INV.reduce((a, i) => a + i.saldo, 0);
+  const total = INV.reduce((a, i) => a + i.saldo, 0) || 1;
   const over = INV.filter(i => i.due < 0);
   const vencido = over.reduce((a, i) => a + i.saldo, 0);
   const avg = over.length ? Math.round(over.reduce((a, i) => a - i.due, 0) / over.length) : 0;
-  $("#cb-k1").textContent = money(total); $("#cb-k2").textContent = money(vencido); $("#cb-k3").textContent = avg + " d";
+  $("#cb-k1").textContent = money(INV.reduce((a, i) => a + i.saldo, 0)); $("#cb-k2").textContent = money(vencido); $("#cb-k3").textContent = avg + " d";
   const buckets = [["Al corriente", i => i.due >= 0, "var(--teal)"], ["1-30 d", i => i.due < 0 && i.due >= -30, "var(--yellow)"], ["31-60 d", i => i.due < -30 && i.due >= -60, "var(--amber)"], ["+60 d", i => i.due < -60, "var(--red)"]];
   $("#cb-aging").innerHTML = buckets.map(([, fn, c]) => { const s = INV.filter(fn).reduce((a, i) => a + i.saldo, 0); return `<span style="width:${(s / total * 100).toFixed(1)}%;background:${c}"></span>`; }).join("");
   $("#cb-aging-l").innerHTML = buckets.map(([l, fn, c]) => `<span style="white-space:nowrap"><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${c}"></span> ${l}: ${money(INV.filter(fn).reduce((a, i) => a + i.saldo, 0))}</span>`).join(" &nbsp; ");
-  $("#cb-body").innerHTML = INV.map((i, k) => { const [cls, t] = stage(-i.due); return `<tr><td><b>${esc(i.cli)}</b><br><span class="note mono">${i.folio} · vence ${fmtD(i.date)}</span></td><td class="num"><b>${money(i.saldo)}</b><br><span class="chip ${cls}">${t}</span></td><td style="text-align:right"><button class="btn ghost small" data-k="${k}">Recordar</button></td></tr>`; }).join("");
+  const order = INV.map((i, k) => k).sort((a, b) => INV[a].due - INV[b].due);
+  $("#cb-body").innerHTML = order.map(k => { const i = INV[k]; const [cls, t] = stage(-i.due); return `<tr><td><b>${esc(i.cli)}</b><br><span class="note mono">${esc(i.folio)} · vence ${fmtD(i.date)}</span></td><td class="num"><b>${money(i.saldo)}</b><br><span class="chip ${cls}">${t}</span></td><td style="text-align:right"><button class="btn ghost small" data-k="${k}">Recordar</button></td></tr>`; }).join("");
   $$("#cb-body button").forEach(b => b.addEventListener("click", () => { cbSel = +b.dataset.k; writeReminder(); }));
 }
 function template(i, ch) {
   const d = -i.due, fecha = fmtD(i.date), m = money(i.saldo);
-  const firma = "Cobranza · Materiales del Sureste";
+  const who = i.contacto || "equipo de " + i.cli;
+  const firma = "Cobranza · " + cbCompany;
   let body;
-  if (d <= 0) body = `Hola ${i.contacto}, le compartimos que la factura ${i.folio} por ${m} vence el ${fecha}. Si ya la programó, ¡gracias! Cualquier duda con el CFDI estamos a sus órdenes.`;
-  else if (d <= 30) body = `Hola ${i.contacto}, esperamos que esté muy bien. Le recordamos que la factura ${i.folio} por ${m} venció el ${fecha}. ¿Nos ayuda con una fecha estimada de pago? Si ya pagó, mándenos el comprobante y lo aplicamos hoy.`;
-  else if (d <= 60) body = `Hola ${i.contacto}. La factura ${i.folio} por ${m} lleva ${d} días vencida. Entendemos que pueden surgir imprevistos: si le ayuda, podemos acordar dos pagos. ¿Le parece si lo platicamos esta semana?`;
-  else body = `Estimado ${i.contacto}: la factura ${i.folio} por ${m} tiene ${d} días de atraso. Queremos resolverlo juntos antes de pausar nuevos pedidos a crédito. Nuestro gerente le llamará mañana para acordar un plan de pago.`;
+  if (d <= 0) body = `Hola ${who}, le compartimos que la factura ${i.folio} por ${m} vence el ${fecha}. Si ya la programó, ¡gracias! Cualquier duda con el CFDI estamos a sus órdenes.`;
+  else if (d <= 30) body = `Hola ${who}, esperamos que esté muy bien. Le recordamos que la factura ${i.folio} por ${m} venció el ${fecha}. ¿Nos ayuda con una fecha estimada de pago? Si ya pagó, mándenos el comprobante y lo aplicamos hoy.`;
+  else if (d <= 60) body = `Hola ${who}. La factura ${i.folio} por ${m} lleva ${d} días vencida. Entendemos que pueden surgir imprevistos: si le ayuda, podemos acordar dos pagos. ¿Le parece si lo platicamos esta semana?`;
+  else body = `Estimado(a) ${who}: la factura ${i.folio} por ${m} tiene ${d} días de atraso. Queremos resolverlo juntos antes de pausar nuevos pedidos a crédito. Nuestro gerente le llamará mañana para acordar un plan de pago.`;
   if (ch === "wa") return body + `\n\n— ${firma}\nResponde BAJA si no deseas recibir recordatorios por WhatsApp.`;
-  return `Asunto: ${d > 0 ? "Recordatorio" : "Aviso"} · factura ${i.folio} de ${i.cli}\n\n${body}\n\nSaludos cordiales,\n${firma}\nTel. 999 000 0000`;
+  return `Asunto: ${d > 0 ? "Recordatorio" : "Aviso"} · factura ${i.folio} de ${i.cli}\n\n${body}\n\nSaludos cordiales,\n${firma}`;
 }
 function writeReminder() {
-  if (cbSel === null) return; const i = INV[cbSel];
-  $("#cb-out").textContent = template(i, cbCh); $("#cb-out").classList.add("filled"); $("#cb-src").innerHTML = '<span class="ai-badge">plantilla</span>';
+  if (cbSel === null || !INV[cbSel]) return; const i = INV[cbSel];
+  $("#cb-out").textContent = template(i, cbCh); $("#cb-out").classList.add("filled"); $("#cb-src").innerHTML = '<span class="ai-badge">plantilla · ' + stage(-i.due)[2].toLowerCase() + "</span>";
 }
 $("#cb-ch-mail").addEventListener("click", () => { cbCh = "mail"; $("#cb-ch-mail").setAttribute("aria-pressed", "true"); $("#cb-ch-wa").setAttribute("aria-pressed", "false"); writeReminder(); });
 $("#cb-ch-wa").addEventListener("click", () => { cbCh = "wa"; $("#cb-ch-wa").setAttribute("aria-pressed", "true"); $("#cb-ch-mail").setAttribute("aria-pressed", "false"); writeReminder(); });
 $("#cb-ai").addEventListener("click", async e => {
-  if (cbSel === null) { cbSel = 0; }
-  const i = INV[cbSel]; const base = template(i, cbCh); e.target.disabled = true;
-  const prompt = `Mejora este recordatorio de cobranza de una distribuidora de materiales de Mérida. Mantén TODOS los datos exactos (nombre, folio, monto, fecha, días), tono respetuoso y cercano, en español de México, sin amenazas ni presión indebida, ${cbCh === "wa" ? "máximo 60 palabras y conserva la línea final para responder BAJA" : "formato correo con asunto"}. Solo el mensaje final.\n\n${base}`;
-  await askAI(prompt, $("#cb-out"), $("#cb-src"), base);
-  e.target.disabled = false;
+  if (cbSel === null) cbSel = 0;
+  const btn = e.currentTarget; const i = INV[cbSel]; const base = template(i, cbCh); btn.disabled = true;
+  const prompt = `Mejora este recordatorio de cobranza de una empresa de Mérida. Mantén TODOS los datos exactos (nombre, folio, monto, fecha, días), tono respetuoso y cercano, en español de México, sin amenazas ni presión indebida, ${cbCh === "wa" ? "máximo 60 palabras y conserva la línea final para responder BAJA" : "formato correo con asunto"}. Solo el mensaje final.\n\n${base}`;
+  await askAI("cobranza", { base, channel: cbCh }, prompt, $("#cb-out"), $("#cb-src"), base);
+  btn.disabled = false;
 });
-$("#cb-copy").addEventListener("click", e => copyText($("#cb-out").textContent, e.target));
+$("#cb-copy").addEventListener("click", e => copyText($("#cb-out").textContent, e.currentTarget));
+
+function toDate(v) {
+  if (v instanceof Date && !isNaN(v)) return new Date(v.getFullYear(), v.getMonth(), v.getDate());
+  if (typeof v === "number" && v > 20000 && v < 80000) { const d = new Date(Math.round((v - 25569) * DAY)); return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); }
+  const s = String(v || "").trim(); let m;
+  if ((m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})$/))) { const y = +m[3] < 100 ? 2000 + +m[3] : +m[3]; return new Date(y, +m[2] - 1, +m[1]); }
+  if ((m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return new Date(+m[1], +m[2] - 1, +m[3]);
+  return null;
+}
+const toNum = v => typeof v === "number" ? v : parseFloat(String(v || "").replace(/[$,\s]/g, "").replace(/MXN/i, ""));
+async function importCartera(file) {
+  const msg = $("#cb-msg");
+  say(msg, "Leyendo tu archivo…");
+  try {
+    const X = await loadXLSX();
+    const wb = X.read(await file.arrayBuffer(), { type: "array" });
+    const rows = X.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: "", raw: true });
+    if (!rows.length) throw new Error("El archivo está vacío.");
+    const keys = Object.keys(rows[0]); const find = re => keys.find(k => re.test(norm(k)));
+    const K = { cli: find(/cliente|razon|nombre/), contacto: find(/contacto|atencion|responsable/), folio: find(/folio|factura|documento/), saldo: find(/saldo|monto|importe|total|adeudo/), vence: find(/venc|fecha/) };
+    const missing = [["Cliente", K.cli], ["Saldo", K.saldo], ["Vence", K.vence]].filter(x => !x[1]).map(x => x[0]);
+    if (missing.length) throw new Error("Faltan columnas: " + missing.join(", ") + ". Descarga la plantilla para ver el formato.");
+    let skipped = 0;
+    const list = rows.slice(0, 500).map(r => {
+      const date = toDate(r[K.vence]), saldo = toNum(r[K.saldo]);
+      if (!String(r[K.cli]).trim() || !date || !(saldo > 0)) { skipped++; return null; }
+      return { cli: String(r[K.cli]).trim(), contacto: K.contacto ? String(r[K.contacto]).trim() : "", folio: K.folio ? String(r[K.folio]).trim() || "s/folio" : "s/folio", saldo, date, due: Math.round((date - today) / DAY) };
+    }).filter(Boolean);
+    if (!list.length) throw new Error("No encontré filas con cliente, saldo mayor a 0 y fecha de vencimiento válida.");
+    INV = list; cbCompany = "Tu empresa"; cbSel = null;
+    $("#cb-title").textContent = "1 · Tu cartera: " + file.name;
+    $("#cb-out").textContent = "Pulsa “Recordar” en un cliente."; $("#cb-out").classList.remove("filled"); $("#cb-src").innerHTML = "";
+    renderCB();
+    say(msg, `Listo: ${list.length} facturas leídas${skipped ? `, ${skipped} filas omitidas (sin saldo o sin fecha)` : ""}. Tu archivo no salió de tu navegador.`, "okmsg");
+  } catch (e) { say(msg, e.message || "No pude leer ese archivo.", "errmsg"); }
+}
+$("#cb-file").addEventListener("change", e => { const f = e.target.files[0]; if (f) importCartera(f); e.target.value = ""; });
+$("#cb-reset").addEventListener("click", () => { INV = SAMPLE_INV.slice(); cbCompany = "Materiales del Sureste"; cbSel = null; $("#cb-title").textContent = "1 · Cartera de Materiales del Sureste (ejemplo)"; say($("#cb-msg"), "Volviste al ejemplo."); renderCB(); });
+$("#cb-template").addEventListener("click", async () => {
+  try { await downloadXLSX("plantilla-cartera.xlsx", "Cartera", SAMPLE_INV.map(i => ({ Cliente: i.cli, Contacto: i.contacto, Folio: i.folio, Saldo: i.saldo, Vence: xlDate(i.date) })), [30, 22, 10, 12, 12], ["Vence"]); say($("#cb-msg"), "Plantilla descargada. Llénala con tus clientes y súbela.", "okmsg"); }
+  catch (e) { say($("#cb-msg"), e.message, "errmsg"); }
+});
+$("#cb-xlsx").addEventListener("click", async () => {
+  try {
+    const rows = INV.slice().sort((a, b) => a.due - b.due).map(i => ({ Cliente: i.cli, Contacto: i.contacto, Folio: i.folio, Saldo: i.saldo, Vence: xlDate(i.date), "Días vencida": Math.max(0, -i.due), Etapa: stage(-i.due)[2], "Mensaje WhatsApp": template(i, "wa"), "Mensaje correo": template(i, "mail") }));
+    await downloadXLSX("reporte-cobranza.xlsx", "Cobranza", rows, [28, 20, 10, 12, 12, 12, 20, 60, 60], ["Vence"]);
+    say($("#cb-msg"), "Reporte descargado con un mensaje listo para cada cliente.", "okmsg");
+  } catch (e) { say($("#cb-msg"), e.message, "errmsg"); }
+});
 renderCB();
 
-/* ---------- 4. Manuales ---------- */
+/* ============ 4. Manuales ============ */
 const MANUAL = [
   ["1. Horario de atención", "El almacén atiende de lunes a viernes de 7:00 a 18:00 y sábados de 7:00 a 13:00. Los pedidos recibidos después de las 15:00 se surten al día siguiente hábil."],
   ["2. Devoluciones de material", "El cliente puede devolver material en los 15 días naturales siguientes a la entrega, con su factura y en empaque original. No se aceptan devoluciones de material cortado a la medida ni de cemento con más de 30 días de fabricación. La nota de crédito se emite en un máximo de 3 días hábiles."],
-  ["3. Crédito a clientes", "El crédito se otorga a clientes con 6 meses de compras continuas. Plazo estándar de 30 días. Con más de 60 días de atraso se suspende el crédito hasta regularizar el saldo. El gerente de cobranza autoriza convenios de pago."],
-  ["4. Entregas a domicilio", "Entrega gratis en Mérida para pedidos mayores a $5,000. Progreso, Umán y Kanasín tienen un costo de $450 por viaje. El cliente debe tener a alguien para recibir y firmar la remisión."],
+  ["3. Crédito a clientes", "El crédito se otorga a clientes con 6 meses de compras continuas. El plazo estándar es de 30 días. Con más de 60 días de atraso se suspende el crédito hasta regularizar el saldo. El gerente de cobranza autoriza convenios de pago."],
+  ["4. Entregas a domicilio", "La entrega es gratis en Mérida para pedidos mayores a $5,000. Progreso, Umán y Kanasín tienen un costo de $450 por viaje. El cliente debe tener a alguien para recibir y firmar la remisión."],
   ["5. Vacaciones del personal", "Se otorgan conforme a la Ley Federal del Trabajo: 12 días el primer año de servicio, aumentando 2 días por año hasta 20. Deben solicitarse con 15 días de anticipación al jefe directo."],
   ["6. Viáticos", "Los viajes fuera de Mérida tienen viáticos de $650 por día para alimentos. Se comprueban con CFDI a nombre de la empresa en los 5 días hábiles siguientes al viaje."],
   ["7. Seguridad en almacén", "Es obligatorio usar casco, chaleco y zapato de seguridad en el patio de carga. Los montacargas solo los operan personas con certificación vigente."]
 ];
-const STOP = new Set("el la los las un una unos unas de del al a y o que en con por para es son se su sus lo como cual cuanto cuantos cuantas cuando donde qué mi me tiene tengo hay puede pueden debe deben si no".split(" "));
-const toks = s => norm(s).replace(/[^a-z0-9ñ\s]/g, " ").split(/\s+/).filter(w => w.length > 2 && !STOP.has(w));
-const stem = w => w.replace(/(es|s)$/, "");
+const STOP = new Set("el la los las un una unos unas de del al a y o u que en con por para es son se su sus lo como cual cuales cuanto cuanta cuantos cuantas cuando donde mi me tiene tienen tengo tenemos hay puede pueden puedo debe deben debo si no hace hacer usted ustedes ellos esta este estan esto eso algo alguna alguno algun sobre mas menos muy ser estar quiero necesito saber pasa tambien".split(" "));
+const SUFFIXES = ["aciones", "acion", "iones", "mente", "iendo", "ando", "idos", "idas", "ados", "adas", "ido", "ida", "ado", "ada", "an", "en", "ar", "er", "ir", "es", "os", "as", "o", "a", "e", "s"];
+const stem = w => { for (const s of SUFFIXES) if (w.endsWith(s) && w.length - s.length >= 3) return w.slice(0, -s.length); return w; };
+const toks = s => norm(s).replace(/[^a-z0-9ñ\s]/g, " ").split(/\s+/).filter(w => w.length > 2 && !STOP.has(w)).map(stem);
+const same = (a, b) => a === b;
 function search(q) {
-  const qt = toks(q).map(stem);
-  return MANUAL.map(([t, b], i) => { const dt = toks(t + " " + b).map(stem); const hit = qt.filter(w => dt.some(d => d.startsWith(w) || w.startsWith(d))).length; const head = qt.filter(w => toks(t).map(stem).some(d => d.startsWith(w))).length; return { i, t, b, s: hit + head * 1.5 }; }).filter(x => x.s > 0).sort((a, b) => b.s - a.s).slice(0, 2);
+  const qt = [...new Set(toks(q))];
+  const scored = MANUAL.map(([t, b], i) => {
+    const tt = toks(t), bt = toks(b);
+    const hit = qt.filter(w => bt.some(d => same(w, d)) || tt.some(d => same(w, d))).length;
+    const head = qt.filter(w => tt.some(d => same(w, d))).length;
+    return { i, t, b, s: hit + head * 1.5 };
+  }).filter(x => x.s > 0).sort((a, b) => b.s - a.s);
+  if (!scored.length) return [];
+  return scored.filter(x => x.s >= scored[0].s * 0.6).slice(0, 2);
+}
+function bestSentences(q, text) {
+  const qt = [...new Set(toks(q))];
+  const sents = text.split(/(?<=\.)\s+/);
+  const sc = sents.map(s => toks(s).filter(d => qt.some(w => same(w, d))).length);
+  const max = Math.max(...sc);
+  if (max === 0) return text;
+  return sents.filter((s, i) => sc[i] === max || (sc[i] > 0 && sc[i] >= max - 1)).slice(0, 2).join(" ");
 }
 const SUGG = ["¿Cuántos días tiene un cliente para devolver material?", "¿Cuánto cuesta la entrega a Progreso?", "¿Cuántos días de vacaciones me tocan el primer año?", "¿Tienen sucursal en Cancún?"];
 $("#mn-sugg").innerHTML = SUGG.map(s => `<button class="btn ghost small" type="button">${esc(s)}</button>`).join("");
@@ -770,80 +1120,126 @@ async function runManual() {
   const q = $("#mn-q").value.trim(); if (!q) return;
   const hits = search(q);
   $("#mn-frags").innerHTML = hits.length ? hits.map(h => `<div class="frag"><b>${esc(h.t)}</b>${esc(h.b)}</div>`).join("") : '<div class="frag"><b>Sin coincidencias</b>Ninguna sección del manual habla de esto.</div>';
-  const fallback = hits.length ? `Según la sección “${hits[0].t}”: ${hits[0].b}` : "No encontré esa información en el manual. Te sugiero preguntar a Recursos Humanos o a tu jefe directo.";
+  const fallback = hits.length ? `${bestSentences(q, hits[0].b)}\n\n(Fuente: sección “${hits[0].t}”)` : "No encontré esa información en el manual. Te sugiero preguntar a tu jefe directo o a Recursos Humanos.";
   const ctx = hits.map(h => `[${h.t}] ${h.b}`).join("\n");
-  const prompt = `Responde la pregunta de un empleado usando SOLO estas secciones del manual de una distribuidora de materiales en Mérida. Si la respuesta no está en las secciones, di exactamente que no aparece en el manual. Responde en español, máximo 60 palabras, y termina citando la sección entre paréntesis.\n\nSecciones:\n${ctx || "(ninguna)"}\n\nPregunta: ${q}`;
+  const prompt = `Responde la pregunta de un empleado usando SOLO estas secciones del manual de una distribuidora de materiales en Mérida. Si la respuesta no está en las secciones, di exactamente que no aparece en el manual. Responde en español, máximo 60 palabras, y termina citando la sección entre paréntesis.\n\nSecciones:\n${ctx}\n\nPregunta: ${q}`;
   const btn = $("#mn-go"); btn.disabled = true;
-  if (!hits.length) { $("#mn-out").textContent = fallback; $("#mn-out").classList.add("filled"); $("#mn-src").innerHTML = '<span class="ai-badge">sin datos</span>'; }
-  else await askAI(prompt, $("#mn-out"), $("#mn-src"), fallback);
+  if (!hits.length) { $("#mn-out").textContent = fallback; $("#mn-out").classList.add("filled"); $("#mn-src").innerHTML = '<span class="ai-badge">no está en el manual</span>'; }
+  else await askAI("manual", { question: q, sections: hits.map(h => h.i) }, prompt, $("#mn-out"), $("#mn-src"), fallback);
   btn.disabled = false;
 }
 $("#mn-go").addEventListener("click", runManual);
 $("#mn-q").addEventListener("keydown", e => { if (e.key === "Enter") runManual(); });
 
-/* ---------- 5. Inmuebles ---------- */
+/* ============ 5. Inmuebles ============ */
+const RE_DEFAULT_EXTRA = $("#re-extra").value;
+const RE_EN_DEFAULT = "Restored in 2024 with high beamed ceilings, original pasta tile floors, a pool and a garden with a mango tree, three blocks from Santa Ana park.";
+const TYPE_EN = { "Casa colonial": "Colonial home", "Departamento": "Apartment", "Casa de playa": "Beach house", "Terreno": "Land" };
+const USD_RATE = 18.5;
 let reLang = "es", reData = null;
-function reVals() { return { type: $("#re-type").value, zone: $("#re-zone").value, bed: $("#re-bed").value, bath: $("#re-bath").value, lot: $("#re-lot").value, built: $("#re-built").value, price: Number($("#re-price").value), extra: $("#re-extra").value }; }
+function reVals() { return { type: $("#re-type").value, zone: $("#re-zone").value.trim(), bed: +$("#re-bed").value || 0, bath: +$("#re-bath").value || 0, lot: +$("#re-lot").value || 0, built: +$("#re-built").value || 0, price: +$("#re-price").value || 0, extra: $("#re-extra").value.trim() }; }
 function reFallback(v) {
-  const usd = Math.round(v.price / 18.5 / 1000) * 1000;
+  const usd = Math.round(v.price / USD_RATE / 1000) * 1000;
+  const isLand = v.type === "Terreno";
+  const featEs = [!isLand && v.bed && `${v.bed} recámaras`, !isLand && v.bath && `${v.bath} baños`, v.lot && `${v.lot.toLocaleString("es-MX")} m² de terreno`, !isLand && v.built && `${v.built.toLocaleString("es-MX")} m² de construcción`].filter(Boolean).join(" · ");
+  const featEn = [!isLand && v.bed && `${v.bed} bedrooms`, !isLand && v.bath && `${v.bath} bathrooms`, v.lot && `${v.lot.toLocaleString("en-US")} m² lot (${Math.round(v.lot * 10.764).toLocaleString("en-US")} sq ft)`, !isLand && v.built && `${v.built.toLocaleString("en-US")} m² built (${Math.round(v.built * 10.764).toLocaleString("en-US")} sq ft)`].filter(Boolean).join(" · ");
+  const sameExtra = v.extra === RE_DEFAULT_EXTRA;
   return {
-    es: `${v.type} en ${v.zone}\n${money(v.price)} MXN\n\n${v.bed} recámaras · ${v.bath} baños · ${v.lot} m² de terreno · ${v.built} m² de construcción\n\n${v.extra}\n\nIdeal para vivir el Centro de Mérida a pie: cafés, parques y mercados a unos minutos. Agenda tu visita y recibe el plano y los documentos por correo.`,
-    en: `${v.type === "Casa colonial" ? "Colonial home" : v.type === "Departamento" ? "Apartment" : v.type === "Casa de playa" ? "Beach house" : "Land"} in ${v.zone}\n${money(v.price)} MXN (approx. US$${usd.toLocaleString("en-US")})\n\n${v.bed} bedrooms · ${v.bath} bathrooms · ${v.lot} m² lot (${Math.round(v.lot * 10.764).toLocaleString("en-US")} sq ft) · ${v.built} m² built\n\nRestored in 2024 with high beamed ceilings, original pasta tile floors, a pool and a garden with a mango tree, three blocks from Santa Ana park.\n\nWalk to cafés, parks and markets in downtown Mérida. Book a visit and get the floor plan and documents by email.`
+    es: `${v.type} en ${v.zone}\n${money(v.price)} MXN\n\n${featEs}\n\n${v.extra}\n\nAgenda tu visita y recibe el plano y los documentos por correo.`,
+    en: `${TYPE_EN[v.type] || v.type} in ${v.zone}\n${money(v.price)} MXN (approx. US$${usd.toLocaleString("en-US")})\n\n${featEn}\n\n${sameExtra ? RE_EN_DEFAULT + "\n\n" : ""}Book a visit and get the floor plan and documents by email.`,
+    partial: !sameExtra
   };
 }
-function renderRE() { if (!reData) return; $("#re-out").textContent = reData[reLang]; $("#re-out").classList.add("filled"); $("#re-es").setAttribute("aria-pressed", String(reLang === "es")); $("#re-en").setAttribute("aria-pressed", String(reLang === "en")); }
+function renderRE() {
+  if (!reData) return;
+  $("#re-out").textContent = reData[reLang]; $("#re-out").classList.add("filled");
+  $("#re-es").setAttribute("aria-pressed", String(reLang === "es")); $("#re-en").setAttribute("aria-pressed", String(reLang === "en"));
+  const note = $("#re-note");
+  note.hidden = !(reData.partial && reLang === "en");
+  note.textContent = "En modo muestra traducimos los datos fijos (tipo, medidas, precio). Los “Detalles” que escribiste se traducen con la IA en vivo.";
+}
 $("#re-es").addEventListener("click", () => { reLang = "es"; renderRE(); }); $("#re-en").addEventListener("click", () => { reLang = "en"; renderRE(); });
 $("#re-go").addEventListener("click", async e => {
-  const v = reVals(); const fb = reFallback(v); e.target.disabled = true;
-  if (!sample) { reData = fb; $("#re-src").innerHTML = '<span class="ai-badge">ejemplo</span>'; renderRE(); e.target.disabled = false; return; }
-  $("#re-out").textContent = "Pensando…";
+  const btn = e.currentTarget; const v = reVals(); const fb = reFallback(v); btn.disabled = true;
+  if (aiMode === "none") { reData = fb; $("#re-src").innerHTML = badge(false); renderRE(); btn.disabled = false; return; }
+  $("#re-out").textContent = "Escribiendo…";
   try {
-    const r = await sample.json(`Escribe una ficha inmobiliaria atractiva y honesta para un portal, en español de México y en inglés de EE. UU. No inventes datos que no estén aquí. En inglés agrega el precio aproximado en USD (tipo de cambio 18.5) y los m² del terreno en sq ft. Cada versión: título en la primera línea, precio en la segunda, luego características y 2-3 frases de descripción, máximo 110 palabras. Responde solo con JSON {"es": string, "en": string}.\n\nDatos: ${JSON.stringify(v)}`, { modelTier: "quick" });
-    reData = (r && typeof r.es === "string" && typeof r.en === "string") ? r : fb;
-    $("#re-src").innerHTML = reData === fb ? '<span class="ai-badge">ejemplo</span>' : '<span class="ai-badge">IA en vivo</span>';
-  } catch (err) { reData = fb; $("#re-src").innerHTML = '<span class="ai-badge">ejemplo</span>'; }
-  renderRE(); e.target.disabled = false;
+    const r = await runAI("inmueble", v, `Escribe una ficha inmobiliaria atractiva y honesta para un portal, en español de México y en inglés de EE. UU. No inventes datos que no estén aquí. En inglés agrega el precio aproximado en USD (tipo de cambio ${USD_RATE}) y los m² en sq ft. Cada versión: título en la primera línea, precio en la segunda, luego características y 2-3 frases de descripción, máximo 110 palabras. Responde solo con JSON {"es": string, "en": string}.\n\nDatos: ${JSON.stringify(v)}`, true);
+    if (r && typeof r.es === "string" && typeof r.en === "string") { reData = { es: r.es, en: r.en, partial: false }; $("#re-src").innerHTML = badge(true); }
+    else throw 0;
+  } catch { reData = fb; $("#re-src").innerHTML = badge(false); }
+  renderRE(); btn.disabled = false;
 });
-$("#re-copy").addEventListener("click", e => copyText($("#re-out").textContent, e.target));
+$("#re-copy").addEventListener("click", e => copyText($("#re-out").textContent, e.currentTarget));
 
-/* ---------- 6. Agenda ---------- */
+/* ============ 6. Agenda ============ */
 const SVCS = [["Limpieza dental", 40, 600], ["Valoración de ortodoncia", 30, 0], ["Blanqueamiento", 60, 2800], ["Resina (caries)", 45, 900]];
+const CLINIC = { name: "Clínica Dental Montejo", addr: "Calle 31 #210, col. México, Mérida" };
 $("#ag-svc").innerHTML = SVCS.map(([n, m, p], i) => `<option value="${i}">${n} · ${m} min · ${p ? money(p) : "sin costo"}</option>`).join("");
 const taken = new Set(["1-10:30", "1-12:00", "2-09:00", "3-16:30", "3-17:30"]);
 const TIMES = ["09:00", "10:30", "12:00", "16:30", "17:30"];
-let agPick = null;
-function bizDays(n) { const out = []; let d = new Date(today); while (out.length < n) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0) out.push(new Date(d)); } return out; }
+let agPick = null, agReply = 0;
+function bizDays(n) { const out = []; const d = new Date(today); while (out.length < n) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0) out.push(new Date(d)); } return out; }
 const DAYS = bizDays(3);
 function renderAG() {
-  $("#ag-days").innerHTML = DAYS.map((d, di) => `<p class="day-label">${d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })}</p><div class="slots">${TIMES.map(t => { const k = (di + 1) + "-" + t; const dis = taken.has(k); const on = agPick && agPick.k === k; return `<button class="slot" data-k="${k}" data-d="${di}" data-t="${t}" ${dis ? "disabled aria-label=\"" + t + " ocupado\"" : ""} aria-pressed="${on}">${t}</button>`; }).join("")}</div>`).join("");
-  $$("#ag-days .slot:not([disabled])").forEach(b => b.addEventListener("click", () => { agPick = { k: b.dataset.k, d: DAYS[+b.dataset.d], t: b.dataset.t }; renderAG(); renderWA(); }));
+  $("#ag-days").innerHTML = DAYS.map((d, di) => `<p class="day-label">${d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })}</p><div class="slots">${TIMES.map(t => { const k = (di + 1) + "-" + t; const dis = taken.has(k); const on = agPick && agPick.k === k; return `<button type="button" class="slot" data-k="${k}" data-d="${di}" data-t="${t}" ${dis ? `disabled aria-label="${t} ocupado"` : ""} aria-pressed="${on}">${t}</button>`; }).join("")}</div>`).join("");
+  $$("#ag-days .slot:not([disabled])").forEach(b => b.addEventListener("click", () => { agPick = { k: b.dataset.k, d: DAYS[+b.dataset.d], t: b.dataset.t }; agReply = 0; renderAG(); renderWA(); }));
 }
-function renderWA(reply) {
+function agTimes() {
+  const [svc, mins] = SVCS[+$("#ag-svc").value]; const [h, m] = agPick.t.split(":").map(Number);
+  const start = new Date(agPick.d); start.setHours(h, m, 0, 0);
+  const end = new Date(start.getTime() + mins * 60000);
+  const f = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
+  return { svc, start: f(start), end: f(end) };
+}
+function renderWA() {
   if (!agPick) return;
   const [svc, , price] = SVCS[+$("#ag-svc").value]; const name = $("#ag-name").value.trim() || "Paciente";
   const fecha = agPick.d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" });
   const prev = new Date(agPick.d); prev.setDate(prev.getDate() - 1);
-  let html = `<div class="bubble">¡Hola ${esc(name)}! Tu cita de <b>${esc(svc)}</b> quedó agendada para el <b>${fecha} a las ${agPick.t}</b> en Clínica Dental Montejo, Calle 31 #210, col. México.${price ? " Costo: " + money(price) + "." : ""}<time>ahora</time></div>`;
+  let html = `<div class="bubble">¡Hola ${esc(name)}! Tu cita de <b>${esc(svc)}</b> quedó agendada para el <b>${fecha} a las ${agPick.t}</b> en ${CLINIC.name}, ${CLINIC.addr}.${price ? " Costo: " + money(price) + "." : ""}<time>ahora</time></div>`;
   html += `<div class="bubble">Recordatorio: mañana a las ${agPick.t} tienes tu ${esc(svc.toLowerCase())}. Responde 1 para confirmar o 2 para cambiar la cita.\nEscribe BAJA para no recibir mensajes.<time>${prev.toLocaleDateString("es-MX", { day: "numeric", month: "short" })} · 10:00</time></div>`;
-  if (reply === 1) html += `<div class="bubble me">1<time>10:02</time></div><div class="bubble">¡Gracias! Tu cita está confirmada. Te esperamos 10 minutos antes. 😊<time>10:02</time></div>`;
-  if (reply === 2) html += `<div class="bubble me">2<time>10:03</time></div><div class="bubble">Sin problema. Liberamos tu horario y en unos minutos te escribe nuestra recepción para elegir uno nuevo.<time>10:03</time></div>`;
+  if (agReply === 1) html += `<div class="bubble me">1<time>10:02</time></div><div class="bubble">¡Gracias! Tu cita está confirmada. Te esperamos 10 minutos antes. 😊<time>10:02</time></div>`;
+  if (agReply === 2) html += `<div class="bubble me">2<time>10:03</time></div><div class="bubble">Sin problema. Liberamos tu horario y en unos minutos te escribe nuestra recepción para elegir uno nuevo.<time>10:03</time></div>`;
   $("#ag-wa").innerHTML = html;
+  const t = agTimes();
+  const details = `Paciente: ${name}. Servicio: ${svc}. Confirmación por WhatsApp.`;
+  $("#ag-gcal").href = "https://calendar.google.com/calendar/render?" + new URLSearchParams({ action: "TEMPLATE", text: `${svc} · ${name}`, dates: `${t.start}/${t.end}`, ctz: "America/Merida", details, location: CLINIC.name + ", " + CLINIC.addr }).toString();
 }
+function pickFirst() { if (!agPick) { const b = $("#ag-days .slot:not([disabled])"); b && b.click(); } }
 $("#ag-svc").addEventListener("change", () => renderWA()); $("#ag-name").addEventListener("input", () => renderWA());
-$("#ag-r1").addEventListener("click", () => { if (!agPick) { const b = $("#ag-days .slot:not([disabled])"); b && b.click(); } renderWA(1); });
-$("#ag-r2").addEventListener("click", () => { if (!agPick) { const b = $("#ag-days .slot:not([disabled])"); b && b.click(); } renderWA(2); });
+$("#ag-r1").addEventListener("click", () => { pickFirst(); agReply = 1; renderWA(); });
+$("#ag-r2").addEventListener("click", () => { pickFirst(); agReply = 2; renderWA(); });
+$("#ag-ics").addEventListener("click", () => {
+  pickFirst(); const t = agTimes(); const name = $("#ag-name").value.trim() || "Paciente";
+  const icsEsc = s => String(s).replace(/([,;\\])/g, "\\$1");
+  const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
+  const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Xook IA//Citas//ES", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT",
+    `UID:${t.start}-${Math.random().toString(36).slice(2)}@xook-ia`, `DTSTAMP:${stamp}`,
+    `DTSTART;TZID=America/Merida:${t.start}`, `DTEND;TZID=America/Merida:${t.end}`,
+    `SUMMARY:${icsEsc(t.svc + " · " + name)}`, `LOCATION:${icsEsc(CLINIC.name + ", " + CLINIC.addr)}`,
+    `DESCRIPTION:${icsEsc("Cita agendada desde el demo de Xook IA.")}`,
+    "BEGIN:VALARM", "TRIGGER:-P1D", "ACTION:DISPLAY", "DESCRIPTION:Recordatorio de cita", "END:VALARM",
+    "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+  downloadText("cita.ics", ics, "text/calendar");
+});
 renderAG();
 { const first = $("#ag-days .slot:not([disabled])"); if (first) first.click(); }
 
-/* ---------- Contacto ---------- */
+/* ============ Contacto ============ */
+$("#ct-mail").textContent = CONFIG.EMAIL;
 $("#ct-form").addEventListener("submit", e => {
   e.preventDefault();
   const biz = $("#ct-biz").value.trim();
   if (!biz) { $("#ct-biz").focus(); $("#ct-biz").setAttribute("aria-invalid", "true"); return; }
   $("#ct-biz").removeAttribute("aria-invalid");
-  $("#ct-msg").textContent = `Hola, me interesa la auditoría gratis.\nNegocio: ${biz}\nGiro: ${$("#ct-type").value}\nMe interesa: ${$("#ct-need").value}\nMe pueden encontrar en Google como: ${biz}, Mérida.`;
+  const msg = `Hola, me interesa la auditoría gratis.\nNegocio: ${biz}\nGiro: ${$("#ct-type").value}\nMe interesa: ${$("#ct-need").value}\nMe pueden encontrar en Google como: ${biz}, Mérida.`;
+  $("#ct-msg").textContent = msg;
+  $("#ct-mailto").href = `mailto:${CONFIG.EMAIL}?subject=${encodeURIComponent("Auditoría gratis: " + biz)}&body=${encodeURIComponent(msg)}`;
+  const wa = $("#ct-wa");
+  if (CONFIG.WHATSAPP) { wa.href = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`; wa.hidden = false; } else wa.hidden = true;
   $("#ct-out").hidden = false;
 });
-$("#ct-copy").addEventListener("click", e => copyText($("#ct-mail").textContent + "\n\n" + $("#ct-msg").textContent, e.target));
+$("#ct-copy").addEventListener("click", e => copyText($("#ct-msg").textContent, e.currentTarget));
 })();
 </script>
