@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="H" Folio="88" Fecha="2026-10-12T10:00:00" FormaPago="03" MetodoPago="PUE" SubTotal="3500.00" Moneda="MXN" Total="4060.00" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="FUNK671228PH6" Nombre="KARLA FUENTE NOLASCO" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="626" UsoCFDI="G03"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="80121603" Cantidad="1" ClaveUnidad="E48" Descripcion="Asesoría legal" ValorUnitario="3500.00" Importe="3500.00" ObjetoImp="02"/></cfdi:Conceptos>
+  <cfdi:Complemento><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="A170B338-3926-3059-F28C-105D1FB17C23" FechaTimbrado="2026-10-12T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>

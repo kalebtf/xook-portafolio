@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/3" Version="3.3" Serie="V" Folio="9" Fecha="2026-10-20T10:00:00" FormaPago="04" MetodoPago="PUE" SubTotal="2500.00" Moneda="MXN" Total="2900.00" TipoDeComprobante="I" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="CACX7605101P8" Nombre="XOCHILT CASAS CHAVEZ" UsoCFDI="G03"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="78101800" Cantidad="1" ClaveUnidad="E48" Descripcion="Flete Mérida-Progreso" ValorUnitario="2500.00" Importe="2500.00"/></cfdi:Conceptos>
+  <cfdi:Complemento><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="8D116ECE-1738-F7D9-3D9C-172411E20B8F" FechaTimbrado="2026-10-20T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>

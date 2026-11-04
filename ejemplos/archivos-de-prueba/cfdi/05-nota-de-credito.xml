@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="NC" Folio="12" Fecha="2026-10-31T10:00:00" FormaPago="03" MetodoPago="PUE" SubTotal="500.00" Moneda="MXN" Total="580.00" TipoDeComprobante="E" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="CACX7605101P8" Nombre="XOCHILT CASAS CHAVEZ" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="612" UsoCFDI="G02"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="43211503" Cantidad="1" ClaveUnidad="E48" Descripcion="Descuento por devolución de accesorio" ValorUnitario="500.00" Importe="500.00" ObjetoImp="02"/></cfdi:Conceptos>
+  <cfdi:Complemento><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="36F675CC-81E7-4EF5-E8E2-5D940ED90475" FechaTimbrado="2026-10-31T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>

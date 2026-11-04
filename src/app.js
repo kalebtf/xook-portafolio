@@ -113,49 +113,86 @@ $(".tabs").addEventListener("keydown", e => {
 function fromHash() { const h = location.hash.slice(1); if (DEMOS.includes(h)) showDemo(h, true); }
 window.addEventListener("hashchange", fromHash); fromHash();
 
+$$("[data-go]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); showDemo(a.dataset.go, true); try { history.replaceState(null, "", "#" + a.dataset.go); } catch {} }));
+
 /* ============ 1. Reseñas ============ */
 const TONES = { calido: "cálido y cercano", profesional: "profesional y formal (usted)", breve: "muy breve, máximo 30 palabras" };
-const REVIEWS = [
-  { name: "Jennifer M.", stars: 5, lang: "en", when: "hace 2 días", text: "Amazing cochinita pibil and the best horchata we had in Mérida! The courtyard is beautiful. Only wish they had an English menu.",
-    reply: {
-      calido: "Thank you so much, Jennifer! We're thrilled you enjoyed our cochinita pibil and horchata in the courtyard. Great news: our English menu is now ready, just ask your server or scan the QR at your table. We hope to welcome you back on your next visit to Mérida! — Elvira and the team",
-      profesional: "Dear Jennifer, thank you for your kind review. We are delighted you enjoyed our cochinita pibil, horchata and courtyard. We are pleased to share that our English menu is now available; simply ask your server or scan the QR code at your table. We look forward to welcoming you again. — Cocina Doña Elvira",
-      breve: "Thank you, Jennifer! So glad you loved the cochinita and horchata. Our English menu is ready now. See you next time! — Elvira & team" } },
-  { name: "Luis Canché", stars: 2, lang: "es", when: "hace 5 días", text: "La comida rica pero esperamos 45 minutos por los panuchos un sábado. Nadie nos avisó que iba a tardar.",
-    reply: {
-      calido: "Luis, gracias por decírnoslo y una disculpa por la espera del sábado. Tienes razón: debimos avisarte desde el inicio. Ya reforzamos el turno de cocina de fin de semana y ahora el mesero informa el tiempo estimado al tomar la orden. Nos encantaría que nos des otra oportunidad; pregunta por Elvira. — Cocina Doña Elvira",
-      profesional: "Estimado Luis: gracias por su comentario y lamentamos la espera del sábado. Debimos informarle el tiempo desde el inicio. Ya reforzamos el turno de cocina de fin de semana y el mesero ahora indica el tiempo estimado al tomar la orden. Será un gusto atenderle de nuevo. — Cocina Doña Elvira",
-      breve: "Luis, una disculpa por la espera del sábado. Ya reforzamos la cocina en fin de semana y te avisamos el tiempo al ordenar. ¡Esperamos verte pronto! — Doña Elvira" } },
-  { name: "Ana Sofía R.", stars: 4, lang: "es", when: "hace 1 semana", text: "Muy buen sazón yucateco y precios justos. El estacionamiento es complicado en la calle 60.",
-    reply: {
-      calido: "¡Gracias, Ana Sofía! Nos alegra que disfrutaras el sazón de casa. Sobre el estacionamiento: a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m. Lo agregamos a nuestra página para que sea más fácil llegar. ¡Te esperamos pronto! — Cocina Doña Elvira",
-      profesional: "Estimada Ana Sofía: muchas gracias por su reseña. Sobre el estacionamiento, a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m.; ya lo indicamos en nuestra página. Será un gusto recibirle de nuevo. — Cocina Doña Elvira",
-      breve: "¡Gracias, Ana Sofía! Tip: hay estacionamiento público en la calle 57, a media cuadra. ¡Te esperamos! — Doña Elvira" } }
-];
-let rvSel = 0;
+const BIZ = {
+  rest: { name: "Cocina Doña Elvira (ejemplo)", img: "img/restaurante.jpg", domain: "donaelvira.example",
+    ctx: `"Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57, el turno de cocina de fin de semana se reforzó y el mesero ahora avisa el tiempo estimado)`,
+    reviews: [
+      { name: "Jennifer M.", stars: 5, lang: "en", when: "hace 2 días", text: "Amazing cochinita pibil and the best horchata we had in Mérida! The courtyard is beautiful. Only wish they had an English menu.",
+        reply: {
+          calido: "Thank you so much, Jennifer! We're thrilled you enjoyed our cochinita pibil and horchata in the courtyard. Great news: our English menu is now ready, just ask your server or scan the QR at your table. We hope to welcome you back on your next visit to Mérida! — Elvira and the team",
+          profesional: "Dear Jennifer, thank you for your kind review. We are delighted you enjoyed our cochinita pibil, horchata and courtyard. We are pleased to share that our English menu is now available; simply ask your server or scan the QR code at your table. We look forward to welcoming you again. — Cocina Doña Elvira",
+          breve: "Thank you, Jennifer! So glad you loved the cochinita and horchata. Our English menu is ready now. See you next time! — Elvira & team" } },
+      { name: "Luis Canché", stars: 2, lang: "es", when: "hace 5 días", text: "La comida rica pero esperamos 45 minutos por los panuchos un sábado. Nadie nos avisó que iba a tardar.",
+        reply: {
+          calido: "Luis, gracias por decírnoslo y una disculpa por la espera del sábado. Tienes razón: debimos avisarte desde el inicio. Ya reforzamos el turno de cocina de fin de semana y ahora el mesero informa el tiempo estimado al tomar la orden. Nos encantaría que nos des otra oportunidad; pregunta por Elvira. — Cocina Doña Elvira",
+          profesional: "Estimado Luis: gracias por su comentario y lamentamos la espera del sábado. Debimos informarle el tiempo desde el inicio. Ya reforzamos el turno de cocina de fin de semana y el mesero ahora indica el tiempo estimado al tomar la orden. Será un gusto atenderle de nuevo. — Cocina Doña Elvira",
+          breve: "Luis, una disculpa por la espera del sábado. Ya reforzamos la cocina en fin de semana y te avisamos el tiempo al ordenar. ¡Esperamos verte pronto! — Doña Elvira" } },
+      { name: "Ana Sofía R.", stars: 4, lang: "es", when: "hace 1 semana", text: "Muy buen sazón yucateco y precios justos. El estacionamiento es complicado en la calle 60.",
+        reply: {
+          calido: "¡Gracias, Ana Sofía! Nos alegra que disfrutaras el sazón de casa. Sobre el estacionamiento: a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m. Lo agregamos a nuestra página para que sea más fácil llegar. ¡Te esperamos pronto! — Cocina Doña Elvira",
+          profesional: "Estimada Ana Sofía: muchas gracias por su reseña. Sobre el estacionamiento, a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m.; ya lo indicamos en nuestra página. Será un gusto recibirle de nuevo. — Cocina Doña Elvira",
+          breve: "¡Gracias, Ana Sofía! Tip: hay estacionamiento público en la calle 57, a media cuadra. ¡Te esperamos! — Doña Elvira" } }
+    ],
+    site: {
+      es: { tag: "Cocina yucateca de casa desde 1998", h: "Cocina Doña Elvira", cta: "Reservar por WhatsApp", a: ["Horario", "Lun a dom, 8:00 a 23:00"], b: ["Dirección", "Calle 60, Centro"], c: ["Especialidad", "Cochinita pibil y panuchos"], d: ["Cómo llegar", "Estacionamiento en calle 57"] },
+      en: { tag: "Homestyle Yucatecan food since 1998", h: "Cocina Doña Elvira", cta: "Book on WhatsApp", a: ["Hours", "Mon–Sun, 8 am – 11 pm"], b: ["Address", "Calle 60, Downtown"], c: ["Signature dish", "Cochinita pibil & panuchos"], d: ["Getting here", "Parking on Calle 57"] } } },
+  hotel: { name: "Casa Ejemplo Hotel Boutique", img: "img/hotel.jpg", domain: "casaejemplo.example",
+    ctx: `"Casa Ejemplo Hotel Boutique", hotel en una casona de 1890 en la Calle 55, a una cuadra del parque de Santa Lucía, Centro de Mérida (check-in 15:00, guarda maletas desde las 10:00, ingreso anticipado si avisan por WhatsApp, desayuno incluido, alberca pequeña, el aire acondicionado de las habitaciones se revisó esta semana, reserva directa por WhatsApp y precios aproximados en USD en la web)`,
+    reviews: [
+      { name: "Thomas & Claire", stars: 5, lang: "en", when: "hace 3 días", text: "Gorgeous colonial house, the plunge pool was perfect after a hot day exploring. Breakfast was amazing. Only issue: our room's AC was a bit noisy at night.",
+        reply: {
+          calido: "Thank you, Thomas and Claire! We're so happy the plunge pool and breakfast made your days in Mérida even better. You're right about the AC: our maintenance team serviced the units this week. We'd love to welcome you back! — The Casa Ejemplo team",
+          profesional: "Dear Thomas and Claire, thank you for your wonderful review. We are delighted you enjoyed the plunge pool and our breakfast. Regarding the air conditioning, our maintenance team serviced the units this week. We look forward to hosting you again. — Casa Ejemplo Hotel Boutique",
+          breve: "Thank you, Thomas and Claire! Glad you loved the pool and breakfast. The AC has been serviced. Hope to see you again! — Casa Ejemplo" } },
+      { name: "Daniela G.", stars: 3, lang: "es", when: "hace 6 días", text: "La casa es preciosa, pero el check-in era a las 15:00, llegamos a las 13:00 y no nos ofrecieron guardar las maletas. El personal, muy amable.",
+        reply: {
+          calido: "Daniela, gracias por tu reseña y una disculpa: debimos ofrecerte guardar tus maletas desde que llegaste. Ahora lo hacemos siempre desde las 10:00 y, si nos escribes por WhatsApp antes de llegar, intentamos darte el cuarto antes. ¡Nos encantará recibirte otra vez! — Equipo Casa Ejemplo",
+          profesional: "Estimada Daniela: gracias por su comentario y lamentamos lo ocurrido a su llegada. Debimos ofrecerle resguardo de equipaje. Ahora lo ofrecemos siempre desde las 10:00 y, si nos avisa por WhatsApp, procuramos el ingreso anticipado. Será un gusto recibirle nuevamente. — Casa Ejemplo Hotel Boutique",
+          breve: "Daniela, una disculpa. Ya guardamos maletas desde las 10:00 y, si nos avisas, te damos el cuarto antes. ¡Te esperamos! — Casa Ejemplo" } },
+      { name: "Marc L.", stars: 4, lang: "en", when: "hace 2 semanas", text: "Great location near Santa Lucía park, very quiet rooms. Wish the website showed prices in USD and that booking direct was easier. We ended up booking through an app.",
+        reply: {
+          calido: "Thanks so much, Marc! We're glad you enjoyed the quiet rooms and being steps from Santa Lucía park. Great point: you can now book directly with us on WhatsApp, and our website shows approximate prices in USD. See you on your next trip to Mérida! — The Casa Ejemplo team",
+          profesional: "Dear Marc, thank you for your review. We are pleased you enjoyed the location near Santa Lucía park and the quiet rooms. You can now book directly with us via WhatsApp, and our website displays approximate prices in USD. We look forward to your next visit. — Casa Ejemplo Hotel Boutique",
+          breve: "Thanks, Marc! Direct booking on WhatsApp and USD prices are now on our site. See you next time! — Casa Ejemplo" } }
+    ],
+    site: {
+      es: { tag: "Hotel boutique en una casona de 1890", h: "Casa Ejemplo", cta: "Reservar por WhatsApp", a: ["Check-in", "15:00 · maletas desde 10:00"], b: ["Dirección", "Calle 55, a una cuadra de Santa Lucía"], c: ["Incluye", "Desayuno y alberca"], d: ["Tarifas", "Desde $2,400 MXN por noche"] },
+      en: { tag: "Boutique hotel in an 1890 mansion", h: "Casa Ejemplo", cta: "Book on WhatsApp", a: ["Check-in", "3 pm · luggage from 10 am"], b: ["Address", "Calle 55, one block from Santa Lucía park"], c: ["Includes", "Breakfast & plunge pool"], d: ["Rates", "From $2,400 MXN (≈ US$130) / night"] } } }
+};
+let rvBiz = "rest", rvSel = 0, siteLang = "es";
 function renderReviews() {
-  $("#reviews").innerHTML = REVIEWS.map((r, i) => `<button class="review" aria-pressed="${i === rvSel}" data-i="${i}"><span class="row" style="justify-content:space-between"><b>${esc(r.name)}</b><span class="stars" aria-label="${r.stars} de 5 estrellas">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span></span><span>${esc(r.text)}</span><span class="meta">Google · ${r.when} · ${r.lang === "en" ? "en inglés" : "en español"}</span></button>`).join("");
+  const B = BIZ[rvBiz];
+  $("#rv-title").textContent = "1 · Reseñas recientes de " + B.name;
+  $("#reviews").innerHTML = B.reviews.map((r, i) => `<button class="review" aria-pressed="${i === rvSel}" data-i="${i}"><span class="row" style="justify-content:space-between"><b>${esc(r.name)}</b><span class="stars" aria-label="${r.stars} de 5 estrellas">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span></span><span>${esc(r.text)}</span><span class="meta">Google · ${r.when} · ${r.lang === "en" ? "en inglés" : "en español"}</span></button>`).join("");
   $$("#reviews .review").forEach(b => b.addEventListener("click", () => { rvSel = +b.dataset.i; renderReviews(); }));
 }
-renderReviews();
+function setBiz(k) {
+  rvBiz = k; rvSel = 0;
+  $("#rv-biz-rest").setAttribute("aria-pressed", String(k === "rest")); $("#rv-biz-hotel").setAttribute("aria-pressed", String(k === "hotel"));
+  const ph = $("#rv-photo"); ph.classList.remove("missing"); ph.src = BIZ[k].img;
+  $("#rv-out").textContent = "Elige una reseña y pulsa “Redactar respuesta”."; $("#rv-out").classList.remove("filled"); $("#rv-src").innerHTML = "";
+  renderReviews(); renderSite(siteLang);
+}
+$("#rv-biz-rest").addEventListener("click", () => setBiz("rest")); $("#rv-biz-hotel").addEventListener("click", () => setBiz("hotel"));
 $("#rv-go").addEventListener("click", async e => {
-  const r = REVIEWS[rvSel]; const tone = $("#rv-tone").value; e.currentTarget.disabled = true; const btn = e.currentTarget;
-  const data = { review: r.text, stars: r.stars, name: r.name, lang: r.lang, tone };
-  const prompt = `Eres el dueño de "Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57). Responde esta reseña de Google en el MISMO idioma de la reseña (${r.lang === "en" ? "inglés" : "español"}), tono ${TONES[tone]}, máximo 70 palabras. Agradece; si hay queja, reconócela sin excusas y di qué se hizo; invita a volver; firma como el equipo. No inventes descuentos ni datos que no estén aquí. Solo el texto de la respuesta.\n\nReseña (${r.stars} estrellas) de ${r.name}: "${r.text}"`;
+  const btn = e.currentTarget; const B = BIZ[rvBiz]; const r = B.reviews[rvSel]; const tone = $("#rv-tone").value; btn.disabled = true;
+  const data = { biz: rvBiz, review: r.text, stars: r.stars, name: r.name, lang: r.lang, tone };
+  const prompt = `Eres el dueño de ${B.ctx}. Responde esta reseña de Google en el MISMO idioma de la reseña (${r.lang === "en" ? "inglés" : "español"}), tono ${TONES[tone]}, máximo 70 palabras. Agradece; si hay queja, reconócela sin excusas y di qué se hizo; invita a volver; firma como el equipo. No inventes descuentos ni datos que no estén aquí. Solo el texto de la respuesta.\n\nReseña (${r.stars} estrellas) de ${r.name}: "${r.text}"`;
   await askAI("resena", data, prompt, $("#rv-out"), $("#rv-src"), r.reply[tone]);
   btn.disabled = false;
 });
 $("#rv-copy").addEventListener("click", e => copyText($("#rv-out").textContent, e.currentTarget));
-const SITE = {
-  es: { tag: "Cocina yucateca de casa desde 1998", h: "Cocina Doña Elvira", cta: "Reservar por WhatsApp", a: ["Horario", "Lun a dom, 8:00 a 23:00"], b: ["Dirección", "Calle 60 #482, Centro"], c: ["Especialidad", "Cochinita pibil y panuchos"], d: ["Cómo llegar", "Estacionamiento en calle 57"] },
-  en: { tag: "Homestyle Yucatecan food since 1998", h: "Cocina Doña Elvira", cta: "Book on WhatsApp", a: ["Hours", "Mon–Sun, 8 am – 11 pm"], b: ["Address", "Calle 60 #482, Downtown"], c: ["Signature dish", "Cochinita pibil & panuchos"], d: ["Getting here", "Parking on Calle 57"] }
-};
 function renderSite(l) {
-  const s = SITE[l];
-  $("#minisite").innerHTML = `<div class="bar"><i></i><i></i><i></i><span>donaelvira.com.mx/${l}</span></div><div class="hero2"><span class="mono" style="font-size:.72rem;opacity:.85">${s.tag}</span><h3>${s.h}</h3><span class="chip" style="justify-self:start;background:var(--yellow);color:var(--yellow-ink)">${s.cta}</span></div><div class="info">${[s.a, s.b, s.c, s.d].map(x => `<div><b>${x[0]}</b>${x[1]}</div>`).join("")}</div>`;
+  siteLang = l; const B = BIZ[rvBiz]; const s = B.site[l];
+  $("#minisite").innerHTML = `<div class="bar"><i></i><i></i><i></i><span>${B.domain}/${l}</span></div><div class="hero2" style="--site-img:url('${B.img}')"><span class="mono" style="font-size:.72rem;opacity:.9">${s.tag}</span><h3>${s.h}</h3><span class="chip" style="justify-self:start;background:var(--accent);color:var(--accent-ink)">${s.cta}</span></div><div class="info">${[s.a, s.b, s.c, s.d].map(x => `<div><b>${x[0]}</b>${x[1]}</div>`).join("")}</div>`;
   $("#ms-es").setAttribute("aria-pressed", String(l === "es")); $("#ms-en").setAttribute("aria-pressed", String(l === "en"));
 }
-$("#ms-es").addEventListener("click", () => renderSite("es")); $("#ms-en").addEventListener("click", () => renderSite("en")); renderSite("es");
+$("#ms-es").addEventListener("click", () => renderSite("es")); $("#ms-en").addEventListener("click", () => renderSite("en"));
+renderReviews(); renderSite("es");
 
 /* ============ 2. CFDI ============ */
 const CF_SAMPLES = {
@@ -180,74 +217,118 @@ const CF_SAMPLES = {
   <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="90101501" Cantidad="1" ClaveUnidad="E48" Descripcion="Consumo de alimentos" ValorUnitario="862.07" Importe="862.07" ObjetoImp="02"/></cfdi:Conceptos>
 </cfdi:Comprobante>`
 };
-const CATS = [["151015", "Combustible"], ["4321", "Equipo de cómputo"], ["901015", "Alimentos y restaurantes"], ["8111", "Servicios de software"], ["7810", "Transporte"], ["8012", "Servicios profesionales"], ["5310", "Papelería y oficina"], ["4410", "Papelería y oficina"], ["8310", "Servicios de luz, agua o teléfono"], ["8011", "Servicios profesionales"]];
+const CATS = [["151015", "Combustible"], ["4321", "Equipo de cómputo"], ["901015", "Alimentos y restaurantes"], ["8111", "Software y sistemas"], ["7810", "Fletes y transporte"], ["7811", "Fletes y transporte"], ["8012", "Servicios profesionales"], ["8011", "Servicios profesionales"], ["5310", "Papelería y oficina"], ["4412", "Papelería y oficina"], ["4410", "Papelería y oficina"], ["8311", "Teléfono e internet"], ["8310", "Luz, agua y gas"], ["8411", "Pagos y servicios financieros"]];
+const REGIMEN = { "601": "General de Ley PM", "612": "Actividad empresarial", "626": "RESICO", "616": "Sin obligaciones", "605": "Sueldos y salarios", "606": "Arrendamiento" };
 let cfRows = [], cfSel = "Gasolina";
 function byLocal(doc, name) { return [...doc.getElementsByTagName("*")].filter(el => el.localName === name); }
 function parseCFDI(xml) {
   const doc = new DOMParser().parseFromString(xml, "application/xml");
-  if (doc.getElementsByTagName("parsererror").length) throw new Error("El archivo no es un XML válido.");
-  const c = byLocal(doc, "Comprobante")[0]; if (!c) throw new Error("No parece un CFDI: falta el nodo Comprobante.");
+  if (doc.getElementsByTagName("parsererror").length) throw new Error("no es un XML válido (archivo dañado o incompleto).");
+  const c = byLocal(doc, "Comprobante")[0]; if (!c) throw new Error("no es una factura CFDI (falta el nodo Comprobante).");
   const em = byLocal(doc, "Emisor")[0], re = byLocal(doc, "Receptor")[0], tfd = byLocal(doc, "TimbreFiscalDigital")[0];
   const conceptos = byLocal(doc, "Concepto");
   const clave = conceptos[0]?.getAttribute("ClaveProdServ") || "";
-  const cat = (CATS.find(([p]) => clave.startsWith(p)) || [, "Otros gastos"])[1];
+  const tipo = c.getAttribute("TipoDeComprobante");
+  const cat = tipo === "P" ? "Complemento de pago" : (CATS.find(([p]) => clave.startsWith(p)) || [, "Otros gastos"])[1];
   return {
     version: c.getAttribute("Version"), folio: [c.getAttribute("Serie"), c.getAttribute("Folio")].filter(Boolean).join("-") || "s/folio",
     fecha: (c.getAttribute("Fecha") || "").slice(0, 10), total: parseFloat(c.getAttribute("Total") || "0"),
-    metodo: c.getAttribute("MetodoPago"), tipo: c.getAttribute("TipoDeComprobante"),
+    metodo: c.getAttribute("MetodoPago") || "", tipo,
     emisor: em?.getAttribute("Nombre") || em?.getAttribute("Rfc") || "¿?", emisorRfc: em?.getAttribute("Rfc") || "",
-    receptorRfc: re?.getAttribute("Rfc") || "", uso: re?.getAttribute("UsoCFDI") || "",
-    uuid: tfd?.getAttribute("UUID") || "", desc: conceptos[0]?.getAttribute("Descripcion") || "", cat
+    receptorRfc: (re?.getAttribute("Rfc") || "").toUpperCase(), receptor: re?.getAttribute("Nombre") || "", regimen: re?.getAttribute("RegimenFiscalReceptor") || "", uso: re?.getAttribute("UsoCFDI") || "",
+    uuid: (tfd?.getAttribute("UUID") || "").toUpperCase(), desc: conceptos[0]?.getAttribute("Descripcion") || "", cat,
+    related: byLocal(doc, "DoctoRelacionado").map(d => (d.getAttribute("IdDocumento") || "").toUpperCase()).filter(Boolean)
   };
 }
-function flagsFor(r, rfc) {
-  const f = [];
+const cfClients = () => $("#cf-rfc").value.toUpperCase().split(/[\s,;]+/).filter(Boolean);
+function flagsFor(r) {
+  const f = [], cl = cfClients();
   if (!r.uuid) f.push(["bad", "Sin timbre del SAT"]);
-  if (rfc && r.receptorRfc.toUpperCase() !== rfc.toUpperCase()) f.push(["bad", "No es de tu cliente (" + r.receptorRfc + ")"]);
+  if (cl.length && !cl.includes(r.receptorRfc)) f.push(["bad", "No es de tus clientes (" + r.receptorRfc + ")"]);
   if (r.uso === "S01") f.push(["warn", "Sin efectos fiscales"]);
-  if (r.metodo === "PPD") f.push(["warn", "PPD: pedir complemento de pago"]);
-  if (r.version !== "4.0") f.push(["warn", "Versión " + r.version]);
-  if (r.tipo && r.tipo !== "I") f.push(["info", r.tipo === "E" ? "Nota de crédito" : r.tipo === "P" ? "Complemento de pago" : "Tipo " + r.tipo]);
-  if (!f.length) f.push(["ok", "Correcta"]);
+  if (r.metodo === "PPD") {
+    const paid = cfRows.find(x => x.tipo === "P" && x.related.includes(r.uuid));
+    f.push(paid ? ["ok", "PPD: pago recibido (" + paid.folio + ")"] : ["warn", "PPD: pedir complemento de pago"]);
+  }
+  if (r.version !== "4.0") f.push(["warn", "Versión " + r.version + " (ya no vigente)"]);
+  if (r.tipo === "E") f.push(["info", "Nota de crédito"]);
+  if (r.tipo === "P") { const rel = cfRows.filter(x => r.related.includes(x.uuid)).map(x => x.folio); f.push(["info", rel.length ? "Paga la factura " + rel.join(", ") : "Pago de factura no cargada"]); }
+  if (!f.some(([k]) => k === "bad" || k === "warn")) f.unshift(["ok", "Correcta"]);
   return f;
 }
+const needsReview = r => flagsFor(r).some(([k]) => k === "bad" || k === "warn");
+const signedTotal = r => r.tipo === "E" ? -r.total : r.tipo === "P" ? 0 : r.total;
+function cfVisible() {
+  const v = $("#cf-filter").value, cl = cfClients();
+  if (v === "*") return cfRows;
+  if (v === "otros") return cfRows.filter(r => !cl.includes(r.receptorRfc));
+  if (v === "revisar") return cfRows.filter(needsReview);
+  return cfRows.filter(r => r.receptorRfc === v);
+}
+function renderFilter() {
+  const sel = $("#cf-filter"), cur = sel.value || "*", cl = cfClients();
+  const name = rfc => (cfRows.find(r => r.receptorRfc === rfc) || {}).receptor;
+  sel.innerHTML = `<option value="*">Todas</option><option value="revisar">Solo por revisar</option>` + cl.map(r => `<option value="${esc(r)}">${esc(name(r) ? name(r) + " · " : "")}${esc(r)}</option>`).join("") + `<option value="otros">Fuera de mis clientes</option>`;
+  sel.value = [...sel.options].some(o => o.value === cur) ? cur : "*";
+}
 function renderCF() {
-  const rfc = $("#cf-rfc").value.trim();
-  const body = $("#cf-body");
-  if (!cfRows.length) body.innerHTML = '<tr><td colspan="4" class="muted">Aún no hay facturas.</td></tr>';
-  else body.innerHTML = cfRows.map(r => { const f = flagsFor(r, rfc); return `<tr><td><b>${esc(r.emisor)}</b><br><span class="note mono">${esc(r.folio)} · ${esc(r.fecha)}</span></td><td>${esc(r.cat)}<br><span class="note">${esc(r.desc)}</span></td><td class="num">${money(r.total)}</td><td><div class="flags">${f.map(([k, t]) => `<span class="chip ${k}">${esc(t)}</span>`).join("")}</div></td></tr>`; }).join("");
-  $("#cf-k1").textContent = cfRows.length;
-  $("#cf-k2").textContent = money(cfRows.reduce((a, r) => a + r.total, 0));
-  $("#cf-k3").textContent = cfRows.filter(r => flagsFor(r, rfc).some(([k]) => k === "bad" || k === "warn")).length;
+  renderFilter();
+  const rows = cfVisible(), body = $("#cf-body");
+  if (!rows.length) body.innerHTML = `<tr><td colspan="4" class="muted">${cfRows.length ? "No hay facturas con este filtro." : "Aún no hay facturas. Sube XML o el ZIP de prueba."}</td></tr>`;
+  else body.innerHTML = rows.map(r => { const f = flagsFor(r); const reg = REGIMEN[r.regimen] ? " · " + REGIMEN[r.regimen] : ""; return `<tr><td><b>${esc(r.emisor)}</b><br><span class="note mono">${esc(r.folio)} · ${esc(r.fecha)}</span></td><td>${esc(r.receptor || r.receptorRfc)}<span class="note">${esc(reg)}</span><br><span class="note">${esc(r.cat)} · ${esc(r.desc)}</span></td><td class="num">${r.tipo === "P" ? "—" : (r.tipo === "E" ? "−" : "") + money(r.total)}</td><td><div class="flags">${f.map(([k, t]) => `<span class="chip ${k}">${esc(t)}</span>`).join("")}</div></td></tr>`; }).join("");
+  $("#cf-k1").textContent = rows.length;
+  $("#cf-k2").textContent = money(rows.reduce((a, r) => a + signedTotal(r), 0));
+  $("#cf-k3").textContent = rows.filter(needsReview).length;
 }
 function addXML(xml, name) {
-  const msg = $("#cf-msg");
   try {
     const r = parseCFDI(xml);
-    if (r.uuid && cfRows.some(x => x.uuid === r.uuid)) { say(msg, (name ? name + ": " : "") + "esa factura ya está en la bandeja (mismo UUID).", "errmsg"); return false; }
-    cfRows.push(r); renderCF(); say(msg, (name ? name + ": " : "") + "factura agregada.", "okmsg"); return true;
-  } catch (e) { say(msg, (name ? name + ": " : "") + e.message, "errmsg"); return false; }
+    if (r.uuid && cfRows.some(x => x.uuid === r.uuid)) return { ok: false, dup: true, msg: (name ? name + ": " : "") + "ya estaba en la bandeja (mismo UUID)." };
+    cfRows.push(r); return { ok: true };
+  } catch (e) { return { ok: false, msg: (name ? name + ": " : "La factura ") + e.message }; }
+}
+let zipPromise = null;
+function loadJSZip() {
+  if (window.JSZip) return Promise.resolve(window.JSZip);
+  if (zipPromise) return zipPromise;
+  const add = src => new Promise((ok, fail) => { const s = document.createElement("script"); s.src = src; s.onload = () => window.JSZip ? ok(window.JSZip) : fail(); s.onerror = fail; document.head.append(s); });
+  zipPromise = add("vendor/jszip.min.js").catch(() => add("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"))
+    .catch(() => { zipPromise = null; throw new Error("No se pudo cargar el lector de ZIP. Revisa tu conexión."); });
+  return zipPromise;
+}
+async function ingest(files) {
+  const msg = $("#cf-msg"); let added = 0, dups = 0; const errs = [];
+  say(msg, "Leyendo…");
+  for (const f of files) {
+    if (/\.zip$/i.test(f.name)) {
+      try {
+        const Z = await loadJSZip(); const zip = await Z.loadAsync(await f.arrayBuffer());
+        const xmls = Object.values(zip.files).filter(z => !z.dir && /\.xml$/i.test(z.name));
+        if (!xmls.length) errs.push(f.name + ": el ZIP no trae archivos .xml.");
+        for (const z of xmls) { const r = addXML(await z.async("string"), z.name.split("/").pop()); r.ok ? added++ : r.dup ? dups++ : errs.push(r.msg); }
+      } catch (e) { errs.push(f.name + ": " + (e.message || "no se pudo abrir el ZIP.")); }
+    } else { const r = addXML(await f.text(), f.name); r.ok ? added++ : r.dup ? dups++ : errs.push(r.msg); }
+  }
+  renderCF();
+  const parts = [`${added} factura${added === 1 ? "" : "s"} agregada${added === 1 ? "" : "s"}`];
+  if (dups) parts.push(`${dups} repetida${dups === 1 ? "" : "s"} (mismo UUID)`);
+  say(msg, parts.join(", ") + "." + (errs.length ? " No se pudieron leer: " + errs.join(" ") : ""), added ? "okmsg" : "errmsg");
 }
 const cfSeg = $("#cf-samples");
 Object.keys(CF_SAMPLES).forEach(k => { const b = document.createElement("button"); b.type = "button"; b.textContent = k; b.setAttribute("aria-pressed", String(k === cfSel)); b.addEventListener("click", () => { cfSel = k; $$("#cf-samples button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); $("#cf-xml").value = CF_SAMPLES[k]; }); cfSeg.append(b); });
 $("#cf-xml").value = CF_SAMPLES[cfSel];
-$("#cf-add").addEventListener("click", () => addXML($("#cf-xml").value));
-$("#cf-file").addEventListener("change", async e => {
-  const files = [...e.target.files]; let ok = 0;
-  for (const f of files) { if (addXML(await f.text(), files.length > 1 ? f.name : "")) ok++; }
-  if (files.length > 1) say($("#cf-msg"), `${ok} de ${files.length} archivos agregados.`, ok ? "okmsg" : "errmsg");
-  e.target.value = "";
-});
-$("#cf-reset").addEventListener("click", () => { cfRows = []; say($("#cf-msg"), "Bandeja vacía. Agrega facturas para probar."); renderCF(); });
+$("#cf-add").addEventListener("click", () => { const r = addXML($("#cf-xml").value); renderCF(); say($("#cf-msg"), r.ok ? "Factura agregada." : r.msg, r.ok ? "okmsg" : "errmsg"); });
+$("#cf-file").addEventListener("change", async e => { const files = [...e.target.files]; e.target.value = ""; if (files.length) await ingest(files); });
+$("#cf-reset").addEventListener("click", () => { cfRows = []; $("#cf-filter").value = "*"; say($("#cf-msg"), "Bandeja vacía. Sube facturas para probar."); renderCF(); });
 $("#cf-rfc").addEventListener("input", renderCF);
+$("#cf-filter").addEventListener("change", renderCF);
 $("#cf-dl-sample").addEventListener("click", e => { e.preventDefault(); downloadText(`ejemplo-${norm(cfSel).replace(/[^a-z0-9]+/g, "-")}.xml`, CF_SAMPLES[cfSel], "application/xml"); });
 function cfTable() {
-  const rfc = $("#cf-rfc").value.trim();
-  return cfRows.map(r => ({ Fecha: r.fecha, Folio: r.folio, Emisor: r.emisor, "RFC emisor": r.emisorRfc, "RFC receptor": r.receptorRfc, Categoría: r.cat, Concepto: r.desc, "Método de pago": r.metodo || "", Total: r.total, UUID: r.uuid, Avisos: flagsFor(r, rfc).map(x => x[1]).join("; ") }));
+  return cfVisible().map(r => ({ Fecha: r.fecha, Folio: r.folio, Tipo: { I: "Ingreso", E: "Egreso", P: "Pago" }[r.tipo] || r.tipo, Emisor: r.emisor, "RFC emisor": r.emisorRfc, Cliente: r.receptor, "RFC cliente": r.receptorRfc, Régimen: REGIMEN[r.regimen] || r.regimen, "Uso CFDI": r.uso, Categoría: r.cat, Concepto: r.desc, "Método de pago": r.metodo, Total: signedTotal(r), UUID: r.uuid, Avisos: flagsFor(r).map(x => x[1]).join("; ") }));
 }
 $("#cf-xlsx").addEventListener("click", async () => {
-  if (!cfRows.length) return say($("#cf-msg"), "Agrega al menos una factura.", "errmsg");
-  try { await downloadXLSX("bandeja-cfdi.xlsx", "Facturas", cfTable(), [11, 12, 30, 15, 15, 24, 30, 10, 12, 38, 40]); say($("#cf-msg"), "Excel descargado.", "okmsg"); }
+  if (!cfVisible().length) return say($("#cf-msg"), "No hay facturas para exportar.", "errmsg");
+  try { await downloadXLSX("bandeja-cfdi.xlsx", "Facturas", cfTable(), [11, 12, 9, 28, 15, 24, 15, 20, 9, 22, 30, 10, 12, 38, 44]); say($("#cf-msg"), "Excel descargado.", "okmsg"); }
   catch (err) { say($("#cf-msg"), err.message, "errmsg"); }
 });
 $("#cf-csv").addEventListener("click", e => {
@@ -255,7 +336,7 @@ $("#cf-csv").addEventListener("click", e => {
   const head = Object.keys(t[0]);
   copyText([head.join("\t"), ...t.map(r => head.map(h => r[h]).join("\t"))].join("\n"), e.currentTarget);
 });
-Object.values(CF_SAMPLES).forEach(x => { try { cfRows.push(parseCFDI(x)); } catch {} });
+Object.values(CF_SAMPLES).forEach(x => addXML(x));
 renderCF();
 
 /* ============ 3. Cobranza ============ */
@@ -421,22 +502,32 @@ $("#mn-go").addEventListener("click", runManual);
 $("#mn-q").addEventListener("keydown", e => { if (e.key === "Enter") runManual(); });
 
 /* ============ 5. Inmuebles ============ */
-const RE_DEFAULT_EXTRA = $("#re-extra").value;
-const RE_EN_DEFAULT = "Restored in 2024 with high beamed ceilings, original pasta tile floors, a pool and a garden with a mango tree, three blocks from Santa Ana park.";
 const TYPE_EN = { "Casa colonial": "Colonial home", "Departamento": "Apartment", "Casa de playa": "Beach house", "Terreno": "Land" };
 const USD_RATE = 18.5;
+const RE_PRESETS = [
+  { label: "Casa colonial en Santiago", v: { type: "Casa colonial", zone: "Barrio de Santiago, Centro", bed: 3, bath: 2.5, lot: 420, built: 260, price: 6950000, extra: "Restaurada en 2024, techos altos con vigas, pisos de pasta originales, alberca, jardín con árbol de mango, a 3 cuadras del mercado de Santiago." },
+    en: "Restored in 2024 with high beamed ceilings, original pasta tile floors, a pool and a garden with a mango tree, three blocks from Santiago market." },
+  { label: "Casa de playa en Chicxulub", v: { type: "Casa de playa", zone: "Chicxulub Puerto, Progreso", bed: 3, bath: 3, lot: 300, built: 210, price: 8400000, extra: "Frente al mar, terraza en azotea con vista al atardecer, alberca, a 10 minutos del malecón de Progreso y a 40 de Mérida." },
+    en: "Beachfront, with a rooftop terrace for sunset views and a pool, 10 minutes from the Progreso boardwalk and 40 minutes from Mérida." },
+  { label: "Departamento en Temozón", v: { type: "Departamento", zone: "Temozón Norte, Mérida", bed: 2, bath: 2, lot: 0, built: 115, price: 3650000, extra: "Torre nueva con gimnasio, alberca, seguridad 24 horas y dos cajones de estacionamiento; cerca de plazas comerciales y hospitales del norte." },
+    en: "New tower with gym, pool, 24-hour security and two parking spaces; close to shopping centers and hospitals in north Mérida." }
+];
 let reLang = "es", reData = null;
+function setRE(v) { $("#re-type").value = v.type; $("#re-zone").value = v.zone; $("#re-bed").value = v.bed; $("#re-bath").value = v.bath; $("#re-lot").value = v.lot; $("#re-built").value = v.built; $("#re-price").value = v.price; $("#re-extra").value = v.extra; }
+$("#re-presets").innerHTML = RE_PRESETS.map((p, i) => `<button type="button" class="btn ghost small" data-i="${i}">${esc(p.label)}</button>`).join("");
+$$("#re-presets button").forEach(b => b.addEventListener("click", () => { setRE(RE_PRESETS[+b.dataset.i].v); $("#re-go").click(); }));
+setRE(RE_PRESETS[0].v);
 function reVals() { return { type: $("#re-type").value, zone: $("#re-zone").value.trim(), bed: +$("#re-bed").value || 0, bath: +$("#re-bath").value || 0, lot: +$("#re-lot").value || 0, built: +$("#re-built").value || 0, price: +$("#re-price").value || 0, extra: $("#re-extra").value.trim() }; }
 function reFallback(v) {
   const usd = Math.round(v.price / USD_RATE / 1000) * 1000;
   const isLand = v.type === "Terreno";
   const featEs = [!isLand && v.bed && `${v.bed} recámaras`, !isLand && v.bath && `${v.bath} baños`, v.lot && `${v.lot.toLocaleString("es-MX")} m² de terreno`, !isLand && v.built && `${v.built.toLocaleString("es-MX")} m² de construcción`].filter(Boolean).join(" · ");
   const featEn = [!isLand && v.bed && `${v.bed} bedrooms`, !isLand && v.bath && `${v.bath} bathrooms`, v.lot && `${v.lot.toLocaleString("en-US")} m² lot (${Math.round(v.lot * 10.764).toLocaleString("en-US")} sq ft)`, !isLand && v.built && `${v.built.toLocaleString("en-US")} m² built (${Math.round(v.built * 10.764).toLocaleString("en-US")} sq ft)`].filter(Boolean).join(" · ");
-  const sameExtra = v.extra === RE_DEFAULT_EXTRA;
+  const preset = RE_PRESETS.find(p => p.v.extra === v.extra);
   return {
     es: `${v.type} en ${v.zone}\n${money(v.price)} MXN\n\n${featEs}\n\n${v.extra}\n\nAgenda tu visita y recibe el plano y los documentos por correo.`,
-    en: `${TYPE_EN[v.type] || v.type} in ${v.zone}\n${money(v.price)} MXN (approx. US$${usd.toLocaleString("en-US")})\n\n${featEn}\n\n${sameExtra ? RE_EN_DEFAULT + "\n\n" : ""}Book a visit and get the floor plan and documents by email.`,
-    partial: !sameExtra
+    en: `${TYPE_EN[v.type] || v.type} in ${v.zone}\n${money(v.price)} MXN (approx. US$${usd.toLocaleString("en-US")})\n\n${featEn}\n\n${preset ? preset.en + "\n\n" : ""}Book a visit and get the floor plan and documents by email.`,
+    partial: !preset
   };
 }
 function renderRE() {
@@ -449,7 +540,7 @@ function renderRE() {
 }
 $("#re-es").addEventListener("click", () => { reLang = "es"; renderRE(); }); $("#re-en").addEventListener("click", () => { reLang = "en"; renderRE(); });
 $("#re-go").addEventListener("click", async e => {
-  const btn = e.currentTarget; const v = reVals(); const fb = reFallback(v); btn.disabled = true;
+  const btn = $("#re-go"); const v = reVals(); const fb = reFallback(v); btn.disabled = true;
   if (aiMode === "none") { reData = fb; $("#re-src").innerHTML = badge(false); renderRE(); btn.disabled = false; return; }
   $("#re-out").textContent = "Escribiendo…";
   try {
@@ -462,39 +553,51 @@ $("#re-go").addEventListener("click", async e => {
 $("#re-copy").addEventListener("click", e => copyText($("#re-out").textContent, e.currentTarget));
 
 /* ============ 6. Agenda ============ */
-const SVCS = [["Limpieza dental", 40, 600], ["Valoración de ortodoncia", 30, 0], ["Blanqueamiento", 60, 2800], ["Resina (caries)", 45, 900]];
-const CLINIC = { name: "Clínica Dental Montejo", addr: "Calle 31 #210, col. México, Mérida" };
-$("#ag-svc").innerHTML = SVCS.map(([n, m, p], i) => `<option value="${i}">${n} · ${m} min · ${p ? money(p) : "sin costo"}</option>`).join("");
+const SVCS = [["Limpieza dental", "Dental cleaning", 40, 600], ["Valoración de implante", "Implant consultation", 45, 800], ["Blanqueamiento", "Teeth whitening", 60, 2800], ["Resina (caries)", "Tooth-colored filling", 45, 900]];
+const CLINIC = { name: "Clínica Dental Montejo (ejemplo)", addr: "Calle 31, col. México, Mérida" };
+const DEFAULT_NAME = { es: "Mariana Pech", en: "Mary Johnson" };
+let agLang = "es", agPick = null, agReply = 0;
+const loc = () => agLang === "en" ? "en-US" : "es-MX";
+function renderSvcs() { const cur = $("#ag-svc").value || "0"; $("#ag-svc").innerHTML = SVCS.map(([es, en, m, p], i) => `<option value="${i}">${agLang === "en" ? en : es} · ${m} min · ${money(p)} MXN${agLang === "en" ? ` (≈ US$${Math.round(p / USD_RATE)})` : ""}</option>`).join(""); $("#ag-svc").value = cur; }
 const taken = new Set(["1-10:30", "1-12:00", "2-09:00", "3-16:30", "3-17:30"]);
 const TIMES = ["09:00", "10:30", "12:00", "16:30", "17:30"];
-let agPick = null, agReply = 0;
 function bizDays(n) { const out = []; const d = new Date(today); while (out.length < n) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0) out.push(new Date(d)); } return out; }
 const DAYS = bizDays(3);
 function renderAG() {
-  $("#ag-days").innerHTML = DAYS.map((d, di) => `<p class="day-label">${d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })}</p><div class="slots">${TIMES.map(t => { const k = (di + 1) + "-" + t; const dis = taken.has(k); const on = agPick && agPick.k === k; return `<button type="button" class="slot" data-k="${k}" data-d="${di}" data-t="${t}" ${dis ? `disabled aria-label="${t} ocupado"` : ""} aria-pressed="${on}">${t}</button>`; }).join("")}</div>`).join("");
+  $("#ag-days").innerHTML = DAYS.map((d, di) => `<p class="day-label">${d.toLocaleDateString(loc(), { weekday: "long", day: "numeric", month: "long" })}</p><div class="slots">${TIMES.map(t => { const k = (di + 1) + "-" + t; const dis = taken.has(k); const on = agPick && agPick.k === k; return `<button type="button" class="slot" data-k="${k}" data-d="${di}" data-t="${t}" ${dis ? `disabled aria-label="${t} ocupado"` : ""} aria-pressed="${on}">${t}</button>`; }).join("")}</div>`).join("");
   $$("#ag-days .slot:not([disabled])").forEach(b => b.addEventListener("click", () => { agPick = { k: b.dataset.k, d: DAYS[+b.dataset.d], t: b.dataset.t }; agReply = 0; renderAG(); renderWA(); }));
 }
 function agTimes() {
-  const [svc, mins] = SVCS[+$("#ag-svc").value]; const [h, m] = agPick.t.split(":").map(Number);
+  const s = SVCS[+$("#ag-svc").value]; const [h, m] = agPick.t.split(":").map(Number);
   const start = new Date(agPick.d); start.setHours(h, m, 0, 0);
-  const end = new Date(start.getTime() + mins * 60000);
+  const end = new Date(start.getTime() + s[2] * 60000);
   const f = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
-  return { svc, start: f(start), end: f(end) };
+  return { svc: agLang === "en" ? s[1] : s[0], start: f(start), end: f(end) };
 }
 function renderWA() {
   if (!agPick) return;
-  const [svc, , price] = SVCS[+$("#ag-svc").value]; const name = $("#ag-name").value.trim() || "Paciente";
-  const fecha = agPick.d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" });
+  const s = SVCS[+$("#ag-svc").value]; const en = agLang === "en"; const svc = en ? s[1] : s[0]; const price = s[3];
+  const name = $("#ag-name").value.trim() || (en ? "Patient" : "Paciente");
+  const fecha = agPick.d.toLocaleDateString(loc(), { weekday: "long", day: "numeric", month: "long" });
   const prev = new Date(agPick.d); prev.setDate(prev.getDate() - 1);
-  let html = `<div class="bubble">¡Hola ${esc(name)}! Tu cita de <b>${esc(svc)}</b> quedó agendada para el <b>${fecha} a las ${agPick.t}</b> en ${CLINIC.name}, ${CLINIC.addr}.${price ? " Costo: " + money(price) + "." : ""}<time>ahora</time></div>`;
-  html += `<div class="bubble">Recordatorio: mañana a las ${agPick.t} tienes tu ${esc(svc.toLowerCase())}. Responde 1 para confirmar o 2 para cambiar la cita.\nEscribe BAJA para no recibir mensajes.<time>${prev.toLocaleDateString("es-MX", { day: "numeric", month: "short" })} · 10:00</time></div>`;
-  if (agReply === 1) html += `<div class="bubble me">1<time>10:02</time></div><div class="bubble">¡Gracias! Tu cita está confirmada. Te esperamos 10 minutos antes. 😊<time>10:02</time></div>`;
-  if (agReply === 2) html += `<div class="bubble me">2<time>10:03</time></div><div class="bubble">Sin problema. Liberamos tu horario y en unos minutos te escribe nuestra recepción para elegir uno nuevo.<time>10:03</time></div>`;
+  const prevTxt = prev.toLocaleDateString(loc(), { day: "numeric", month: "short" });
+  let html = en
+    ? `<div class="bubble">Hi ${esc(name)}! Your <b>${esc(svc.toLowerCase())}</b> is booked for <b>${fecha} at ${agPick.t}</b> at ${CLINIC.name}, ${CLINIC.addr}. Cost: ${money(price)} MXN (≈ US$${Math.round(price / USD_RATE)}).<time>now</time></div>`
+      + `<div class="bubble">Reminder: tomorrow at ${agPick.t} you have your ${esc(svc.toLowerCase())}. Reply 1 to confirm or 2 to reschedule.\nReply STOP to opt out.<time>${prevTxt} · 10:00</time></div>`
+    : `<div class="bubble">¡Hola ${esc(name)}! Tu cita de <b>${esc(svc)}</b> quedó agendada para el <b>${fecha} a las ${agPick.t}</b> en ${CLINIC.name}, ${CLINIC.addr}. Costo: ${money(price)}.<time>ahora</time></div>`
+      + `<div class="bubble">Recordatorio: mañana a las ${agPick.t} tienes tu ${esc(svc.toLowerCase())}. Responde 1 para confirmar o 2 para cambiar la cita.\nEscribe BAJA para no recibir mensajes.<time>${prevTxt} · 10:00</time></div>`;
+  if (agReply === 1) html += `<div class="bubble me">1<time>10:02</time></div><div class="bubble">${en ? "Thank you! Your appointment is confirmed. Please arrive 10 minutes early. 😊" : "¡Gracias! Tu cita está confirmada. Te esperamos 10 minutos antes. 😊"}<time>10:02</time></div>`;
+  if (agReply === 2) html += `<div class="bubble me">2<time>10:03</time></div><div class="bubble">${en ? "No problem. We've released your slot, and our front desk will message you shortly to pick a new time." : "Sin problema. Liberamos tu horario y en unos minutos te escribe nuestra recepción para elegir uno nuevo."}<time>10:03</time></div>`;
   $("#ag-wa").innerHTML = html;
   const t = agTimes();
-  const details = `Paciente: ${name}. Servicio: ${svc}. Confirmación por WhatsApp.`;
-  $("#ag-gcal").href = "https://calendar.google.com/calendar/render?" + new URLSearchParams({ action: "TEMPLATE", text: `${svc} · ${name}`, dates: `${t.start}/${t.end}`, ctz: "America/Merida", details, location: CLINIC.name + ", " + CLINIC.addr }).toString();
+  $("#ag-gcal").href = "https://calendar.google.com/calendar/render?" + new URLSearchParams({ action: "TEMPLATE", text: `${t.svc} · ${name}`, dates: `${t.start}/${t.end}`, ctz: "America/Merida", details: `${en ? "Patient" : "Paciente"}: ${name}. ${en ? "Confirmed via WhatsApp." : "Confirmación por WhatsApp."}`, location: CLINIC.name + ", " + CLINIC.addr }).toString();
 }
+function setAgLang(l) {
+  const nameEl = $("#ag-name"); if (!nameEl.value.trim() || nameEl.value === DEFAULT_NAME[agLang]) nameEl.value = DEFAULT_NAME[l];
+  agLang = l; $("#ag-es").setAttribute("aria-pressed", String(l === "es")); $("#ag-en").setAttribute("aria-pressed", String(l === "en"));
+  renderSvcs(); renderAG(); renderWA();
+}
+$("#ag-es").addEventListener("click", () => setAgLang("es")); $("#ag-en").addEventListener("click", () => setAgLang("en"));
 function pickFirst() { if (!agPick) { const b = $("#ag-days .slot:not([disabled])"); b && b.click(); } }
 $("#ag-svc").addEventListener("change", () => renderWA()); $("#ag-name").addEventListener("input", () => renderWA());
 $("#ag-r1").addEventListener("click", () => { pickFirst(); agReply = 1; renderWA(); });
@@ -512,7 +615,7 @@ $("#ag-ics").addEventListener("click", () => {
     "END:VEVENT", "END:VCALENDAR"].join("\r\n");
   downloadText("cita.ics", ics, "text/calendar");
 });
-renderAG();
+renderSvcs(); renderAG();
 { const first = $("#ag-days .slot:not([disabled])"); if (first) first.click(); }
 
 /* ============ Contacto ============ */

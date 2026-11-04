@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Guía de prueba · Xook IA</title>
+<style>
+@page{size:Letter;margin:16mm 16mm 18mm}
+body{font:10.5pt/1.5 Inter,"DejaVu Sans",sans-serif;color:#101C1B}
+h1{font:600 22pt/1.1 "Inter Display",Inter,sans-serif;margin:0 0 4px;letter-spacing:-.02em}
+h2{font:600 13pt Inter,sans-serif;margin:18px 0 6px;color:#0B4F4A;border-bottom:1.5px solid #E2DED5;padding-bottom:4px;break-after:avoid}
+.sub{color:#5E6A67;margin:0 0 10px}
+table{width:100%;border-collapse:collapse;margin:4px 0 6px;break-inside:auto}
+tr{break-inside:avoid}
+th,td{border:1px solid #E2DED5;padding:5px 7px;vertical-align:top;text-align:left}
+th{background:#F6F4EF;font-weight:600;font-size:9pt}
+td:first-child{width:22px;text-align:center;color:#0B4F4A;font-weight:600}
+code{font:9pt "DejaVu Sans Mono",monospace;background:#F3F1EB;padding:1px 4px;border-radius:3px}
+.box{background:#E1EEEB;border-radius:8px;padding:8px 12px;margin:8px 0}
+.ok{color:#2F7A4A;font-weight:600}
+</style></head><body>
+<h1>Guía de prueba de los demos</h1>
+<p class="sub">Xook IA · sitio: kalebtf.github.io/xook-portafolio · 4 de noviembre de 2026</p>
+<div class="box"><b>Cómo usarla:</b> abre el sitio en tu celular o computadora. Sigue cada paso con el archivo indicado (están en la carpeta <code>archivos-de-prueba</code>) y revisa que pase lo de la columna “Debe pasar”. Marca ✓ al terminar. Todos los negocios y datos son ficticios.</div>
+
+<h2>1. Reseñas y web bilingüe</h2>
+<table><tr><th>#</th><th>Haz esto</th><th>Debe pasar</th><th>✓</th></tr>
+<tr><td>1</td><td>Elige “Restaurante”, la reseña de Jennifer (en inglés) y pulsa “Redactar respuesta”.</td><td>Respuesta en inglés que menciona el menú en inglés.</td><td></td></tr>
+<tr><td>2</td><td>Cambia el tono a “Profesional” y luego a “Muy breve”; redacta cada vez.</td><td>Cada tono da un texto distinto.</td><td></td></tr>
+<tr><td>3</td><td>Elige “Hotel boutique” y la reseña de Daniela (3 estrellas).</td><td>Respuesta en español que reconoce el problema de las maletas.</td><td></td></tr>
+<tr><td>4</td><td>En “Tu web bilingüe”, pulsa English.</td><td>La mini web cambia a inglés, con tarifas en USD.</td><td></td></tr>
+</table>
+
+<h2>2. Bandeja CFDI (contadores)</h2>
+<table><tr><th>#</th><th>Haz esto</th><th>Debe pasar</th><th>✓</th></tr>
+<tr><td>1</td><td>Pulsa “Vaciar”. Luego “Subir .xml o .zip” y elige <code>cfdi/descarga-masiva-SAT-octubre.zip</code>.</td><td>“10 facturas agregadas”.</td><td></td></tr>
+<tr><td>2</td><td>Busca la factura A-1311 (laptop a crédito, PPD).</td><td>Dice “PPD: pago recibido (CP-301)”, porque el complemento de pago está en el ZIP.</td><td></td></tr>
+<tr><td>3</td><td>Revisa los avisos de la tabla.</td><td>Aparecen: Sin timbre, No es de tus clientes, Sin efectos fiscales, Versión 3.3, Nota de crédito, RESICO.</td><td></td></tr>
+<tr><td>4</td><td>En “Ver”, elige KARLA FUENTE NOLASCO.</td><td>Solo 2 facturas (software y honorarios).</td><td></td></tr>
+<tr><td>5</td><td>En “Ver”, elige “Solo por revisar”.</td><td>Solo las que tienen avisos rojos o amarillos.</td><td></td></tr>
+<tr><td>6</td><td>Sube juntos <code>11-archivo-roto.xml</code>, <code>12-xml-que-no-es-factura.xml</code> y <code>01-gasolina-correcta.xml</code>.</td><td>Avisa: uno no es XML válido, otro no es factura y uno ya estaba (repetido).</td><td></td></tr>
+<tr><td>7</td><td>Pulsa “Descargar Excel” y ábrelo.</td><td>Un .xlsx con fecha, folio, cliente, régimen, categoría, total, UUID y avisos.</td><td></td></tr>
+</table>
+
+<h2>3. Cobranza amable (distribuidoras)</h2>
+<table><tr><th>#</th><th>Haz esto</th><th>Debe pasar</th><th>✓</th></tr>
+<tr><td>1</td><td>Pulsa “Subir mi Excel o CSV” y elige <code>cobranza/1-cartera-distribuidora.xlsx</code>.</td><td>“25 facturas leídas”. Los más atrasados salen arriba.</td><td></td></tr>
+<tr><td>2</td><td>Pulsa “Recordar” en el primero y cambia a WhatsApp.</td><td>Mensaje firme pero amable, con días de atraso y la línea “BAJA”.</td><td></td></tr>
+<tr><td>3</td><td>Pulsa “Descargar reporte Excel” y ábrelo.</td><td>Una fila por cliente, con etapa y mensajes listos para correo y WhatsApp.</td><td></td></tr>
+<tr><td>4</td><td>Sube <code>2-cartera-otro-formato.xlsx</code> (otros nombres de columna, montos con $, fechas como texto).</td><td>“12 facturas leídas”.</td><td></td></tr>
+<tr><td>5</td><td>Sube <code>3-cartera.csv</code>.</td><td>“13 facturas leídas”.</td><td></td></tr>
+<tr><td>6</td><td>Sube <code>4-cartera-filas-incompletas.xlsx</code>.</td><td>“3 facturas leídas, 3 filas omitidas”.</td><td></td></tr>
+<tr><td>7</td><td>Sube <code>5-archivo-equivocado.xlsx</code>.</td><td>Avisa “Faltan columnas”, sin romperse.</td><td></td></tr>
+<tr><td>8</td><td>Pulsa “Descargar plantilla”, llénala con 2 o 3 clientes inventados y súbela.</td><td>Lee tus datos.</td><td></td></tr>
+</table>
+
+<h2>4. Pregúntale a tus manuales</h2>
+<table><tr><th>#</th><th>Haz esto</th><th>Debe pasar</th><th>✓</th></tr>
+<tr><td>1</td><td>Pulsa cada una de las 4 preguntas sugeridas.</td><td>15 días · $450 · 12 días · “No encontré” (Cancún).</td><td></td></tr>
+<tr><td>2</td><td>Escribe: “¿Quién autoriza un convenio de pago?”</td><td>El gerente de cobranza (sección 3).</td><td></td></tr>
+<tr><td>3</td><td>Escribe: “¿Cuál es el sueldo del director?”</td><td>Dice que no está en el manual.</td><td></td></tr>
+</table>
+
+<h2>5. Fichas de inmuebles</h2>
+<table><tr><th>#</th><th>Haz esto</th><th>Debe pasar</th><th>✓</th></tr>
+<tr><td>1</td><td>Pulsa “Casa de playa en Chicxulub” y luego English.</td><td>Ficha en inglés con USD y sq ft.</td><td></td></tr>
+<tr><td>2</td><td>Pulsa “Departamento en Temozón”.</td><td>No menciona terreno (es depto).</td><td></td></tr>
+<tr><td>3</td><td>Escribe tus propios “Detalles” y crea la ficha en inglés.</td><td>No inventa nada; avisa que los detalles libres se traducen con IA en vivo.</td><td></td></tr>
+</table>
+
+<h2>6. Citas y recordatorios (clínica dental)</h2>
+<table><tr><th>#</th><th>Haz esto</th><th>Debe pasar</th><th>✓</th></tr>
+<tr><td>1</td><td>Elige un horario y pulsa “Paciente responde 1”, luego “2”.</td><td>Confirma, o libera el horario y pasa a recepción.</td><td></td></tr>
+<tr><td>2</td><td>Pulsa “Patient in English”.</td><td>Mensajes en inglés para Mary Johnson, con precio en USD y “STOP”.</td><td></td></tr>
+<tr><td>3</td><td>Pulsa “Agregar a Google Calendar”.</td><td>Se abre Google Calendar con la cita a la hora de Mérida.</td><td></td></tr>
+<tr><td>4</td><td>Pulsa “Descargar .ics” y ábrelo en tu celular.</td><td>Se agrega al calendario, con aviso un día antes.</td><td></td></tr>
+</table>
+
+<h2>7. Resto del sitio</h2>
+<table><tr><th>#</th><th>Haz esto</th><th>Debe pasar</th><th>✓</th></tr>
+<tr><td>1</td><td>Toca cada tarjeta de “Soluciones por giro”.</td><td>Te lleva a su demo.</td><td></td></tr>
+<tr><td>2</td><td>En Contacto, escribe un negocio y pulsa “Escribir mi solicitud” y luego “Enviar por correo”.</td><td>Se abre tu correo con el mensaje listo.</td><td></td></tr>
+<tr><td>3</td><td>Manda la liga del sitio por WhatsApp a ti mismo.</td><td>Sale la vista previa con imagen.</td><td></td></tr>
+<tr><td>4</td><td>Abre el sitio con el modo oscuro del celular.</td><td>Todo se lee bien.</td><td></td></tr>
+</table>
+<p class="sub" style="margin-top:14px">Si algo no pasa como dice aquí, toma captura y mándala a Claude con el número de paso.</p>
+</body></html>

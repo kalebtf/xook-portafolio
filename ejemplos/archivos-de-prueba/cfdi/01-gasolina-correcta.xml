@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="GAS" Folio="88231" Fecha="2026-10-28T10:00:00" FormaPago="04" MetodoPago="PUE" SubTotal="1034.48" Moneda="MXN" Total="1200.00" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="CACX7605101P8" Nombre="XOCHILT CASAS CHAVEZ" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="612" UsoCFDI="G03"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="15101514" Cantidad="1" ClaveUnidad="E48" Descripcion="Gasolina Magna" ValorUnitario="1034.48" Importe="1034.48" ObjetoImp="02"/></cfdi:Conceptos>
+  <cfdi:Complemento><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="D23F0824-128B-2F33-0C5C-7FD0A6A3A450" FechaTimbrado="2026-10-28T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>

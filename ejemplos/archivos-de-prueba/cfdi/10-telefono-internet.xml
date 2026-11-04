@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="T" Folio="6612" Fecha="2026-10-09T10:00:00" FormaPago="04" MetodoPago="PUE" SubTotal="689.66" Moneda="MXN" Total="800.01" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="CACX7605101P8" Nombre="XOCHILT CASAS CHAVEZ" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="612" UsoCFDI="G03"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="83111603" Cantidad="1" ClaveUnidad="E48" Descripcion="Servicio de internet y telefonía" ValorUnitario="689.66" Importe="689.66" ObjetoImp="02"/></cfdi:Conceptos>
+  <cfdi:Complemento><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="0FD630F1-F29D-0DA9-953F-48F1A09F76B5" FechaTimbrado="2026-10-09T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>

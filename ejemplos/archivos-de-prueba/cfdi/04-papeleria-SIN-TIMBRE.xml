@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="P" Folio="77" Fecha="2026-10-15T10:00:00" FormaPago="04" MetodoPago="PUE" SubTotal="1290.00" Moneda="MXN" Total="1496.40" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="CACX7605101P8" Nombre="XOCHILT CASAS CHAVEZ" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="612" UsoCFDI="G03"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="44121618" Cantidad="1" ClaveUnidad="E48" Descripcion="Hojas, carpetas y tóner" ValorUnitario="1290.00" Importe="1290.00" ObjetoImp="02"/></cfdi:Conceptos>
+</cfdi:Comprobante>

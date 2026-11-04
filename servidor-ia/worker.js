@@ -22,6 +22,10 @@ const MANUAL = [
   ["6. Viáticos", "Los viajes fuera de Mérida tienen viáticos de $650 por día para alimentos. Se comprueban con CFDI a nombre de la empresa en los 5 días hábiles siguientes al viaje."],
   ["7. Seguridad en almacén", "Es obligatorio usar casco, chaleco y zapato de seguridad en el patio de carga. Los montacargas solo los operan personas con certificación vigente."]
 ];
+const BIZ_CTX = {
+  rest: `"Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57, el turno de cocina de fin de semana se reforzó y el mesero ahora avisa el tiempo estimado)`,
+  hotel: `"Casa Ejemplo Hotel Boutique", hotel en una casona de 1890 en la Calle 55, a una cuadra del parque de Santa Lucía, Centro de Mérida (check-in 15:00, guarda maletas desde las 10:00, ingreso anticipado si avisan por WhatsApp, desayuno incluido, alberca pequeña, el aire acondicionado de las habitaciones se revisó esta semana, reserva directa por WhatsApp y precios aproximados en USD en la web)`
+};
 const TONES = { calido: "cálido y cercano", profesional: "profesional y formal (usted)", breve: "muy breve, máximo 30 palabras" };
 const cut = (s, n) => String(s ?? "").slice(0, n);
 const num = (v, max) => Math.max(0, Math.min(Number(v) || 0, max));
@@ -29,7 +33,7 @@ const num = (v, max) => Math.max(0, Math.min(Number(v) || 0, max));
 function buildPrompt(task, d) {
   if (task === "resena") {
     const lang = d.lang === "en" ? "inglés" : "español";
-    return { max: 300, json: false, prompt: `Eres el dueño de "Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57). Responde esta reseña de Google en ${lang}, tono ${TONES[d.tone] || TONES.calido}, máximo 70 palabras. Agradece; si hay queja, reconócela sin excusas y di qué se hizo; invita a volver; firma como el equipo. No inventes descuentos ni datos que no estén aquí. Solo el texto de la respuesta.\n\nReseña (${num(d.stars, 5)} estrellas) de ${cut(d.name, 60)}: "${cut(d.review, 600)}"` };
+    return { max: 300, json: false, prompt: `Eres el dueño de ${BIZ_CTX[d.biz] || BIZ_CTX.rest}. Responde esta reseña de Google en ${lang}, tono ${TONES[d.tone] || TONES.calido}, máximo 70 palabras. Agradece; si hay queja, reconócela sin excusas y di qué se hizo; invita a volver; firma como el equipo. No inventes descuentos ni datos que no estén aquí. Solo el texto de la respuesta.\n\nReseña (${num(d.stars, 5)} estrellas) de ${cut(d.name, 60)}: "${cut(d.review, 600)}"` };
   }
   if (task === "cobranza") {
     return { max: 350, json: false, prompt: `Mejora este recordatorio de cobranza de una empresa de Mérida. Mantén TODOS los datos exactos (nombre, folio, monto, fecha, días), tono respetuoso y cercano, en español de México, sin amenazas ni presión indebida, ${d.channel === "wa" ? "máximo 60 palabras y conserva la línea final para responder BAJA" : "formato correo con asunto"}. Solo el mensaje final.\n\n${cut(d.base, 900)}` };

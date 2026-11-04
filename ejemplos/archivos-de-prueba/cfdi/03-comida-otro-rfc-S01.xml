@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="R" Folio="5521" Fecha="2026-11-01T10:00:00" FormaPago="04" MetodoPago="PUE" SubTotal="862.07" Moneda="MXN" Total="1000.00" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="EKU9003173C9" Nombre="ESCUELA KEMPER URGATE" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="XAXX010101000" Nombre="PUBLICO EN GENERAL" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="616" UsoCFDI="S01"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="90101501" Cantidad="1" ClaveUnidad="E48" Descripcion="Consumo de alimentos" ValorUnitario="862.07" Importe="862.07" ObjetoImp="02"/></cfdi:Conceptos>
+  <cfdi:Complemento><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="9531985D-5D9D-C9F8-1818-E811892F902B" FechaTimbrado="2026-11-01T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>

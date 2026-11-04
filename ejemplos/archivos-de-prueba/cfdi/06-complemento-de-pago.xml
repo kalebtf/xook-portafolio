@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="CP" Folio="301" Fecha="2026-11-02T10:00:00" SubTotal="0.00" Moneda="XXX" Total="0.00" TipoDeComprobante="P" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="CACX7605101P8" Nombre="XOCHILT CASAS CHAVEZ" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="612" UsoCFDI="CP01"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="84111506" Cantidad="1" ClaveUnidad="ACT" Descripcion="Pago" ValorUnitario="0.00" Importe="0.00" ObjetoImp="02"/></cfdi:Conceptos>
+  <cfdi:Complemento><pago20:Pagos xmlns:pago20="http://www.sat.gob.mx/Pagos20" Version="2.0"><pago20:Totales MontoTotalPagos="17980.00"/><pago20:Pago FechaPago="2026-11-02T12:00:00" FormaDePagoP="03" MonedaP="MXN" Monto="17980.00"><pago20:DoctoRelacionado IdDocumento="6513270E-269E-0D37-F2A7-4DE452E6B438" Serie="A" Folio="1311" MonedaDR="MXN" NumParcialidad="1" ImpSaldoAnt="17980.00" ImpPagado="17980.00" ImpSaldoInsoluto="0.00" ObjetoImpDR="01"/></pago20:Pago></pago20:Pagos><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="6B0D549B-6F03-675A-1600-A35A099950D8" FechaTimbrado="2026-11-02T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>

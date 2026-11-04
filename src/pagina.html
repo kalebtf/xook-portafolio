@@ -3,282 +3,327 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
+/* Xook IA v3 — editorial, professional. Limestone background, deep green brand, amber accent, real photos. */
 :root{
-  --bg:#F3F5F2; --surface:#FFFFFF; --sunk:#E7ECE8; --line:#D3DBD6;
-  --fg:#14211F; --muted:#56655F;
-  --teal:#0D5C61; --teal-ink:#FFFFFF; --teal-soft:#D7E8E6;
-  --yellow:#E2A919; --yellow-ink:#2A1F00; --yellow-soft:#F8EBC4;
-  --green:#3D7A3A; --red:#B3392E; --amber:#A86A00;
-  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --bg:#F6F4EF; --surface:#FFFFFF; --sunk:#EFECE5; --line:#E2DED5; --line-strong:#CFC9BC;
+  --fg:#101C1B; --muted:#5E6A67;
+  --brand:#0B4F4A; --brand-ink:#FFFFFF; --brand-soft:#E1EEEB; --brand-deep:#0A2E2B;
+  --accent:#C98A12; --accent-ink:#1F1600; --accent-soft:#F6EAD0;
+  --ok:#2F7A4A; --warn:#A06400; --bad:#B3392E;
+  --ink:#0C1716;
+  --sans:"Instrument Sans", "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --serif:"Instrument Serif", "Iowan Old Style", Georgia, serif;
   --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --r:14px; --r-sm:9px;
-  --shadow:0 1px 2px rgb(20 33 31 / .06), 0 8px 24px -12px rgb(20 33 31 / .18);
+  --r:16px; --r-sm:10px;
+  --shadow:0 1px 2px rgb(16 28 27 / .05), 0 12px 32px -16px rgb(16 28 27 / .22);
+  --shadow-lg:0 2px 4px rgb(16 28 27 / .06), 0 30px 60px -28px rgb(16 28 27 / .45);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0C1A1B; --surface:#132527; --sunk:#0F2022; --line:#24393B;
-    --fg:#E6EEEB; --muted:#9DB0AA;
-    --teal:#4FB3B0; --teal-ink:#06191A; --teal-soft:#16393A;
-    --yellow:#F0BE3C; --yellow-ink:#231A00; --yellow-soft:#3A3014;
-    --green:#7BC274; --red:#F08174; --amber:#E9AE45;
-    --shadow:0 1px 2px rgb(0 0 0 / .3), 0 10px 28px -14px rgb(0 0 0 / .6);
+    --bg:#0B1413; --surface:#111D1C; --sunk:#0E1918; --line:#22302E; --line-strong:#2E3E3B;
+    --fg:#E8EEEC; --muted:#9AABA6;
+    --brand:#5CB8AE; --brand-ink:#04211E; --brand-soft:#16312E; --brand-deep:#071917;
+    --accent:#E7B04A; --accent-ink:#1F1600; --accent-soft:#3A2E14;
+    --ok:#73C08E; --warn:#E5AE4E; --bad:#F08174;
+    --shadow:0 1px 2px rgb(0 0 0 / .35), 0 14px 34px -16px rgb(0 0 0 / .7);
+    --shadow-lg:0 2px 4px rgb(0 0 0 / .4), 0 30px 60px -28px rgb(0 0 0 / .8);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0C1A1B; --surface:#132527; --sunk:#0F2022; --line:#24393B;
-  --fg:#E6EEEB; --muted:#9DB0AA;
-  --teal:#4FB3B0; --teal-ink:#06191A; --teal-soft:#16393A;
-  --yellow:#F0BE3C; --yellow-ink:#231A00; --yellow-soft:#3A3014;
-  --green:#7BC274; --red:#F08174; --amber:#E9AE45;
-  --shadow:0 1px 2px rgb(0 0 0 / .3), 0 10px 28px -14px rgb(0 0 0 / .6);
+  --bg:#0B1413; --surface:#111D1C; --sunk:#0E1918; --line:#22302E; --line-strong:#2E3E3B;
+  --fg:#E8EEEC; --muted:#9AABA6;
+  --brand:#5CB8AE; --brand-ink:#04211E; --brand-soft:#16312E; --brand-deep:#071917;
+  --accent:#E7B04A; --accent-ink:#1F1600; --accent-soft:#3A2E14;
+  --ok:#73C08E; --warn:#E5AE4E; --bad:#F08174;
+  --shadow:0 1px 2px rgb(0 0 0 / .35), 0 14px 34px -16px rgb(0 0 0 / .7);
+  --shadow-lg:0 2px 4px rgb(0 0 0 / .4), 0 30px 60px -28px rgb(0 0 0 / .8);
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0;letter-spacing:-.015em}
-h1{font-size:clamp(2.2rem,5.4vw,4rem);font-weight:800}
-h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700}
-h3{font-size:1.2rem;font-weight:700;letter-spacing:-.005em}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--sans);line-height:1.08;text-wrap:balance;margin:0;letter-spacing:-.022em;font-weight:600}
+h1{font-size:clamp(2.4rem,5.6vw,4.4rem);letter-spacing:-.03em}
+h2{font-size:clamp(1.85rem,3.6vw,2.9rem)}
+h3{font-size:1.18rem;letter-spacing:-.01em}
+.serif{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.01em}
 p{margin:0}
-a{color:var(--teal)}
-.eyebrow{font:600 .74rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+a{color:var(--brand)}
+.eyebrow{font:500 .74rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
 .muted{color:var(--muted)}
 .mono{font-family:var(--mono)}
 button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:6px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:99px;padding:12px 22px;font-weight:600;cursor:pointer;text-decoration:none;transition:transform .15s ease,background .15s,box-shadow .15s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--brand);color:var(--brand-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.accent,.btn.yellow{background:var(--accent);color:var(--accent-ink)}
+.btn.light{background:#fff;color:#0C1716}
+.btn.ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1.5px var(--line-strong)}
+.btn.ghost:hover{background:var(--sunk)}
+.btn.ghost-light{background:rgb(255 255 255 / .08);color:#fff;box-shadow:inset 0 0 0 1.5px rgb(255 255 255 / .45)}
+.btn.ghost-light:hover{background:rgb(255 255 255 / .16)}
+.btn.small{padding:8px 15px;font-size:.88rem}
+.btn[disabled]{opacity:.55;cursor:progress}
+.arrow::after{content:"→";transition:transform .15s}
+a:hover .arrow::after,.arrow:hover::after{transform:translateX(3px)}
 
 /* Header */
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:16px;padding-block:12px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
-.brand-mark{width:34px;height:34px;border-radius:10px;background:var(--teal);display:grid;place-items:center;color:var(--teal-ink);font:800 1.05rem var(--display)}
-.brand b{font:800 1.15rem var(--display);letter-spacing:-.02em}
-.brand small{display:block;font:500 .68rem var(--mono);color:var(--muted);letter-spacing:.06em}
-nav.links{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
-nav.links a{padding:8px 12px;border-radius:99px;text-decoration:none;color:var(--fg);font-weight:600;font-size:.92rem}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:var(--brand);display:grid;place-items:center;color:var(--brand-ink);font:700 1.05rem var(--sans)}
+.brand b{font:700 1.12rem var(--sans);letter-spacing:-.02em}
+.brand small{display:block;font:500 .64rem var(--mono);color:var(--muted);letter-spacing:.1em}
+nav.links{margin-left:auto;display:flex;gap:2px;align-items:center}
+nav.links a{padding:8px 12px;border-radius:99px;text-decoration:none;color:var(--fg);font-weight:500;font-size:.93rem}
 nav.links a:hover{background:var(--sunk)}
-nav.links a.cta{background:var(--yellow);color:var(--yellow-ink)}
-@media (max-width:760px){nav.links a:not(.cta){display:none}}
+nav.links a.cta{background:var(--fg);color:var(--bg);margin-left:6px;font-weight:600}
+@media (max-width:860px){nav.links a:not(.cta){display:none}}
 
-/* Hero */
-.hero{padding-block:56px 40px}
-.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:32px}}
-.hero h1 em{font-style:normal;color:var(--teal);background:linear-gradient(transparent 62%,var(--yellow-soft) 62%)}
-.lede{font-size:1.18rem;color:var(--muted);max-width:34em;margin-top:18px}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:99px;padding:12px 20px;font-weight:700;cursor:pointer;text-decoration:none;transition:transform .15s ease, background .15s}
-.btn:active{transform:translateY(1px)}
-.btn.primary{background:var(--teal);color:var(--teal-ink)}
-.btn.primary:hover{filter:brightness(1.08)}
-.btn.ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1.5px var(--line)}
-.btn.ghost:hover{background:var(--sunk)}
-.btn.small{padding:8px 14px;font-size:.88rem}
-.btn.yellow{background:var(--yellow);color:var(--yellow-ink)}
-.btn[disabled]{opacity:.55;cursor:progress}
-.trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:28px;font-size:.88rem;color:var(--muted)}
-.trust span::before{content:"✓ ";color:var(--green);font-weight:700}
-
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:18px;display:grid;gap:12px}
-.panel-head{display:flex;justify-content:space-between;align-items:center;font:500 .78rem var(--mono);color:var(--muted)}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px;vertical-align:middle;animation:pulse 2.4s infinite}
+/* Hero with photo */
+.hero{position:relative;color:#fff;background:var(--ink);overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(90deg,rgb(7 18 17 / .92) 0%,rgb(7 18 17 / .78) 42%,rgb(7 18 17 / .35) 100%),
+  var(--hero-img,none) center/cover no-repeat,
+  radial-gradient(1200px 600px at 80% 20%,#1E5C55 0%,#0C1716 60%)}
+@media (max-width:900px){.hero-bg{background:linear-gradient(180deg,rgb(7 18 17 / .72) 0%,rgb(7 18 17 / .9) 70%),var(--hero-img,none) center/cover no-repeat,radial-gradient(900px 500px at 70% 10%,#1E5C55 0%,#0C1716 60%)}}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-block:88px 96px}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:40px;padding-block:56px 64px}}
+.hero .eyebrow{color:#9FD9D1}
+.hero h1 .serif{color:#F2C45E}
+.lede{font-size:1.17rem;max-width:34em;margin-top:20px;color:rgb(255 255 255 / .82)}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.trust{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:30px;font-size:.88rem;color:rgb(255 255 255 / .75)}
+.trust span::before{content:"✓";color:#9FD9D1;font-weight:700;margin-right:6px}
+.hero-card{background:rgb(255 255 255 / .96);color:#101C1B;border-radius:20px;box-shadow:var(--shadow-lg);padding:18px;display:grid;gap:10px;backdrop-filter:blur(6px)}
+.hero-card .head{display:flex;justify-content:space-between;align-items:center;font:500 .76rem var(--mono);color:#5E6A67;padding:2px 4px 6px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2F7A4A;margin-right:7px;vertical-align:middle;animation:pulse 2.4s infinite}
 @keyframes pulse{50%{opacity:.35}}
-.feed{display:grid;gap:10px}
-.feed-item{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;padding:12px;border-radius:var(--r);background:var(--sunk)}
-.feed-ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font:700 .8rem var(--mono)}
-.feed-item b{display:block;font-weight:700;font-size:.95rem}
-.feed-item small{color:var(--muted);font-size:.83rem}
-.chip{font:600 .72rem var(--mono);padding:4px 9px;border-radius:99px;white-space:nowrap;letter-spacing:.02em}
-.chip.ok{background:color-mix(in srgb,var(--green) 18%,transparent);color:var(--green)}
-.chip.warn{background:color-mix(in srgb,var(--amber) 18%,transparent);color:var(--amber)}
-.chip.bad{background:color-mix(in srgb,var(--red) 16%,transparent);color:var(--red)}
-.chip.info{background:var(--teal-soft);color:var(--teal)}
+.hero-card .feed-item{background:#F3F1EB}
+.hero-card .chip.ok{background:#E0EFE5;color:#2F7A4A}.hero-card .chip.warn{background:#F6EAD0;color:#8A5700}.hero-card .chip.info{background:#E1EEEB;color:#0B4F4A}
+.hero-card .feed-item small{color:#5E6A67}
+.credit{position:absolute;right:12px;bottom:10px;font:500 .66rem var(--mono);color:rgb(255 255 255 / .55)}
+
+/* Generic feed */
+.feed{display:grid;gap:8px}
+.feed-item{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 12px;border-radius:12px;background:var(--sunk)}
+.feed-ico{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font:600 .72rem var(--mono)}
+.feed-item b{display:block;font-weight:600;font-size:.94rem;line-height:1.3}
+.feed-item small{color:var(--muted);font-size:.82rem}
+.chip{font:500 .72rem var(--mono);padding:4px 9px;border-radius:99px;white-space:nowrap;letter-spacing:.01em;display:inline-block}
+.chip.ok{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+.chip.warn{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.chip.bad{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.chip.info{background:var(--brand-soft);color:var(--brand)}
 
 /* Sections */
-section{padding-block:64px}
-.sec-head{display:grid;gap:12px;max-width:44em;margin-bottom:32px}
+section{padding-block:88px}
+@media (max-width:700px){section{padding-block:64px}}
+.sec-head{display:grid;gap:14px;max-width:46em;margin-bottom:40px}
+.sec-head p.muted{font-size:1.06rem}
 .band{background:var(--surface);border-block:1px solid var(--line)}
 
-/* Why now facts */
-.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media (max-width:820px){.facts{grid-template-columns:1fr}}
-.fact{padding:22px;border-radius:var(--r);border:1px solid var(--line);background:var(--bg);display:grid;gap:8px;align-content:start}
-.fact .num{font:800 2.1rem/1 var(--display);color:var(--teal);letter-spacing:-.02em}
-.fact p{color:var(--muted);font-size:.95rem}
-.fact cite{font:500 .72rem var(--mono);color:var(--muted);font-style:normal}
+/* Industries */
+.inds{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:900px){.inds{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.inds{grid-template-columns:1fr}}
+.ind{position:relative;display:grid;grid-template-rows:auto 1fr;border-radius:var(--r);overflow:hidden;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--fg);transition:transform .2s ease,box-shadow .2s ease}
+.ind:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.ind .body{padding:18px 18px 20px;display:grid;gap:8px;align-content:start}
+.ind .body p{color:var(--muted);font-size:.93rem}
+.ind .go{font-weight:600;color:var(--brand);font-size:.92rem;margin-top:4px}
+
+/* Photo frames with graceful fallback */
+.photo{position:relative;aspect-ratio:3/2;background:linear-gradient(135deg,var(--brand-deep),var(--brand) 60%,var(--accent));overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.ind:hover .photo img{transform:scale(1.03)}
+.photo img.missing{display:none}
+.photo .tag{position:absolute;left:12px;top:12px;font:500 .68rem var(--mono);letter-spacing:.08em;text-transform:uppercase;background:rgb(255 255 255 / .92);color:#101C1B;padding:5px 9px;border-radius:99px}
+
+/* Findings */
+.findings{display:grid;grid-template-columns:.95fr 1.05fr;gap:48px;align-items:center}
+@media (max-width:900px){.findings{grid-template-columns:1fr;gap:32px}}
+.findings .photo{aspect-ratio:4/5;border-radius:22px}
+@media (max-width:900px){.findings .photo{aspect-ratio:16/10}}
+.stats{display:grid;gap:0;border-top:1px solid var(--line)}
+.stat{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line);align-items:baseline}
+@media (max-width:520px){.stat{grid-template-columns:1fr;gap:4px}}
+.stat .num{font:400 3rem/1 var(--serif);color:var(--brand);letter-spacing:-.02em}
+.stat .num small{font:500 1rem var(--sans);color:var(--muted);margin-left:4px}
+.stat p{color:var(--fg)}
+.stat cite{display:block;font:500 .72rem var(--mono);color:var(--muted);font-style:normal;margin-top:6px}
 
 /* Demo studio */
-.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
-.tab{flex:0 0 auto;display:grid;gap:2px;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:var(--r);padding:12px 16px;cursor:pointer;min-width:168px}
-.tab b{font:700 .98rem var(--display)}
-.tab small{color:var(--muted);font-size:.8rem}
-.tab[aria-selected="true"]{border-color:var(--teal);background:var(--teal-soft)}
-.tab[aria-selected="true"] small{color:var(--fg)}
-.studio{margin-top:16px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
-.demo-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;padding:22px 24px;border-bottom:1px solid var(--line);background:var(--bg)}
-.demo-top .who{display:grid;gap:6px;max-width:44em;min-width:0}
-.demo-top .price{display:grid;gap:4px;justify-items:end;text-align:right}
-.demo-top .price b{font:800 1.3rem var(--display)}
-@media (max-width:640px){.demo-top .price{justify-items:start;text-align:left}}
-.demo-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:900px){.tabs{display:flex;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin;scroll-snap-type:x mandatory}}
+.tab{display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 14px;cursor:pointer;min-width:0;scroll-snap-align:start}
+@media (max-width:900px){.tab{flex:0 0 auto;min-width:220px}}
+.tab b{font-weight:600;font-size:.97rem;line-height:1.25}
+.tab small{grid-column:2;color:var(--muted);font-size:.8rem}
+.tab .ti{grid-row:span 2;width:34px;height:34px;border-radius:9px;background:var(--sunk);display:grid;place-items:center;color:var(--brand)}
+.tab .ti svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-selected="true"]{border-color:var(--brand);background:var(--brand-soft)}
+.tab[aria-selected="true"] .ti{background:var(--brand);color:var(--brand-ink)}
+.studio{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.demo-top{display:grid;grid-template-columns:220px minmax(0,1fr) auto;gap:24px;align-items:start;padding:24px;border-bottom:1px solid var(--line);background:var(--bg)}
+.demo-top .photo{border-radius:12px;aspect-ratio:4/3}
+.demo-top .who{display:grid;gap:8px;min-width:0}
+.demo-top .price{display:grid;gap:2px;justify-items:end;text-align:right}
+.demo-top .price b{font:600 1.35rem var(--sans);letter-spacing:-.01em}
+@media (max-width:980px){.demo-top{grid-template-columns:160px minmax(0,1fr)}.demo-top .price{grid-column:2;justify-items:start;text-align:left}}
+@media (max-width:640px){.demo-top{grid-template-columns:1fr;padding:18px}.demo-top .photo{aspect-ratio:16/8}.demo-top .price{grid-column:auto}}
+.psr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:4px}
+@media (max-width:640px){.psr{grid-template-columns:1fr}}
+.psr div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:.86rem;line-height:1.42}
+.psr b{display:block;font:500 .66rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--brand);margin-bottom:3px}
+.try{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 0;padding:0;list-style:none;font-size:.85rem;color:var(--muted);counter-reset:t}
+.try li{counter-increment:t}
+.try li::before{content:counter(t);display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:600 .7rem var(--mono);margin-right:6px}
+.demo-body{display:grid;grid-template-columns:1fr 1fr}
 @media (max-width:900px){.demo-body{grid-template-columns:1fr}}
-.pane{padding:22px 24px;display:grid;gap:14px;align-content:start;min-width:0}
+.pane{padding:24px;display:grid;gap:14px;align-content:start;min-width:0}
 .pane + .pane{border-left:1px solid var(--line)}
 @media (max-width:900px){.pane + .pane{border-left:0;border-top:1px solid var(--line)}}
-.pane-label{font:600 .72rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:640px){.pane{padding:18px}}
+.pane-label{font:500 .7rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 label{font-weight:600;font-size:.9rem;display:grid;gap:6px}
 input[type=text],input[type=number],select,textarea{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:10px 12px}
+input:focus,select:focus,textarea:focus{border-color:var(--brand);outline:none}
 textarea{resize:vertical;min-height:110px;line-height:1.45}
-textarea.code{font:12.5px/1.5 var(--mono);min-height:190px}
+textarea.code{font:12.5px/1.5 var(--mono);min-height:170px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:520px){.grid2{grid-template-columns:1fr}}
-.seg{display:inline-flex;background:var(--sunk);border-radius:99px;padding:3px;gap:2px;flex-wrap:wrap}
-.seg button{border:0;background:transparent;padding:7px 13px;border-radius:99px;font-weight:600;font-size:.86rem;cursor:pointer;color:var(--muted)}
+.seg{display:inline-flex;background:var(--sunk);border-radius:99px;padding:3px;gap:2px;flex-wrap:wrap;justify-self:start}
+.seg button{border:0;background:transparent;padding:7px 14px;border-radius:99px;font-weight:600;font-size:.86rem;cursor:pointer;color:var(--muted)}
 .seg button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 3px rgb(0 0 0 / .12)}
-.out{background:var(--bg);border:1.5px dashed var(--line);border-radius:var(--r);padding:16px;white-space:pre-wrap;min-height:90px}
-.out.filled{border-style:solid;border-color:var(--teal-soft)}
-.note{font-size:.82rem;color:var(--muted)}
-.ai-badge{font:600 .7rem var(--mono);padding:3px 8px;border-radius:99px;background:var(--yellow-soft);color:var(--fg);letter-spacing:.03em}
+.out{background:var(--bg);border:1.5px dashed var(--line-strong);border-radius:var(--r-sm);padding:16px;white-space:pre-wrap;min-height:90px}
+.out.filled{border-style:solid;border-color:var(--brand-soft)}
+.note{font-size:.83rem;color:var(--muted)}
+.okmsg{color:var(--ok);font-weight:600}
+.errmsg{color:var(--bad);font-weight:600}
+.ai-badge{font:500 .7rem var(--mono);padding:3px 9px;border-radius:99px;background:var(--accent-soft);color:var(--fg);letter-spacing:.02em;white-space:nowrap}
+.howai{font-size:.86rem;color:var(--muted);max-width:46em}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.presets{display:flex;gap:8px;flex-wrap:wrap}
 
 /* review cards */
-.review{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;gap:6px;cursor:pointer;text-align:left}
-.review[aria-pressed="true"]{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal)}
-.stars{color:var(--yellow);letter-spacing:2px;font-size:.95rem}
+.review{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:6px;cursor:pointer;text-align:left;width:100%}
+.review[aria-pressed="true"]{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand)}
+.stars{color:var(--accent);letter-spacing:2px;font-size:.95rem}
 .review .meta{font-size:.8rem;color:var(--muted)}
-.minisite{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.minisite{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
 .minisite .bar{display:flex;gap:6px;align-items:center;padding:8px 10px;background:var(--sunk);font:500 .72rem var(--mono);color:var(--muted)}
-.minisite .bar i{width:9px;height:9px;border-radius:50%;background:var(--line);display:inline-block}
-.minisite .hero2{padding:18px;background:linear-gradient(135deg,var(--teal),color-mix(in srgb,var(--teal) 60%,var(--green)));color:var(--teal-ink);display:grid;gap:6px}
-.minisite .hero2 h3{font-size:1.35rem}
+.minisite .bar i{width:9px;height:9px;border-radius:50%;background:var(--line-strong);display:inline-block}
+.minisite .hero2{padding:22px 18px;background:linear-gradient(90deg,rgb(7 18 17 / .85),rgb(7 18 17 / .35)),var(--site-img,linear-gradient(135deg,var(--brand-deep),var(--brand))) center/cover;color:#fff;display:grid;gap:6px}
+.minisite .hero2 h3{font-size:1.4rem;color:#fff}
 .minisite .info{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;font-size:.88rem}
 .minisite .info div{background:var(--bg);border-radius:8px;padding:10px}
-.minisite .info b{display:block;font-size:.78rem;color:var(--muted);font-weight:600}
+.minisite .info b{display:block;font-size:.76rem;color:var(--muted);font-weight:600}
 
 /* tables */
-.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums}
 th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-th{font:600 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--bg);white-space:nowrap}
+th{font:500 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg);white-space:nowrap}
 tr:last-child td{border-bottom:0}
 td.num,th.num{text-align:right}
 .flags{display:flex;gap:4px;flex-wrap:wrap}
 .flags .chip,td .chip{white-space:normal;line-height:1.35}
 .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.kpi{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:12px;display:grid;gap:2px}
-.kpi b{font:800 1.35rem var(--display);font-variant-numeric:tabular-nums}
+.kpi{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:2px}
+.kpi b{font:600 1.35rem var(--sans);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 .kpi small{color:var(--muted);font-size:.78rem}
 @media (max-width:520px){.kpis{grid-template-columns:1fr}}
-.aging{display:flex;height:12px;border-radius:99px;overflow:hidden;background:var(--sunk)}
+.aging{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--sunk)}
 .aging span{display:block;height:100%}
 
 /* chat / whatsapp */
-.wa{background:color-mix(in srgb,var(--green) 8%,var(--bg));border-radius:var(--r);padding:14px;display:grid;gap:8px}
+.wa{background:color-mix(in srgb,var(--ok) 7%,var(--bg));border-radius:12px;padding:14px;display:grid;gap:8px}
 .bubble{max-width:88%;padding:9px 12px;border-radius:12px;background:var(--surface);box-shadow:0 1px 1px rgb(0 0 0 / .08);font-size:.92rem;white-space:pre-wrap}
-.bubble.me{justify-self:end;background:color-mix(in srgb,var(--green) 22%,var(--surface))}
-.bubble time{display:block;text-align:right;font:500 .68rem var(--mono);color:var(--muted);margin-top:4px}
+.bubble.me{justify-self:end;background:color-mix(in srgb,var(--ok) 20%,var(--surface))}
+.bubble time{display:block;text-align:right;font:500 .66rem var(--mono);color:var(--muted);margin-top:4px}
 .slots{display:flex;flex-wrap:wrap;gap:8px}
 .slot{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 12px;cursor:pointer;font:500 .85rem var(--mono)}
-.slot[aria-pressed="true"]{background:var(--teal);color:var(--teal-ink);border-color:var(--teal)}
+.slot[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
 .slot[disabled]{text-decoration:line-through;opacity:.45;cursor:not-allowed}
-.day-label{font:700 .9rem var(--display);margin-top:6px}
-.frag{background:var(--bg);border-left:3px solid var(--yellow);border-radius:6px;padding:10px 12px;font-size:.86rem}
-.frag b{font:600 .72rem var(--mono);color:var(--muted);display:block;margin-bottom:4px}
+.day-label{font-weight:600;font-size:.92rem;margin-top:6px;text-transform:capitalize}
+.frag{background:var(--bg);border-left:3px solid var(--accent);border-radius:6px;padding:10px 12px;font-size:.86rem}
+.frag b{font:500 .7rem var(--mono);color:var(--muted);display:block;margin-bottom:4px}
+.cal-row{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Audit sample */
+.audit{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+@media (max-width:900px){.audit{grid-template-columns:1fr;gap:28px}}
+.report{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.report-head{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line);background:var(--bg)}
+.score{display:grid;place-items:center;width:74px;height:74px;border-radius:50%;background:conic-gradient(var(--warn) calc(var(--v)*1%),var(--sunk) 0);flex:0 0 auto}
+.score span{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:var(--surface);font:600 1.25rem var(--sans)}
+.finding{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line)}
+.finding:last-child{border-bottom:0}
+.finding p{font-size:.92rem;color:var(--muted);margin-top:3px}
+.finding .fix{color:var(--fg)}
+.finding .fix::before{content:"Arreglo: ";font-weight:600;color:var(--brand)}
 
 /* Process */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
 @media (max-width:820px){.steps{grid-template-columns:1fr}}
-.step{padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);display:grid;gap:10px;align-content:start}
-.step::before{counter-increment:s;content:"Paso " counter(s);font:600 .72rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--teal)}
-.step .when{font:600 .8rem var(--mono);color:var(--muted)}
+.step{padding:26px;border-radius:var(--r);background:var(--bg);border:1px solid var(--line);display:grid;gap:10px;align-content:start}
+.step::before{counter-increment:s;content:"0" counter(s);font:400 2.4rem/1 var(--serif);color:var(--brand)}
+.step .when{font:500 .78rem var(--mono);color:var(--muted)}
 
 /* Pricing */
 .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 @media (max-width:900px){.prices{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.prices{grid-template-columns:1fr}}
-.pc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
-.pc.feat{border:2px solid var(--teal)}
-.pc .amt{font:800 1.7rem/1 var(--display);font-variant-numeric:tabular-nums}
-.pc .amt small{font:500 .85rem var(--body);color:var(--muted)}
+.pc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:10px;align-content:start}
+.pc.feat{border:2px solid var(--brand);box-shadow:var(--shadow)}
+.pc .amt{font:600 1.85rem/1 var(--sans);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.pc .amt small{font:500 .85rem var(--sans);color:var(--muted)}
 .pc ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:.92rem;color:var(--muted)}
 .pc .tag{justify-self:start}
 
-/* Docs */
-.docs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media (max-width:700px){.docs{grid-template-columns:1fr}}
-.doc{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px 16px;border-radius:var(--r);border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg)}
-.doc:hover{border-color:var(--teal)}
-.doc .n{font:700 .85rem var(--mono);color:var(--teal);background:var(--teal-soft);border-radius:8px;padding:6px 8px}
-.doc small{display:block;color:var(--muted);font-size:.82rem}
+/* FAQ */
+.faq{display:grid;gap:10px;max-width:860px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 18px}
+.faq summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:400 1.4rem/1 var(--sans);color:var(--brand)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{color:var(--muted);padding-bottom:16px}
 
-/* Contact */
-.contact{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:start}
-@media (max-width:860px){.contact{grid-template-columns:1fr}}
-.copybox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
-.copybox code{font:500 1rem var(--mono);user-select:all;word-break:break-all}
-footer{padding-block:32px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
-footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-
-/* ===== v2: illustrations, explainers, downloads ===== */
-:root{--pink:#E8A99C;--ochre:#E7B54A;--sky:#CFE4E2;--art-line:#14211F}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--pink:#B9786C;--ochre:#C99A34;--sky:#16393A;--art-line:#06191A}}
-:root[data-theme="dark"]{--pink:#B9786C;--ochre:#C99A34;--sky:#16393A;--art-line:#06191A}
-.f-t{fill:var(--teal)}.f-ts{fill:var(--teal-soft)}.f-y{fill:var(--yellow)}.f-ys{fill:var(--yellow-soft)}
-.f-s{fill:var(--surface)}.f-k{fill:var(--sunk)}.f-l{fill:var(--line)}.f-g{fill:var(--green)}.f-r{fill:var(--red)}
-.f-p{fill:var(--pink)}.f-o{fill:var(--ochre)}.f-sky{fill:var(--sky)}.f-fg{fill:var(--fg)}.f-m{fill:var(--muted)}
-.s-a{stroke:var(--art-line);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.s-m{stroke:var(--muted);stroke-width:2;stroke-linecap:round}
-.s-s{stroke:var(--surface);stroke-width:3;stroke-linecap:round}
-.s-a:not([class*="f-"]),.s-m:not([class*="f-"]),.s-s:not([class*="f-"]){fill:none}
-
-/* hero art + panel overlap */
-.hero-visual{position:relative;display:grid}
-.hero-art{width:100%;height:auto;display:block;border-radius:22px;background:var(--sky)}
-.hero-visual .panel{margin:-56px 18px 0;position:relative}
-@media (max-width:520px){.hero-visual .panel{margin:-50px 0 0}}
-
-/* demo header with art + explainer */
-.demo-top{display:grid;grid-template-columns:170px minmax(0,1fr) auto;align-items:start}
-.demo-art{width:170px;height:auto;border-radius:14px;background:var(--sky)}
-@media (max-width:820px){.demo-top{grid-template-columns:minmax(0,1fr) auto}.demo-art{grid-column:1/-1;width:100%;max-width:340px;max-height:170px}}
-@media (max-width:640px){.demo-top{grid-template-columns:1fr}.demo-art{max-width:none}}
-.psr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:6px}
-@media (max-width:640px){.psr{grid-template-columns:1fr}}
-.psr div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:.86rem;line-height:1.4}
-.psr b{display:block;font:600 .68rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:2px}
-.try{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0;padding:0;list-style:none;font-size:.84rem;color:var(--muted)}
-.try li{counter-increment:t}
-.try{counter-reset:t}
-.try li::before{content:counter(t);display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--yellow);color:var(--yellow-ink);font:700 .7rem var(--mono);margin-right:6px}
-.tab{grid-template-columns:auto 1fr;column-gap:10px;align-items:center}
-.tab .ti{grid-row:span 2;width:30px;height:30px;border-radius:8px;background:var(--sunk);display:grid;place-items:center}
-.tab[aria-selected="true"] .ti{background:var(--surface)}
-.tab .ti svg{width:20px;height:20px}
-.filebtn{position:relative;overflow:hidden}
-.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
-.okmsg{color:var(--green);font-weight:600}
-.errmsg{color:var(--red);font-weight:600}
-.step-ico{width:44px;height:44px}
-.cal-row{display:flex;gap:8px;flex-wrap:wrap}
+/* Code */
 .code-list{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}
 @media (max-width:820px){.code-list{grid-template-columns:1fr}}
-.howai{font-size:.84rem;color:var(--muted);max-width:44em}
+.doc{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:16px;border-radius:var(--r);border:1px solid var(--line);background:var(--bg);text-decoration:none;color:var(--fg)}
+.doc:hover{border-color:var(--brand)}
+.doc .n{font:600 .8rem var(--mono);color:var(--brand);background:var(--brand-soft);border-radius:8px;padding:6px 8px}
+.doc small{display:block;color:var(--muted);font-size:.83rem}
 
-@media (min-width:900px){.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible}.tab{min-width:0}}
-/* Illustrations keep the light palette in dark mode (read as printed cards) */
-svg.demo-art,svg.hero-art,.ti svg{
-  --bg:#F3F5F2;--surface:#FFFFFF;--sunk:#E7ECE8;--line:#D3DBD6;--fg:#14211F;--muted:#56655F;
-  --teal:#0D5C61;--teal-ink:#FFFFFF;--teal-soft:#D7E8E6;--yellow:#E2A919;--yellow-ink:#2A1F00;--yellow-soft:#F8EBC4;
-  --green:#3D7A3A;--red:#B3392E;--amber:#A86A00;--pink:#E8A99C;--ochre:#E7B54A;--sky:#CFE4E2;--art-line:#14211F}
-@media (max-width:640px){.demo-art{max-height:120px}}
+/* Contact */
+.contact-band{background:var(--brand-deep);color:#fff}
+.contact-band .eyebrow{color:#9FD9D1}
+.contact-band .muted{color:rgb(255 255 255 / .72)}
+.contact{display:grid;grid-template-columns:1fr .95fr;gap:48px;align-items:start}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+.form{background:var(--surface);color:var(--fg);border-radius:20px;padding:22px;display:grid;gap:12px;box-shadow:var(--shadow-lg)}
+.contact-list{display:grid;gap:12px;margin-top:22px}
+.contact-list div{display:flex;gap:10px;align-items:center;color:rgb(255 255 255 / .85)}
+.contact-list div::before{content:"✓";color:#9FD9D1;font-weight:700}
+footer{padding-block:34px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 
 </style>
 <header class="top">
@@ -288,86 +333,75 @@ svg.demo-art,svg.hero-art,.ti svg{
       <span><b>Xook IA</b><small>MÉRIDA · YUCATÁN</small></span>
     </a>
     <nav class="links" aria-label="Secciones">
+      <a href="#giros">Soluciones</a>
       <a href="#demos">Demos</a>
-      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#auditoria">Auditoría</a>
       <a href="#precios">Precios</a>
-      <a href="#codigo">Código</a>
+      <a href="#preguntas">Preguntas</a>
       <a class="cta" href="#contacto">Auditoría gratis</a>
     </nav>
   </div>
 </header>
 
 <main id="inicio">
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="hero-bg" style="--hero-img:url('img/hero.jpg')" role="img" aria-label="Calle empedrada del Centro de Mérida"></div>
     <div class="wrap">
       <div>
-        <p class="eyebrow">Software con IA para negocios de Yucatán</p>
-        <h1 style="margin-top:14px">Tu negocio atiende, ordena y <em>cobra</em> mientras tú trabajas.</h1>
-        <p class="lede">Herramientas sencillas con inteligencia artificial, hechas en Mérida. Contestan tus reseñas en español e inglés, ordenan tus facturas CFDI, recuerdan a tus clientes lo que te deben y agendan citas. Nosotros lo instalamos; tú solo lo usas.</p>
+        <p class="eyebrow">Software con IA · Hecho en Mérida</p>
+        <h1 id="hero-h" style="margin-top:16px">Tu negocio atiende, ordena y <span class="serif">cobra</span> mientras tú trabajas.</h1>
+        <p class="lede">Conectamos inteligencia artificial con lo que ya usas (tu Excel, tus facturas del SAT, tu WhatsApp y tu Google) para que contestes a turistas en su idioma, cobres a tiempo y no pierdas citas.</p>
         <div class="hero-ctas">
-          <a class="btn primary" href="#demos">Probar los demos</a>
-          <a class="btn ghost" href="#contacto">Pedir auditoría gratis</a>
+          <a class="btn light arrow" href="#demos">Probar los demos</a>
+          <a class="btn ghost-light" href="#contacto">Pedir auditoría gratis</a>
         </div>
-        <div class="trust"><span>Precios en pesos, con factura</span><span>Sin contrato forzoso</span><span>Funciona con tu Excel y tu WhatsApp</span></div>
+        <div class="trust"><span>Precios en pesos, con factura</span><span>Sin contrato forzoso</span><span>Instalación en días</span></div>
       </div>
-      <div class="hero-visual">
-        <svg class="hero-art" viewBox="0 0 560 300" role="img" aria-label="Ilustración: fachadas coloniales de colores en una calle de Mérida">
-          <circle class="f-ys" cx="478" cy="62" r="40"/>
-          <rect class="f-k" x="0" y="262" width="560" height="38"/>
-          <rect class="f-l" x="0" y="252" width="560" height="12"/>
-          <!-- casa rosa -->
-          <rect class="f-p s-a" x="22" y="112" width="160" height="140"/>
-          <rect class="f-s s-a" x="14" y="100" width="176" height="14" rx="2"/>
-          <path class="f-t s-a" d="M66 252V196a36 36 0 0 1 72 0v56z"/>
-          <path class="s-s" d="M102 162v90"/>
-          <circle class="f-r" cx="30" cy="96" r="7"/><circle class="f-r" cx="44" cy="92" r="6"/><circle class="f-g" cx="38" cy="102" r="6"/><circle class="f-r" cx="56" cy="97" r="5"/>
-          <!-- casa ocre -->
-          <rect class="f-o s-a" x="182" y="78" width="190" height="174"/>
-          <rect class="f-s s-a" x="174" y="66" width="206" height="14" rx="2"/>
-          <rect class="f-t s-a" x="200" y="120" width="42" height="72" rx="3"/>
-          <path class="s-s" d="M211 124v64M221 124v64M231 124v64"/>
-          <rect class="f-s s-a" x="196" y="192" width="50" height="8" rx="2"/>
-          <path class="f-t s-a" d="M254 252v-66a23 23 0 0 1 46 0v66z"/>
-          <rect class="f-t s-a" x="312" y="120" width="42" height="72" rx="3"/>
-          <path class="s-s" d="M323 124v64M333 124v64M343 124v64"/>
-          <rect class="f-s s-a" x="308" y="192" width="50" height="8" rx="2"/>
-          <rect class="f-s s-a" x="244" y="94" width="66" height="18" rx="3"/>
-          <path class="s-m" d="M256 103h42"/>
-          <!-- casa turquesa -->
-          <rect class="f-ts s-a" x="372" y="128" width="168" height="124"/>
-          <rect class="f-s s-a" x="364" y="116" width="184" height="14" rx="2"/>
-          <path class="f-t s-a" d="M392 212v-40a18 18 0 0 1 36 0v40z"/>
-          <path class="s-s" d="M404 160v50M416 160v50"/>
-          <path class="f-t s-a" d="M482 212v-40a18 18 0 0 1 36 0v40z"/>
-          <path class="s-s" d="M494 160v50M506 160v50"/>
-          <path class="f-y s-a" d="M440 252v-44h28v44z"/>
-          <!-- palma -->
-          <path class="s-a" d="M548 252c-6-40-4-80 6-118" style="stroke-width:5"/>
-          <path class="f-g s-a" d="M554 134c-20-14-40-12-52 2 18-4 34 0 52-2z"/>
-          <path class="f-g s-a" d="M554 134c-6-22-22-34-38-32 14 8 26 18 38 32z"/>
-        </svg>
-        <div class="panel" aria-label="Ejemplo de lo que hace Xook en un día">
-          <div class="panel-head"><span><span class="dot"></span>Hoy en Cocina Doña Elvira</span><span>ejemplo</span></div>
-          <div class="feed">
-            <div class="feed-item"><div class="feed-ico chip info">★</div><div><b>Reseña de turista contestada en inglés</b><small>“Amazing cochinita…” · aprobada por el dueño</small></div><span class="chip ok">listo</span></div>
-            <div class="feed-item"><div class="feed-ico chip info">XML</div><div><b>3 facturas de gastos clasificadas</b><small>1 sin complemento de pago</small></div><span class="chip warn">revisar</span></div>
-            <div class="feed-item"><div class="feed-ico chip info">$</div><div><b>Recordatorio de pago enviado</b><small>Factura A-1042 · 18 días vencida</small></div><span class="chip ok">promesa: viernes</span></div>
-          </div>
+      <div class="hero-card" aria-label="Ejemplo de lo que hace Xook en un día">
+        <div class="head"><span><span class="dot"></span>Hoy en tu negocio</span><span>ejemplo</span></div>
+        <div class="feed">
+          <div class="feed-item"><div class="feed-ico chip info">★</div><div><b>Reseña de turista contestada en inglés</b><small>Hotel boutique · aprobada por el dueño</small></div><span class="chip ok">listo</span></div>
+          <div class="feed-item"><div class="feed-ico chip info">XML</div><div><b>214 facturas del SAT clasificadas</b><small>Despacho contable · 3 sin complemento de pago</small></div><span class="chip warn">revisar</span></div>
+          <div class="feed-item"><div class="feed-ico chip info">$</div><div><b>$48,720 en recordatorios enviados</b><small>Distribuidora · 2 promesas de pago</small></div><span class="chip ok">viernes</span></div>
+          <div class="feed-item"><div class="feed-ico chip info">CITA</div><div><b>Paciente de Canadá confirmó en inglés</b><small>Clínica dental · mañana 10:30</small></div><span class="chip ok">confirmada</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="band" aria-labelledby="porque">
+  <section id="giros" aria-labelledby="giros-h">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">Por qué ahora</p>
-        <h2 id="porque">La IA genérica ya es gratis. Lo valioso es conectarla con tu negocio.</h2>
+        <p class="eyebrow">Soluciones por giro</p>
+        <h2 id="giros-h">Hecho para cómo trabajan los negocios de Yucatán</h2>
+        <p class="muted">No vendemos un chatbot genérico. Cada herramienta resuelve un problema concreto que vimos en negocios reales de Mérida.</p>
       </div>
-      <div class="facts">
-        <div class="fact"><span class="num">1 de 4</span><p>negocios en Yucatán usa internet: 41,860 de 157,391. Quien se digitaliza primero se queda con los clientes.</p><cite>INEGI, Censos Económicos 2024</cite></div>
-        <div class="fact"><span class="num">62 días</span><p>tardan en promedio en pagar los clientes que pagan tarde. En empresas que venden a otras empresas, 42% tiene pagos atrasados.</p><cite>ASEM, Radiografía del Emprendimiento 2025</cite></div>
-        <div class="fact"><span class="num">+25%</span><p>creció el turismo internacional con pernocta en Yucatán en julio de 2025. Más clientes que escriben y reseñan en inglés.</p><cite>Datatur vía Por Esto!, sept. 2025</cite></div>
+      <div class="inds">
+        <a class="ind" href="#resenas" data-go="resenas"><div class="photo"><img src="img/restaurante.jpg" alt="Patio de un restaurante colonial" loading="lazy" onerror="this.classList.add('missing')"><span class="tag">Turismo</span></div><div class="body"><h3>Hoteles, restaurantes y tours</h3><p>Reseñas contestadas en el idioma del huésped y una web bilingüe que sí funciona.</p><span class="go arrow">Ver demo </span></div></a>
+        <a class="ind" href="#cfdi" data-go="cfdi"><div class="photo"><img src="img/contador.jpg" alt="Escritorio de un despacho contable" loading="lazy" onerror="this.classList.add('missing')"><span class="tag">Contadores</span></div><div class="body"><h3>Despachos contables</h3><p>Sube el ZIP de la descarga masiva del SAT y recibe cada factura clasificada y revisada.</p><span class="go arrow">Ver demo </span></div></a>
+        <a class="ind" href="#cobranza" data-go="cobranza"><div class="photo"><img src="img/distribuidora.jpg" alt="Almacén de materiales con camión de reparto" loading="lazy" onerror="this.classList.add('missing')"><span class="tag">Mayoristas</span></div><div class="body"><h3>Distribuidoras y mayoristas</h3><p>Tu cartera en Excel se convierte en recordatorios amables y un reporte semanal.</p><span class="go arrow">Ver demo </span></div></a>
+        <a class="ind" href="#agenda" data-go="agenda"><div class="photo"><img src="img/dental.jpg" alt="Consultorio dental moderno" loading="lazy" onerror="this.classList.add('missing')"><span class="tag">Salud</span></div><div class="body"><h3>Clínicas dentales y consultorios</h3><p>Citas confirmadas por WhatsApp en español o inglés, también para pacientes de EE. UU. y Canadá.</p><span class="go arrow">Ver demo </span></div></a>
+        <a class="ind" href="#inmuebles" data-go="inmuebles"><div class="photo"><img src="img/inmueble.jpg" alt="Interior de una casa colonial" loading="lazy" onerror="this.classList.add('missing')"><span class="tag">Inmobiliarias</span></div><div class="body"><h3>Inmobiliarias</h3><p>Fichas para portales en español e inglés, con precio en dólares y medidas en sq ft.</p><span class="go arrow">Ver demo </span></div></a>
+        <a class="ind" href="#manuales" data-go="manuales"><div class="photo"><img src="img/equipo.jpg" alt="Equipo de trabajo revisando un manual" loading="lazy" onerror="this.classList.add('missing')"><span class="tag">Empresas</span></div><div class="body"><h3>Empresas medianas</h3><p>Tu equipo pregunta y la IA contesta solo con tus manuales, citando la sección.</p><span class="go arrow">Ver demo </span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="hall-h">
+    <div class="wrap findings">
+      <div class="photo"><img src="img/merida.jpg" alt="Fachada colonial en el Centro de Mérida" loading="lazy" onerror="this.classList.add('missing')"></div>
+      <div>
+        <div class="sec-head" style="margin-bottom:20px">
+          <p class="eyebrow">Lo que encontramos en Mérida</p>
+          <h2 id="hall-h">Revisamos 29 sitios de hoteles, restaurantes, tours y spas</h2>
+          <p class="muted">Son errores pequeños que cuestan clientes todos los días, sobre todo turistas que no hablan español.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><span class="num">17<small>de 29</small></span><p>tenían la versión en inglés incompleta, con errores o inexistente (o, al revés, sin español).<cite>Revisión de Xook IA, nov. 2026</cite></p></div>
+          <div class="stat"><span class="num">10<small>de 29</small></span><p>mostraban datos de contacto rotos o confusos: correos sin “@”, teléfonos que no coinciden o sin teléfono.<cite>Revisión de Xook IA, nov. 2026</cite></p></div>
+          <div class="stat"><span class="num">62<small>días</small></span><p>tardan en promedio en pagar los clientes que pagan tarde. El 42% de las empresas que venden a otras tiene pagos atrasados.<cite>ASEM, Radiografía del Emprendimiento 2025</cite></p></div>
+          <div class="stat"><span class="num">1<small>de 4</small></span><p>negocios en Yucatán usa internet (41,860 de 157,391). Quien se digitaliza primero se queda con los clientes.<cite>INEGI, Censos Económicos 2024</cite></p></div>
+        </div>
       </div>
     </div>
   </section>
@@ -376,43 +410,34 @@ svg.demo-art,svg.hero-art,.ti svg{
     <div class="wrap">
       <div class="sec-head">
         <p class="eyebrow">Demos que funcionan</p>
-        <h2 id="demos-h">Pruébalo tú mismo, con datos de ejemplo</h2>
-        <p class="muted">Cada demo resuelve un problema real de negocios en Mérida. Los negocios y datos son ficticios. <span id="ai-status" class="ai-badge">Revisando IA…</span></p>
+        <h2 id="demos-h">Pruébalo tú mismo, con datos de ejemplo o con tus propios archivos</h2>
+        <p class="muted">Los negocios de los demos son ficticios. <span id="ai-status" class="ai-badge">Revisando IA…</span> <a href="ejemplos/archivos-de-prueba-xook.zip" download>Descargar archivos de prueba (.zip)</a></p>
         <p class="howai" id="ai-explain"></p>
       </div>
       <div class="tabs" role="tablist" aria-label="Demos">
-        <button class="tab" role="tab" id="tab-resenas" aria-controls="demo-resenas" aria-selected="true" data-demo="resenas"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="f-y" d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg></span><b>Reseñas y web bilingüe</b><small>Restaurantes, hoteles, tours</small></button>
-        <button class="tab" role="tab" id="tab-cfdi" aria-controls="demo-cfdi" aria-selected="false" data-demo="cfdi"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="f-s s-a" d="M6 2.5h8l4 4v15H6z"/><path class="s-m" d="M9 11h6M9 15h6"/></svg></span><b>Bandeja CFDI</b><small>Despachos contables</small></button>
-        <button class="tab" role="tab" id="tab-cobranza" aria-controls="demo-cobranza" aria-selected="false" data-demo="cobranza"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><circle class="f-g" cx="12" cy="12" r="9.5"/><path class="s-s" d="M14.8 8.6c-.6-.8-1.6-1.2-2.8-1.2-1.6 0-2.8.8-2.8 2.1 0 3 5.8 1.6 5.8 4.6 0 1.3-1.3 2.2-3 2.2-1.3 0-2.4-.5-3-1.4M12 5.5v13" style="stroke-width:1.8"/></svg></span><b>Cobranza amable</b><small>Distribuidoras B2B</small></button>
-        <button class="tab" role="tab" id="tab-manuales" aria-controls="demo-manuales" aria-selected="false" data-demo="manuales"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><rect class="f-t" x="4" y="3" width="14" height="18" rx="2"/><rect class="f-y" x="18" y="6" width="3" height="4" rx="1"/><path class="s-s" d="M8 8h6M8 12h6" style="stroke-width:2"/></svg></span><b>Pregúntale a tus manuales</b><small>Empresas medianas</small></button>
-        <button class="tab" role="tab" id="tab-inmuebles" aria-controls="demo-inmuebles" aria-selected="false" data-demo="inmuebles"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><rect class="f-o" x="3" y="8" width="18" height="13"/><rect class="f-s s-a" x="2" y="6" width="20" height="3" rx="1" style="stroke-width:1.2"/><path class="f-t" d="M9.5 21v-5a2.5 2.5 0 0 1 5 0v5z"/></svg></span><b>Fichas de inmuebles</b><small>Inmobiliarias ES/EN</small></button>
-        <button class="tab" role="tab" id="tab-agenda" aria-controls="demo-agenda" aria-selected="false" data-demo="agenda"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><rect class="f-s s-a" x="3" y="5" width="18" height="16" rx="2" style="stroke-width:1.5"/><rect class="f-r" x="3" y="5" width="18" height="5" rx="2"/><path class="s-a" d="M8.5 15l2.2 2.2 4.8-4.6" style="stroke:var(--green)"/></svg></span><b>Citas y recordatorios</b><small>Dentistas, clínicas</small></button>
+        <button class="tab" role="tab" id="tab-resenas" aria-controls="demo-resenas" aria-selected="true" data-demo="resenas"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.8l-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/></svg></span><b>Reseñas y web bilingüe</b><small>Hoteles, restaurantes, tours</small></button>
+        <button class="tab" role="tab" id="tab-cfdi" aria-controls="demo-cfdi" aria-selected="false" data-demo="cfdi"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></svg></span><b>Bandeja CFDI</b><small>Despachos contables</small></button>
+        <button class="tab" role="tab" id="tab-cobranza" aria-controls="demo-cobranza" aria-selected="false" data-demo="cobranza"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9c-.6-.9-1.7-1.4-3-1.4-1.7 0-3 .9-3 2.2 0 3.1 6 1.6 6 4.6 0 1.3-1.3 2.3-3 2.3-1.4 0-2.5-.6-3.1-1.5M12 6v12"/></svg></span><b>Cobranza amable</b><small>Distribuidoras y mayoristas</small></button>
+        <button class="tab" role="tab" id="tab-manuales" aria-controls="demo-manuales" aria-selected="false" data-demo="manuales"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11M9 8h6"/></svg></span><b>Pregúntale a tus manuales</b><small>Empresas medianas</small></button>
+        <button class="tab" role="tab" id="tab-inmuebles" aria-controls="demo-inmuebles" aria-selected="false" data-demo="inmuebles"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10M10 20v-5h4v5"/></svg></span><b>Fichas de inmuebles</b><small>Inmobiliarias ES/EN</small></button>
+        <button class="tab" role="tab" id="tab-agenda" aria-controls="demo-agenda" aria-selected="false" data-demo="agenda"><span class="ti" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/></svg></span><b>Citas y recordatorios</b><small>Clínicas dentales</small></button>
       </div>
 
       <div class="studio">
         <!-- 1. RESEÑAS -->
         <div class="demo" id="demo-resenas" role="tabpanel" aria-labelledby="tab-resenas">
           <div class="demo-top">
-            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: patio de restaurante con una reseña de cinco estrellas">
-              <rect class="f-l" x="0" y="122" width="200" height="18"/>
-              <path class="f-p s-a" d="M14 124V62a52 52 0 0 1 104 0v62z"/>
-              <path class="f-ys" d="M30 124V66a36 36 0 0 1 72 0v58z"/>
-              <circle class="f-g s-a" cx="40" cy="112" r="10"/><rect class="f-o s-a" x="33" y="112" width="14" height="12"/>
-              <rect class="f-t s-a" x="56" y="98" width="40" height="6" rx="2"/><path class="s-a" d="M62 104v18M90 104v18"/>
-              <ellipse class="f-s s-a" cx="70" cy="95" rx="9" ry="3"/><ellipse class="f-s s-a" cx="84" cy="95" rx="7" ry="3"/>
-              <rect class="f-s s-a" x="112" y="18" width="80" height="52" rx="10"/><path class="f-s s-a" d="M126 70l-6 12 16-12"/>
-              <g class="f-y"><polygon transform="translate(127 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/><polygon transform="translate(140 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/><polygon transform="translate(153 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/><polygon transform="translate(166 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/><polygon transform="translate(179 34)" points="0,-6 1.8,-1.9 5.7,-1.9 2.9,0.7 3.5,4.9 0,2.4 -3.5,4.9 -2.9,0.7 -5.7,-1.9 -1.8,-1.9"/></g>
-              <path class="s-m" d="M122 50h60M122 59h40"/>
-            </svg>
+            <div class="photo"><img id="rv-photo" src="img/restaurante.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
             <div class="who"><p class="eyebrow">Presencia local con IA</p><h3>Cada reseña de Google contestada en minutos, en el idioma del cliente</h3>
               <div class="psr"><div><b>Problema</b>Reseñas sin contestar, sobre todo las de turistas en inglés.</div><div><b>Qué hace</b>Redacta la respuesta con el tono de tu negocio; tú la apruebas.</div><div><b>Ganas</b>Mejor imagen en Google y más turistas que te eligen.</div></div>
-              <ol class="try"><li>Elige una reseña</li><li>Elige el tono</li><li>Pulsa “Redactar respuesta”</li></ol>
+              <ol class="try"><li>Elige el tipo de negocio y una reseña</li><li>Elige el tono</li><li>Pulsa “Redactar respuesta”</li></ol>
             </div>
             <div class="price"><span class="note">Desde</span><b>$490 / mes</b><span class="note">+ instalación $3,000</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
-              <span class="pane-label">1 · Reseñas recientes de Cocina Doña Elvira</span>
+              <div class="seg" role="group" aria-label="Tipo de negocio"><button id="rv-biz-rest" aria-pressed="true">Restaurante</button><button id="rv-biz-hotel" aria-pressed="false">Hotel boutique</button></div>
+              <span class="pane-label" id="rv-title">1 · Reseñas recientes</span>
               <div id="reviews" class="feed"></div>
               <label>Tono de la respuesta
                 <select id="rv-tone"><option value="calido">Cálido y cercano</option><option value="profesional">Profesional</option><option value="breve">Muy breve</option></select>
@@ -432,45 +457,37 @@ svg.demo-art,svg.hero-art,.ti svg{
         <!-- 2. CFDI -->
         <div class="demo" id="demo-cfdi" role="tabpanel" aria-labelledby="tab-cfdi" hidden>
           <div class="demo-top">
-            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: facturas XML revisadas con una lupa">
-              <rect class="f-k s-a" x="30" y="30" width="70" height="92" rx="6"/>
-              <rect class="f-s s-a" x="44" y="20" width="72" height="96" rx="6"/>
-              <path class="f-t" d="M50 21h60a5 5 0 0 1 5 5v13H45V26a5 5 0 0 1 5-5z"/>
-              <text x="80" y="35" text-anchor="middle" style="font:700 11px var(--mono);fill:var(--teal-ink)">XML</text>
-              <path class="s-m" d="M54 54h52M54 66h52M54 78h34M54 90h44"/>
-              <circle class="f-ts s-a" cx="134" cy="84" r="24"/><path class="s-a" d="M151 101l20 20" style="stroke-width:7"/>
-              <path class="s-a" d="M124 84l7 7 13-14" style="stroke:var(--green);stroke-width:3"/>
-              <circle class="f-y s-a" cx="164" cy="34" r="14"/><path class="s-a" d="M164 27v9M164 41v.5" style="stroke-width:3"/>
-              <circle class="f-g s-a" cx="22" cy="104" r="11"/><path class="s-s" d="M17 104l4 4 7-7" style="stroke-width:2.5"/>
-            </svg>
-            <div class="who"><p class="eyebrow">Bandeja CFDI para contadores</p><h3>Tus clientes reenvían sus facturas a un correo. La bandeja las lee, las clasifica y te avisa qué falta.</h3>
-              <div class="psr"><div><b>Problema</b>Cientos de XML sueltos en WhatsApp y correo cada mes.</div><div><b>Qué hace</b>Lee el XML del SAT con reglas exactas y marca errores.</div><div><b>Ganas</b>Horas de captura menos y nada se te pasa en la declaración.</div></div>
-              <ol class="try"><li>Pulsa un ejemplo y “Leer y agregar”</li><li>O sube tus .xml (no salen de tu navegador)</li><li>Descarga el Excel</li></ol>
+            <div class="photo"><img src="img/contador.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
+            <div class="who"><p class="eyebrow">Bandeja CFDI para despachos</p><h3>Sube las facturas de tus clientes (sueltas o el ZIP del SAT) y recíbelas ordenadas, revisadas y en Excel</h3>
+              <div class="psr"><div><b>Problema</b>Cientos de XML por WhatsApp y correo cada mes, de muchos clientes.</div><div><b>Qué hace</b>Lee el XML con reglas exactas del SAT: sin adivinar, sin IA donde no hace falta.</div><div><b>Ganas</b>Horas de captura menos y nada se te pasa en la declaración.</div></div>
+              <ol class="try"><li>Sube el ZIP de prueba o tus .xml</li><li>Filtra por cliente</li><li>Descarga el Excel</li></ol>
             </div>
             <div class="price"><span class="note">Por despacho</span><b>$590 / mes</b><span class="note">hasta 300 facturas</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
-              <span class="pane-label">1 · Facturas que llegaron al correo</span>
-              <label>RFC de tu cliente
-                <input type="text" id="cf-rfc" value="CACX7605101P8" autocomplete="off">
-              </label>
-              <div class="seg" role="group" aria-label="Facturas de ejemplo" id="cf-samples"></div>
-              <label>XML (puedes pegar uno tuyo)
-                <textarea class="code" id="cf-xml" spellcheck="false"></textarea>
+              <span class="pane-label">1 · Facturas que llegaron</span>
+              <label>RFC de los clientes del despacho (separados por coma)
+                <input type="text" id="cf-rfc" value="CACX7605101P8, FUNK671228PH6" autocomplete="off">
               </label>
               <div class="row">
-                <button class="btn primary" id="cf-add">Leer y agregar</button>
-                <span class="btn ghost small filebtn">Subir .xml<input type="file" id="cf-file" accept=".xml,text/xml" multiple aria-label="Subir archivos XML"></span>
+                <span class="btn primary filebtn">Subir .xml o .zip<input type="file" id="cf-file" accept=".xml,.zip,text/xml,application/zip" multiple aria-label="Subir facturas XML o ZIP"></span>
                 <button class="btn ghost small" id="cf-reset">Vaciar</button>
               </div>
-              <p class="note">¿No tienes XML a la mano? <a href="#" id="cf-dl-sample">Descarga el ejemplo seleccionado</a> y vuelve a subirlo. RFC de prueba del SAT; datos ficticios.</p>
+              <p class="note">Tus archivos no salen de tu navegador. ¿No tienes a la mano? <a href="ejemplos/archivos-de-prueba-xook.zip" download>Descarga los de prueba</a> (incluye un ZIP como el de la descarga masiva del SAT).</p>
+              <details><summary class="note" style="cursor:pointer">O pega un XML a mano</summary>
+                <div style="display:grid;gap:10px;margin-top:10px">
+                  <div class="seg" role="group" aria-label="Facturas de ejemplo" id="cf-samples"></div>
+                  <textarea class="code" id="cf-xml" spellcheck="false" aria-label="XML de la factura"></textarea>
+                  <div class="row"><button class="btn ghost small" id="cf-add">Leer y agregar</button><a href="#" id="cf-dl-sample" class="note">Descargar este XML</a></div>
+                </div>
+              </details>
             </div>
             <div class="pane">
-              <span class="pane-label">2 · Bandeja ordenada</span>
+              <div class="row" style="justify-content:space-between"><span class="pane-label">2 · Bandeja ordenada</span><label style="display:flex;align-items:center;gap:8px;font-weight:500" class="note">Ver<select id="cf-filter" style="width:auto;padding:6px 10px"></select></label></div>
               <div class="kpis"><div class="kpi"><small>Facturas</small><b id="cf-k1">0</b></div><div class="kpi"><small>Total</small><b id="cf-k2">$0</b></div><div class="kpi"><small>Por revisar</small><b id="cf-k3">0</b></div></div>
-              <div class="tbl-wrap"><table><thead><tr><th>Emisor</th><th>Categoría</th><th class="num">Total</th><th>Avisos</th></tr></thead><tbody id="cf-body"><tr><td colspan="4" class="muted">Aún no hay facturas.</td></tr></tbody></table></div>
-              <div class="row"><button class="btn yellow small" id="cf-xlsx">Descargar Excel</button><button class="btn ghost small" id="cf-csv">Copiar tabla</button></div>
+              <div class="tbl-wrap"><table><thead><tr><th>Emisor</th><th>Cliente / categoría</th><th class="num">Total</th><th>Avisos</th></tr></thead><tbody id="cf-body"><tr><td colspan="4" class="muted">Aún no hay facturas.</td></tr></tbody></table></div>
+              <div class="row"><button class="btn accent small" id="cf-xlsx">Descargar Excel</button><button class="btn ghost small" id="cf-csv">Copiar tabla</button></div>
               <p class="note" id="cf-msg" role="status"></p>
             </div>
           </div>
@@ -479,22 +496,10 @@ svg.demo-art,svg.hero-art,.ti svg{
         <!-- 3. COBRANZA -->
         <div class="demo" id="demo-cobranza" role="tabpanel" aria-labelledby="tab-cobranza" hidden>
           <div class="demo-top">
-            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: camión de reparto, factura y calendario">
-              <rect class="f-l" x="0" y="124" width="200" height="16"/>
-              <rect class="f-t s-a" x="14" y="70" width="96" height="44" rx="4"/>
-              <path class="f-ts s-a" d="M110 82h22l14 16v16h-36z"/><path class="f-s s-a" d="M116 88h14l8 10h-22z"/>
-              <circle class="f-fg" cx="40" cy="116" r="10"/><circle class="f-s" cx="40" cy="116" r="4"/>
-              <circle class="f-fg" cx="126" cy="116" r="10"/><circle class="f-s" cx="126" cy="116" r="4"/>
-              <path class="s-s" d="M26 88h40M26 98h26"/>
-              <rect class="f-s s-a" x="134" y="12" width="54" height="64" rx="6"/>
-              <text x="161" y="44" text-anchor="middle" style="font:800 24px var(--display);fill:var(--green)">$</text>
-              <path class="s-m" d="M144 58h34M144 66h22"/>
-              <rect class="f-s s-a" x="20" y="14" width="52" height="44" rx="5"/><rect class="f-r" x="21" y="15" width="50" height="12" rx="4"/>
-              <text x="46" y="50" text-anchor="middle" style="font:800 18px var(--display);fill:var(--fg)">18</text>
-            </svg>
-            <div class="who"><p class="eyebrow">Cobranza que lee tu Excel o tus CFDI</p><h3>Sabe quién te debe, cuánto y desde cuándo. Y redacta el recordatorio correcto para cada cliente.</h3>
-              <div class="psr"><div><b>Problema</b>Cobrar da pena y se olvida; el dinero se queda en la calle.</div><div><b>Qué hace</b>Ordena tu cartera por atraso y escribe recordatorios amables.</div><div><b>Ganas</b>Cobras antes, sin perder la buena relación con tu cliente.</div></div>
-              <ol class="try"><li>Pulsa “Recordar” en un cliente</li><li>Cambia a WhatsApp</li><li>Sube tu propio Excel y descarga el reporte</li></ol>
+            <div class="photo"><img src="img/distribuidora.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
+            <div class="who"><p class="eyebrow">Cobranza que lee tu Excel</p><h3>Sabe quién te debe, cuánto y desde cuándo. Y redacta el recordatorio correcto para cada cliente.</h3>
+              <div class="psr"><div><b>Problema</b>Cobrar da pena y se olvida; el dinero se queda en la calle.</div><div><b>Qué hace</b>Ordena tu cartera por atraso y escribe recordatorios que suben de tono con cuidado.</div><div><b>Ganas</b>Cobras antes, sin perder la buena relación con tu cliente.</div></div>
+              <ol class="try"><li>Pulsa “Recordar” en un cliente</li><li>Cambia a WhatsApp</li><li>Sube tu Excel y descarga el reporte</li></ol>
             </div>
             <div class="price"><span class="note">Desde</span><b>$990 / mes</b><span class="note">+ instalación $3,000</span></div>
           </div>
@@ -502,15 +507,15 @@ svg.demo-art,svg.hero-art,.ti svg{
             <div class="pane">
               <span class="pane-label" id="cb-title">1 · Cartera de Materiales del Sureste (ejemplo)</span>
               <div class="row">
-                <span class="btn ghost small filebtn">Subir mi Excel<input type="file" id="cb-file" accept=".xlsx,.xls,.csv" aria-label="Subir Excel de cartera"></span>
+                <span class="btn primary small filebtn">Subir mi Excel o CSV<input type="file" id="cb-file" accept=".xlsx,.xls,.csv" aria-label="Subir Excel de cartera"></span>
                 <button class="btn ghost small" id="cb-template">Descargar plantilla</button>
                 <button class="btn ghost small" id="cb-reset">Volver al ejemplo</button>
               </div>
-              <p class="note" id="cb-msg" role="status">Columnas: Cliente, Contacto, Folio, Saldo, Vence. Tu archivo no sale de tu navegador.</p>
+              <p class="note" id="cb-msg" role="status">Columnas: Cliente, Contacto, Folio, Saldo, Vence (también entiende “Razón social”, “Importe”, “Fecha de vencimiento”). Tu archivo no sale de tu navegador.</p>
               <div class="kpis"><div class="kpi"><small>Por cobrar</small><b id="cb-k1">$0</b></div><div class="kpi"><small>Vencido</small><b id="cb-k2">$0</b></div><div class="kpi"><small>Atraso promedio</small><b id="cb-k3">0 d</b></div></div>
               <div><div class="aging" id="cb-aging" aria-hidden="true"></div><p class="note" id="cb-aging-l" style="margin-top:6px"></p></div>
-              <div class="tbl-wrap"><table><thead><tr><th>Cliente</th><th class="num">Saldo</th><th><span class="sr">Acción</span></th></tr></thead><tbody id="cb-body"></tbody></table></div>
-              <div class="row"><button class="btn yellow small" id="cb-xlsx">Descargar reporte Excel</button></div>
+              <div class="tbl-wrap" style="max-height:420px;overflow:auto"><table><thead><tr><th>Cliente</th><th class="num">Saldo</th><th><span class="sr">Acción</span></th></tr></thead><tbody id="cb-body"></tbody></table></div>
+              <div class="row"><button class="btn accent small" id="cb-xlsx">Descargar reporte Excel</button></div>
             </div>
             <div class="pane">
               <span class="pane-label">2 · Recordatorio <span id="cb-src"></span></span>
@@ -525,17 +530,7 @@ svg.demo-art,svg.hero-art,.ti svg{
         <!-- 4. MANUALES -->
         <div class="demo" id="demo-manuales" role="tabpanel" aria-labelledby="tab-manuales" hidden>
           <div class="demo-top">
-            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: manual de la empresa y una pregunta en un globo de chat">
-              <rect class="f-t s-a" x="26" y="24" width="78" height="100" rx="6"/>
-              <path class="s-a" d="M38 24v100"/>
-              <rect class="f-s s-a" x="50" y="44" width="42" height="26" rx="3"/><path class="s-m" d="M56 53h30M56 61h20"/>
-              <rect class="f-y s-a" x="104" y="34" width="10" height="16" rx="3"/><rect class="f-p s-a" x="104" y="56" width="10" height="16" rx="3"/><rect class="f-g s-a" x="104" y="78" width="10" height="16" rx="3"/>
-              <rect class="f-s s-a" x="122" y="20" width="68" height="38" rx="12"/><path class="f-s s-a" d="M134 58l-4 10 14-10"/>
-              <text x="156" y="47" text-anchor="middle" style="font:800 22px var(--display);fill:var(--teal)">?</text>
-              <rect class="f-ts s-a" x="118" y="80" width="74" height="40" rx="12"/>
-              <path class="s-a" d="M128 94h52M128 106h34" style="stroke-width:2.5"/>
-              <text x="182" y="114" text-anchor="end" style="font:600 9px var(--mono);fill:var(--teal)">§2</text>
-            </svg>
+            <div class="photo"><img src="img/equipo.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
             <div class="who"><p class="eyebrow">Pregúntale a tus manuales</p><h3>Tu equipo pregunta y la IA contesta solo con lo que dicen tus documentos, citando la sección.</h3>
               <div class="psr"><div><b>Problema</b>Siempre le preguntan lo mismo a la misma persona.</div><div><b>Qué hace</b>Busca en tus políticas y contesta citando la sección exacta.</div><div><b>Ganas</b>Respuestas en segundos; si no está escrito, lo dice.</div></div>
               <ol class="try"><li>Pulsa una pregunta sugerida</li><li>Escribe la tuya</li><li>Prueba algo que no esté (Cancún)</li></ol>
@@ -562,37 +557,27 @@ svg.demo-art,svg.hero-art,.ti svg{
         <!-- 5. INMUEBLES -->
         <div class="demo" id="demo-inmuebles" role="tabpanel" aria-labelledby="tab-inmuebles" hidden>
           <div class="demo-top">
-            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: casa colonial con palmera y etiqueta ES/EN">
-              <rect class="f-l" x="0" y="126" width="200" height="14"/>
-              <rect class="f-o s-a" x="18" y="48" width="126" height="78"/>
-              <rect class="f-s s-a" x="12" y="38" width="138" height="12" rx="2"/>
-              <path class="f-t s-a" d="M66 126V96a15 15 0 0 1 30 0v30z"/>
-              <rect class="f-t s-a" x="30" y="66" width="22" height="38" rx="2"/><path class="s-s" d="M37 69v32M45 69v32" style="stroke-width:2"/>
-              <rect class="f-t s-a" x="110" y="66" width="22" height="38" rx="2"/><path class="s-s" d="M117 69v32M125 69v32" style="stroke-width:2"/>
-              <path class="s-a" d="M172 126c-4-26-2-48 4-70" style="stroke-width:4"/>
-              <path class="f-g s-a" d="M176 56c-14-10-28-8-36 2 13-3 24 0 36-2z"/><path class="f-g s-a" d="M176 56c10-10 22-10 22 0-8-2-14-1-22 0z"/><path class="f-g s-a" d="M176 56c-4-14-14-22-26-20 10 6 18 12 26 20z"/>
-              <rect class="f-y s-a" x="132" y="10" width="58" height="22" rx="11"/>
-              <text x="161" y="25" text-anchor="middle" style="font:700 10px var(--mono);fill:var(--yellow-ink)">ES / EN</text>
-            </svg>
+            <div class="photo"><img src="img/inmueble.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
             <div class="who"><p class="eyebrow">Fichas de inmuebles bilingües</p><h3>Escribe los datos de la propiedad. Recibe la ficha lista para portales, en español y en inglés.</h3>
-              <div class="psr"><div><b>Problema</b>Compradores extranjeros y fichas solo en español.</div><div><b>Qué hace</b>Escribe la ficha en ES y EN con precio en USD y sq ft.</div><div><b>Ganas</b>Publicas más rápido y llegas a compradores de fuera.</div></div>
-              <ol class="try"><li>Cambia los datos</li><li>Pulsa “Crear ficha”</li><li>Cambia a English</li></ol>
+              <div class="psr"><div><b>Problema</b>Compradores de fuera (en la costa, sobre todo extranjeros) y fichas solo en español.</div><div><b>Qué hace</b>Escribe la ficha en ES y EN con precio en USD y sq ft, sin inventar.</div><div><b>Ganas</b>Publicas más rápido y llegas a compradores de otros estados y países.</div></div>
+              <ol class="try"><li>Elige un ejemplo o escribe los datos</li><li>Pulsa “Crear ficha”</li><li>Cambia a English</li></ol>
             </div>
             <div class="price"><span class="note">Desde</span><b>$1,490 / mes</b><span class="note">fichas ilimitadas</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
               <span class="pane-label">1 · Datos de la propiedad</span>
+              <div class="presets" id="re-presets"></div>
               <div class="grid2">
                 <label>Tipo<select id="re-type"><option>Casa colonial</option><option>Departamento</option><option>Casa de playa</option><option>Terreno</option></select></label>
-                <label>Zona<input type="text" id="re-zone" value="Barrio de Santa Ana, Centro"></label>
+                <label>Zona<input type="text" id="re-zone" value="Barrio de Santiago, Centro"></label>
                 <label>Recámaras<input type="number" id="re-bed" value="3" min="0"></label>
                 <label>Baños<input type="number" id="re-bath" value="2.5" min="0" step="0.5"></label>
                 <label>Terreno (m²)<input type="number" id="re-lot" value="420" min="0"></label>
                 <label>Construcción (m²)<input type="number" id="re-built" value="260" min="0"></label>
               </div>
               <label>Precio (MXN)<input type="number" id="re-price" value="6950000" min="0" step="50000"></label>
-              <label>Detalles<textarea id="re-extra">Restaurada en 2024, techos altos con vigas, pisos de pasta originales, alberca, jardín con árbol de mango, a 3 cuadras del parque de Santa Ana.</textarea></label>
+              <label>Detalles<textarea id="re-extra"></textarea></label>
               <div class="row"><button class="btn primary" id="re-go">Crear ficha ES / EN</button></div>
             </div>
             <div class="pane">
@@ -608,25 +593,17 @@ svg.demo-art,svg.hero-art,.ti svg{
         <!-- 6. AGENDA -->
         <div class="demo" id="demo-agenda" role="tabpanel" aria-labelledby="tab-agenda" hidden>
           <div class="demo-top">
-            <svg class="demo-art" viewBox="0 0 200 140" role="img" aria-label="Ilustración: calendario con cita confirmada, diente y mensaje de WhatsApp">
-              <rect class="f-s s-a" x="18" y="22" width="92" height="96" rx="8"/>
-              <path class="f-t" d="M26 23h76a7 7 0 0 1 7 7v14H19V30a7 7 0 0 1 7-7z"/>
-              <g class="f-k"><rect x="28" y="54" width="16" height="12" rx="2"/><rect x="50" y="54" width="16" height="12" rx="2"/><rect x="72" y="54" width="16" height="12" rx="2"/><rect x="28" y="74" width="16" height="12" rx="2"/><rect x="72" y="74" width="16" height="12" rx="2"/><rect x="28" y="94" width="16" height="12" rx="2"/><rect x="50" y="94" width="16" height="12" rx="2"/><rect x="72" y="94" width="16" height="12" rx="2"/></g>
-              <rect class="f-y" x="50" y="74" width="16" height="12" rx="2"/>
-              <path class="f-s s-a" d="M138 22c-7 0-12 6-11 15 1 9 5 14 6 26 1 7 8 7 9 0l2-10 2 10c1 7 8 7 9 0 1-12 5-17 6-26 1-9-4-15-11-15-4 0-6 2-6.5 2s-2.5-2-6.5-2z"/>
-              <path class="f-y" d="M174 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>
-              <rect class="f-g s-a" x="118" y="90" width="74" height="30" rx="12"/>
-              <path class="s-s" d="M134 105l6 6 12-12" style="stroke-width:3"/><path class="s-s" d="M160 101h20M160 109h12" style="stroke-width:2"/>
-            </svg>
-            <div class="who"><p class="eyebrow">Citas y recordatorios</p><h3>Tus pacientes eligen horario, reciben confirmación y un recordatorio un día antes.</h3>
-              <div class="psr"><div><b>Problema</b>Pacientes que no llegan y huecos en la agenda.</div><div><b>Qué hace</b>Confirma por WhatsApp y recuerda un día antes.</div><div><b>Ganas</b>Menos inasistencias y recepción más libre.</div></div>
-              <ol class="try"><li>Elige servicio y horario</li><li>Responde “1” o “2”</li><li>Agrega la cita a tu calendario</li></ol>
+            <div class="photo"><img src="img/dental.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
+            <div class="who"><p class="eyebrow">Citas y recordatorios</p><h3>Tus pacientes eligen horario, reciben confirmación y un recordatorio un día antes, en su idioma.</h3>
+              <div class="psr"><div><b>Problema</b>Pacientes que no llegan; los de EE. UU. y Canadá no entienden los mensajes en español.</div><div><b>Qué hace</b>Confirma por WhatsApp en español o inglés y recuerda un día antes.</div><div><b>Ganas</b>Menos inasistencias y una recepción más libre.</div></div>
+              <ol class="try"><li>Elige idioma, servicio y horario</li><li>Responde “1” o “2”</li><li>Agrega la cita a tu calendario</li></ol>
             </div>
             <div class="price"><span class="note">Como extra de Presencia local</span><b>+$300 / mes</b><span class="note">o $790 / mes solo</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
-              <span class="pane-label">1 · Clínica Dental Montejo (ejemplo): servicio y horario</span>
+              <span class="pane-label">1 · Clínica Dental Montejo (ejemplo)</span>
+              <div class="seg" role="group" aria-label="Idioma del paciente"><button id="ag-es" aria-pressed="true">Paciente en español</button><button id="ag-en" aria-pressed="false">Patient in English</button></div>
               <label>Servicio<select id="ag-svc"></select></label>
               <label>Nombre del paciente<input type="text" id="ag-name" value="Mariana Pech" autocomplete="off"></label>
               <div id="ag-days"></div>
@@ -645,57 +622,93 @@ svg.demo-art,svg.hero-art,.ti svg{
     </div>
   </section>
 
-  <section id="proceso" class="band" aria-labelledby="proc-h">
-    <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">Cómo trabajamos</p><h2 id="proc-h">Primero ves resultados, luego decides</h2></div>
-      <div class="steps">
-        <div class="step"><svg class="step-ico" viewBox="0 0 44 44" aria-hidden="true"><circle class="f-ts" cx="22" cy="22" r="22"/><circle class="s-a" cx="20" cy="20" r="8" style="stroke:var(--teal);stroke-width:3"/><path class="s-a" d="M26 26l7 7" style="stroke:var(--teal);stroke-width:3"/></svg><h3>Auditoría gratis</h3><p class="muted">Revisamos tus reseñas, tu web y cómo atiendes mensajes. Te entregamos una hoja con lo que pierdes hoy y cómo arreglarlo.</p><span class="when">1 página · sin compromiso</span></div>
-        <div class="step"><svg class="step-ico" viewBox="0 0 44 44" aria-hidden="true"><circle class="f-ys" cx="22" cy="22" r="22"/><path class="s-a" d="M14 30l6-6 5 4 7-10" style="stroke:var(--amber);stroke-width:3"/><path class="s-a" d="M28 18h4v4" style="stroke:var(--amber);stroke-width:3"/></svg><h3>Piloto de 2 semanas</h3><p class="muted">Instalamos la herramienta con tus datos reales. Precio fijo, con factura. Al final ves números: reseñas contestadas, pesos cobrados, citas confirmadas.</p><span class="when">precio fijo · 50% de la instalación</span></div>
-        <div class="step"><svg class="step-ico" viewBox="0 0 44 44" aria-hidden="true"><circle class="f-ts" cx="22" cy="22" r="22"/><rect class="s-a" x="12" y="13" width="20" height="19" rx="3" style="stroke:var(--teal);stroke-width:2.5"/><path class="s-a" d="M17 23l4 4 6-7" style="stroke:var(--green);stroke-width:3"/></svg><h3>Mensualidad sin contrato</h3><p class="muted">Si te sirve, sigues pagando mes a mes. Si no, lo cancelas. Recibes un reporte mensual y soporte por WhatsApp.</p><span class="when">pago por SPEI o tarjeta · CFDI</span></div>
+  <section id="auditoria" class="band" aria-labelledby="au-h">
+    <div class="wrap audit">
+      <div class="sec-head" style="margin:0">
+        <p class="eyebrow">Auditoría gratis</p>
+        <h2 id="au-h">Así se ve la hoja que te entregamos</h2>
+        <p class="muted">Revisamos tu web, tus reseñas de Google y cómo contestas mensajes. En una página te decimos qué te está costando clientes y cómo arreglarlo, con o sin nosotros.</p>
+        <div class="row" style="margin-top:8px"><a class="btn primary arrow" href="#contacto">Pedir la mía </a></div>
+      </div>
+      <div class="report" aria-label="Ejemplo de auditoría de un hotel ficticio">
+        <div class="report-head">
+          <div><p class="eyebrow">Ejemplo · negocio ficticio</p><h3 style="margin-top:6px">Hotel Casa Ejemplo, Centro de Mérida</h3><p class="note">Revisión de web, Google y WhatsApp</p></div>
+          <div class="score" style="--v:54" aria-label="Calificación 54 de 100"><span>54</span></div>
+        </div>
+        <div class="finding"><span class="chip bad">Alta</span><div><b>La web en inglés mezcla textos en español</b><p>“Ubicación” y “Recepción” aparecen en la versión en inglés; el huésped extranjero duda.</p><p class="fix">Traducción completa y revisada; selector de idioma visible.</p></div></div>
+        <div class="finding"><span class="chip bad">Alta</span><div><b>El correo de reservas está mal escrito</b><p>Aparece sin “@”, así que nadie puede copiarlo y escribir.</p><p class="fix">Botón de correo y de WhatsApp que abren el mensaje ya escrito.</p></div></div>
+        <div class="finding"><span class="chip warn">Media</span><div><b>El botón “Book now” no lleva a ningún lado</b><p>Quien quiere reservar se va a una plataforma que cobra comisión.</p><p class="fix">Reserva directa por WhatsApp con fechas y número de huéspedes.</p></div></div>
+        <div class="finding"><span class="chip warn">Media</span><div><b>4 de cada 10 reseñas sin respuesta</b><p>Las quejas sin contestar pesan más que las 5 estrellas.</p><p class="fix">Respuestas sugeridas cada semana para aprobar con un clic.</p></div></div>
       </div>
     </div>
   </section>
 
-  <section id="precios" aria-labelledby="pr-h">
+  <section id="proceso" aria-labelledby="proc-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Cómo trabajamos</p><h2 id="proc-h">Primero ves resultados, luego decides</h2></div>
+      <div class="steps">
+        <div class="step"><h3>Auditoría gratis</h3><p class="muted">Revisamos tus reseñas, tu web y cómo atiendes mensajes. Te entregamos una hoja con lo que pierdes hoy y cómo arreglarlo.</p><span class="when">1 página · sin compromiso</span></div>
+        <div class="step"><h3>Piloto de 2 semanas</h3><p class="muted">Instalamos la herramienta con tus datos reales. Precio fijo, con factura. Al final ves números: reseñas contestadas, pesos cobrados, citas confirmadas.</p><span class="when">precio fijo · 50% de la instalación</span></div>
+        <div class="step"><h3>Mensualidad sin contrato</h3><p class="muted">Si te sirve, sigues pagando mes a mes. Si no, lo cancelas. Recibes un reporte mensual y soporte por WhatsApp.</p><span class="when">pago por SPEI o tarjeta · CFDI</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="precios" class="band" aria-labelledby="pr-h">
     <div class="wrap">
       <div class="sec-head"><p class="eyebrow">Precios de lanzamiento 2026</p><h2 id="pr-h">Claros, en pesos y sin letras chiquitas</h2><p class="muted">Precios + IVA. Los mensajes de WhatsApp los cobra Meta directo a tu cuenta; te ayudamos a configurarla.</p></div>
       <div class="prices">
-        <div class="pc feat"><span class="chip info tag">Más rápido de instalar</span><h3>Presencia local con IA</h3><p class="amt">$490 <small>/ mes</small></p><p class="note">Instalación desde $3,000</p><ul><li>Web bilingüe ES/EN de una página</li><li>Respuestas a reseñas de Google</li><li>Chat con tu menú, horarios y precios</li><li>Reporte mensual</li></ul></div>
-        <div class="pc"><h3>Bandeja CFDI</h3><p class="amt">$590 <small>/ mes</small></p><p class="note">Por despacho, hasta 300 facturas</p><ul><li>Correo de reenvío para tus clientes</li><li>Clasificación por cliente y gasto</li><li>Avisos de XML faltante o con errores</li><li>Exportación a Excel</li></ul></div>
+        <div class="pc feat"><span class="chip info tag">Más rápido de instalar</span><h3>Presencia local con IA</h3><p class="amt">$490 <small>/ mes</small></p><p class="note">Instalación desde $3,000</p><ul><li>Web bilingüe ES/EN de una página</li><li>Respuestas a reseñas de Google</li><li>Reserva directa por WhatsApp</li><li>Reporte mensual</li></ul></div>
+        <div class="pc"><h3>Bandeja CFDI</h3><p class="amt">$590 <small>/ mes</small></p><p class="note">Por despacho, hasta 300 facturas</p><ul><li>Correo de reenvío para tus clientes</li><li>ZIP de descarga masiva del SAT</li><li>Avisos de XML faltante o con errores</li><li>Exportación a Excel</li></ul></div>
         <div class="pc"><h3>Cobranza amable</h3><p class="amt">$990 <small>/ mes</small></p><p class="note">Instalación desde $3,000</p><ul><li>Lee tu Excel o tus CFDI emitidos</li><li>Recordatorios por correo y WhatsApp</li><li>Promesas de pago y reporte semanal</li></ul></div>
-        <div class="pc"><h3>Citas y recordatorios</h3><p class="amt">$790 <small>/ mes</small></p><p class="note">O +$300 junto con Presencia local</p><ul><li>Agenda en Google Calendar</li><li>Confirmación y recordatorio</li><li>Paso a tu recepción</li></ul></div>
-        <div class="pc"><h3>Fichas de inmuebles</h3><p class="amt">$1,490 <small>/ mes</small></p><p class="note">Fichas ilimitadas ES/EN</p><ul><li>Textos para portales y redes</li><li>Resumen de cada prospecto</li></ul></div>
+        <div class="pc"><h3>Citas y recordatorios</h3><p class="amt">$790 <small>/ mes</small></p><p class="note">O +$300 junto con Presencia local</p><ul><li>Agenda en Google Calendar</li><li>Confirmación en español o inglés</li><li>Paso a tu recepción</li></ul></div>
+        <div class="pc"><h3>Fichas de inmuebles</h3><p class="amt">$1,490 <small>/ mes</small></p><p class="note">Fichas ilimitadas ES/EN</p><ul><li>Textos para portales y redes</li><li>Precio en USD y medidas en sq ft</li></ul></div>
         <div class="pc"><h3>Empresas medianas</h3><p class="amt">desde $30,000</p><p class="note">Piloto por área, 4 a 6 semanas</p><ul><li>Asistente sobre tus manuales</li><li>Hoja de seguridad y acuerdo de confidencialidad</li><li>Taller “IA aplicada” para tu equipo</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preguntas" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Preguntas frecuentes</p><h2 id="faq-h">Lo que nos preguntan antes de empezar</h2></div>
+      <div class="faq">
+        <details><summary>¿Tengo que cambiar mi sistema o mi forma de trabajar?</summary><p>No. Nos conectamos a lo que ya usas: tu Excel, las facturas que descargas del SAT, tu WhatsApp Business y tu Google. Tú sigues trabajando igual, con menos pasos.</p></details>
+        <details><summary>¿Qué pasa con mis datos y los de mis clientes?</summary><p>Solo los usamos para el servicio que contratas, no los vendemos ni los compartimos. Firmamos un acuerdo de confidencialidad y te damos un aviso de privacidad conforme a la ley mexicana de protección de datos.</p></details>
+        <details><summary>¿La IA manda mensajes sola, sin que yo los vea?</summary><p>Solo si tú lo decides. Por defecto, la IA redacta y tú apruebas con un clic. Los recordatorios automáticos (citas, pagos) usan plantillas que revisas antes de activarlas.</p></details>
+        <details><summary>¿Funciona con WhatsApp oficial?</summary><p>Sí. Usamos la API oficial de WhatsApp Business. Meta cobra los mensajes directo a tu cuenta, según sus tarifas; te ayudamos a darla de alta y a estimar el costo.</p></details>
+        <details><summary>¿Me dan factura?</summary><p>Sí, todos los pagos llevan CFDI. Puedes pagar por transferencia SPEI o con tarjeta.</p></details>
+        <details><summary>¿Y si no me sirve?</summary><p>El piloto es de 2 semanas a precio fijo. Si no ves resultados, no sigues. La mensualidad no tiene contrato forzoso.</p></details>
       </div>
     </div>
   </section>
 
   <section id="codigo" class="band" aria-labelledby="gu-h">
     <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">Código abierto</p><h2 id="gu-h">Puedes revisar cómo está hecho</h2><p class="muted">Para equipos técnicos: el código de los demos y de los proyectos base está en GitHub.</p></div>
+      <div class="sec-head"><p class="eyebrow">Para equipos técnicos</p><h2 id="gu-h">Puedes revisar cómo está hecho</h2><p class="muted">El código de los demos y de los proyectos base está en GitHub.</p></div>
       <div class="code-list">
         <a class="doc" href="https://github.com/kalebtf/docubot" target="_blank" rel="noopener"><span class="n">GH</span><span><b>DocuBot</b><small>Asistente que contesta con tus documentos, citando la fuente. Probado con 16 de 16 preguntas correctas.</small></span></a>
         <a class="doc" href="https://github.com/kalebtf/xook-portafolio/tree/main/agente-correos" target="_blank" rel="noopener"><span class="n">GH</span><span><b>Agente de correos</b><small>Lee correos de clientes y extrae reservas, cotizaciones y quejas a una base de datos.</small></span></a>
-        <a class="doc" href="https://github.com/kalebtf/xook-portafolio" target="_blank" rel="noopener"><span class="n">GH</span><span><b>Este sitio y sus demos</b><small>HTML y JavaScript. Lectura de CFDI y Excel en el navegador.</small></span></a>
+        <a class="doc" href="https://github.com/kalebtf/xook-portafolio" target="_blank" rel="noopener"><span class="n">GH</span><span><b>Este sitio y sus demos</b><small>Lectura de CFDI, ZIP y Excel en el navegador; servidor de IA en Cloudflare.</small></span></a>
       </div>
     </div>
   </section>
 
-  <section id="contacto" aria-labelledby="ct-h">
+  <section id="contacto" class="contact-band" aria-labelledby="ct-h">
     <div class="wrap contact">
-      <div class="sec-head" style="margin:0">
+      <div>
         <p class="eyebrow">Auditoría gratis</p>
-        <h2 id="ct-h">Te decimos qué te está haciendo perder clientes, en una página</h2>
-        <p class="muted">Escríbenos el nombre de tu negocio. En 48 horas te mandamos la auditoría. Sin costo y sin compromiso.</p>
+        <h2 id="ct-h" style="margin-top:14px">Te decimos qué te está haciendo perder clientes, en una página</h2>
+        <p class="muted" style="margin-top:14px">Escríbenos el nombre de tu negocio. En 48 horas te mandamos la auditoría. Sin costo y sin compromiso.</p>
+        <div class="contact-list"><div>Respuesta en 48 horas</div><div>Una página, en español claro</div><div>Sin compromiso de compra</div></div>
       </div>
-      <form id="ct-form" class="panel" novalidate>
+      <form id="ct-form" class="form" novalidate>
         <label>Nombre del negocio<input type="text" id="ct-biz" required placeholder="Ej. Panadería La Mejorada" autocomplete="organization"></label>
         <label>Giro<select id="ct-type"><option>Restaurante o cafetería</option><option>Hotel, hostal o tours</option><option>Clínica o consultorio</option><option>Despacho contable</option><option>Distribuidora o comercio</option><option>Inmobiliaria</option><option>Otro</option></select></label>
         <label>¿Qué te interesa más?<select id="ct-need"><option>Reseñas y web bilingüe</option><option>Ordenar facturas</option><option>Cobrar lo que me deben</option><option>Citas y recordatorios</option><option>Fichas de inmuebles</option><option>Asistente para mi equipo</option></select></label>
         <button class="btn primary" type="submit">Escribir mi solicitud</button>
         <div id="ct-out" hidden style="display:grid;gap:10px">
           <div class="out filled" id="ct-msg"></div>
-          <div class="row"><a class="btn yellow" id="ct-mailto" href="#">Enviar por correo</a><a class="btn primary" id="ct-wa" href="#" target="_blank" rel="noopener" hidden>Enviar por WhatsApp</a><button class="btn ghost small" type="button" id="ct-copy">Copiar mensaje</button></div>
+          <div class="row"><a class="btn accent" id="ct-mailto" href="#">Enviar por correo</a><a class="btn primary" id="ct-wa" href="#" target="_blank" rel="noopener" hidden>Enviar por WhatsApp</a><button class="btn ghost small" type="button" id="ct-copy">Copiar mensaje</button></div>
           <p class="note">Si el botón no abre tu correo, copia el mensaje y envíalo a <b class="mono" id="ct-mail">kalebtf@gmail.com</b>.</p>
         </div>
         <p class="note">Al escribirnos aceptas que usemos tus datos solo para responderte. Aviso de privacidad disponible a solicitud.</p>
@@ -705,7 +718,7 @@ svg.demo-art,svg.hero-art,.ti svg{
 </main>
 
 <footer>
-  <div class="wrap"><span>Xook IA · Mérida, Yucatán · 2026</span><span>Demos con negocios y datos ficticios. RFC de prueba del SAT. Ilustraciones propias.</span></div>
+  <div class="wrap"><span>Xook IA · Mérida, Yucatán · 2026</span><span>Negocios de los demos ficticios. RFC de prueba del SAT. Fotos: Unsplash e imágenes generadas con IA.</span></div>
 </footer>
 
 <script>
@@ -824,49 +837,86 @@ $(".tabs").addEventListener("keydown", e => {
 function fromHash() { const h = location.hash.slice(1); if (DEMOS.includes(h)) showDemo(h, true); }
 window.addEventListener("hashchange", fromHash); fromHash();
 
+$$("[data-go]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); showDemo(a.dataset.go, true); try { history.replaceState(null, "", "#" + a.dataset.go); } catch {} }));
+
 /* ============ 1. Reseñas ============ */
 const TONES = { calido: "cálido y cercano", profesional: "profesional y formal (usted)", breve: "muy breve, máximo 30 palabras" };
-const REVIEWS = [
-  { name: "Jennifer M.", stars: 5, lang: "en", when: "hace 2 días", text: "Amazing cochinita pibil and the best horchata we had in Mérida! The courtyard is beautiful. Only wish they had an English menu.",
-    reply: {
-      calido: "Thank you so much, Jennifer! We're thrilled you enjoyed our cochinita pibil and horchata in the courtyard. Great news: our English menu is now ready, just ask your server or scan the QR at your table. We hope to welcome you back on your next visit to Mérida! — Elvira and the team",
-      profesional: "Dear Jennifer, thank you for your kind review. We are delighted you enjoyed our cochinita pibil, horchata and courtyard. We are pleased to share that our English menu is now available; simply ask your server or scan the QR code at your table. We look forward to welcoming you again. — Cocina Doña Elvira",
-      breve: "Thank you, Jennifer! So glad you loved the cochinita and horchata. Our English menu is ready now. See you next time! — Elvira & team" } },
-  { name: "Luis Canché", stars: 2, lang: "es", when: "hace 5 días", text: "La comida rica pero esperamos 45 minutos por los panuchos un sábado. Nadie nos avisó que iba a tardar.",
-    reply: {
-      calido: "Luis, gracias por decírnoslo y una disculpa por la espera del sábado. Tienes razón: debimos avisarte desde el inicio. Ya reforzamos el turno de cocina de fin de semana y ahora el mesero informa el tiempo estimado al tomar la orden. Nos encantaría que nos des otra oportunidad; pregunta por Elvira. — Cocina Doña Elvira",
-      profesional: "Estimado Luis: gracias por su comentario y lamentamos la espera del sábado. Debimos informarle el tiempo desde el inicio. Ya reforzamos el turno de cocina de fin de semana y el mesero ahora indica el tiempo estimado al tomar la orden. Será un gusto atenderle de nuevo. — Cocina Doña Elvira",
-      breve: "Luis, una disculpa por la espera del sábado. Ya reforzamos la cocina en fin de semana y te avisamos el tiempo al ordenar. ¡Esperamos verte pronto! — Doña Elvira" } },
-  { name: "Ana Sofía R.", stars: 4, lang: "es", when: "hace 1 semana", text: "Muy buen sazón yucateco y precios justos. El estacionamiento es complicado en la calle 60.",
-    reply: {
-      calido: "¡Gracias, Ana Sofía! Nos alegra que disfrutaras el sazón de casa. Sobre el estacionamiento: a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m. Lo agregamos a nuestra página para que sea más fácil llegar. ¡Te esperamos pronto! — Cocina Doña Elvira",
-      profesional: "Estimada Ana Sofía: muchas gracias por su reseña. Sobre el estacionamiento, a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m.; ya lo indicamos en nuestra página. Será un gusto recibirle de nuevo. — Cocina Doña Elvira",
-      breve: "¡Gracias, Ana Sofía! Tip: hay estacionamiento público en la calle 57, a media cuadra. ¡Te esperamos! — Doña Elvira" } }
-];
-let rvSel = 0;
+const BIZ = {
+  rest: { name: "Cocina Doña Elvira (ejemplo)", img: "img/restaurante.jpg", domain: "donaelvira.example",
+    ctx: `"Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57, el turno de cocina de fin de semana se reforzó y el mesero ahora avisa el tiempo estimado)`,
+    reviews: [
+      { name: "Jennifer M.", stars: 5, lang: "en", when: "hace 2 días", text: "Amazing cochinita pibil and the best horchata we had in Mérida! The courtyard is beautiful. Only wish they had an English menu.",
+        reply: {
+          calido: "Thank you so much, Jennifer! We're thrilled you enjoyed our cochinita pibil and horchata in the courtyard. Great news: our English menu is now ready, just ask your server or scan the QR at your table. We hope to welcome you back on your next visit to Mérida! — Elvira and the team",
+          profesional: "Dear Jennifer, thank you for your kind review. We are delighted you enjoyed our cochinita pibil, horchata and courtyard. We are pleased to share that our English menu is now available; simply ask your server or scan the QR code at your table. We look forward to welcoming you again. — Cocina Doña Elvira",
+          breve: "Thank you, Jennifer! So glad you loved the cochinita and horchata. Our English menu is ready now. See you next time! — Elvira & team" } },
+      { name: "Luis Canché", stars: 2, lang: "es", when: "hace 5 días", text: "La comida rica pero esperamos 45 minutos por los panuchos un sábado. Nadie nos avisó que iba a tardar.",
+        reply: {
+          calido: "Luis, gracias por decírnoslo y una disculpa por la espera del sábado. Tienes razón: debimos avisarte desde el inicio. Ya reforzamos el turno de cocina de fin de semana y ahora el mesero informa el tiempo estimado al tomar la orden. Nos encantaría que nos des otra oportunidad; pregunta por Elvira. — Cocina Doña Elvira",
+          profesional: "Estimado Luis: gracias por su comentario y lamentamos la espera del sábado. Debimos informarle el tiempo desde el inicio. Ya reforzamos el turno de cocina de fin de semana y el mesero ahora indica el tiempo estimado al tomar la orden. Será un gusto atenderle de nuevo. — Cocina Doña Elvira",
+          breve: "Luis, una disculpa por la espera del sábado. Ya reforzamos la cocina en fin de semana y te avisamos el tiempo al ordenar. ¡Esperamos verte pronto! — Doña Elvira" } },
+      { name: "Ana Sofía R.", stars: 4, lang: "es", when: "hace 1 semana", text: "Muy buen sazón yucateco y precios justos. El estacionamiento es complicado en la calle 60.",
+        reply: {
+          calido: "¡Gracias, Ana Sofía! Nos alegra que disfrutaras el sazón de casa. Sobre el estacionamiento: a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m. Lo agregamos a nuestra página para que sea más fácil llegar. ¡Te esperamos pronto! — Cocina Doña Elvira",
+          profesional: "Estimada Ana Sofía: muchas gracias por su reseña. Sobre el estacionamiento, a media cuadra, en la calle 57, hay un estacionamiento público abierto hasta las 11 p. m.; ya lo indicamos en nuestra página. Será un gusto recibirle de nuevo. — Cocina Doña Elvira",
+          breve: "¡Gracias, Ana Sofía! Tip: hay estacionamiento público en la calle 57, a media cuadra. ¡Te esperamos! — Doña Elvira" } }
+    ],
+    site: {
+      es: { tag: "Cocina yucateca de casa desde 1998", h: "Cocina Doña Elvira", cta: "Reservar por WhatsApp", a: ["Horario", "Lun a dom, 8:00 a 23:00"], b: ["Dirección", "Calle 60, Centro"], c: ["Especialidad", "Cochinita pibil y panuchos"], d: ["Cómo llegar", "Estacionamiento en calle 57"] },
+      en: { tag: "Homestyle Yucatecan food since 1998", h: "Cocina Doña Elvira", cta: "Book on WhatsApp", a: ["Hours", "Mon–Sun, 8 am – 11 pm"], b: ["Address", "Calle 60, Downtown"], c: ["Signature dish", "Cochinita pibil & panuchos"], d: ["Getting here", "Parking on Calle 57"] } } },
+  hotel: { name: "Casa Ejemplo Hotel Boutique", img: "img/hotel.jpg", domain: "casaejemplo.example",
+    ctx: `"Casa Ejemplo Hotel Boutique", hotel en una casona de 1890 en la Calle 55, a una cuadra del parque de Santa Lucía, Centro de Mérida (check-in 15:00, guarda maletas desde las 10:00, ingreso anticipado si avisan por WhatsApp, desayuno incluido, alberca pequeña, el aire acondicionado de las habitaciones se revisó esta semana, reserva directa por WhatsApp y precios aproximados en USD en la web)`,
+    reviews: [
+      { name: "Thomas & Claire", stars: 5, lang: "en", when: "hace 3 días", text: "Gorgeous colonial house, the plunge pool was perfect after a hot day exploring. Breakfast was amazing. Only issue: our room's AC was a bit noisy at night.",
+        reply: {
+          calido: "Thank you, Thomas and Claire! We're so happy the plunge pool and breakfast made your days in Mérida even better. You're right about the AC: our maintenance team serviced the units this week. We'd love to welcome you back! — The Casa Ejemplo team",
+          profesional: "Dear Thomas and Claire, thank you for your wonderful review. We are delighted you enjoyed the plunge pool and our breakfast. Regarding the air conditioning, our maintenance team serviced the units this week. We look forward to hosting you again. — Casa Ejemplo Hotel Boutique",
+          breve: "Thank you, Thomas and Claire! Glad you loved the pool and breakfast. The AC has been serviced. Hope to see you again! — Casa Ejemplo" } },
+      { name: "Daniela G.", stars: 3, lang: "es", when: "hace 6 días", text: "La casa es preciosa, pero el check-in era a las 15:00, llegamos a las 13:00 y no nos ofrecieron guardar las maletas. El personal, muy amable.",
+        reply: {
+          calido: "Daniela, gracias por tu reseña y una disculpa: debimos ofrecerte guardar tus maletas desde que llegaste. Ahora lo hacemos siempre desde las 10:00 y, si nos escribes por WhatsApp antes de llegar, intentamos darte el cuarto antes. ¡Nos encantará recibirte otra vez! — Equipo Casa Ejemplo",
+          profesional: "Estimada Daniela: gracias por su comentario y lamentamos lo ocurrido a su llegada. Debimos ofrecerle resguardo de equipaje. Ahora lo ofrecemos siempre desde las 10:00 y, si nos avisa por WhatsApp, procuramos el ingreso anticipado. Será un gusto recibirle nuevamente. — Casa Ejemplo Hotel Boutique",
+          breve: "Daniela, una disculpa. Ya guardamos maletas desde las 10:00 y, si nos avisas, te damos el cuarto antes. ¡Te esperamos! — Casa Ejemplo" } },
+      { name: "Marc L.", stars: 4, lang: "en", when: "hace 2 semanas", text: "Great location near Santa Lucía park, very quiet rooms. Wish the website showed prices in USD and that booking direct was easier. We ended up booking through an app.",
+        reply: {
+          calido: "Thanks so much, Marc! We're glad you enjoyed the quiet rooms and being steps from Santa Lucía park. Great point: you can now book directly with us on WhatsApp, and our website shows approximate prices in USD. See you on your next trip to Mérida! — The Casa Ejemplo team",
+          profesional: "Dear Marc, thank you for your review. We are pleased you enjoyed the location near Santa Lucía park and the quiet rooms. You can now book directly with us via WhatsApp, and our website displays approximate prices in USD. We look forward to your next visit. — Casa Ejemplo Hotel Boutique",
+          breve: "Thanks, Marc! Direct booking on WhatsApp and USD prices are now on our site. See you next time! — Casa Ejemplo" } }
+    ],
+    site: {
+      es: { tag: "Hotel boutique en una casona de 1890", h: "Casa Ejemplo", cta: "Reservar por WhatsApp", a: ["Check-in", "15:00 · maletas desde 10:00"], b: ["Dirección", "Calle 55, a una cuadra de Santa Lucía"], c: ["Incluye", "Desayuno y alberca"], d: ["Tarifas", "Desde $2,400 MXN por noche"] },
+      en: { tag: "Boutique hotel in an 1890 mansion", h: "Casa Ejemplo", cta: "Book on WhatsApp", a: ["Check-in", "3 pm · luggage from 10 am"], b: ["Address", "Calle 55, one block from Santa Lucía park"], c: ["Includes", "Breakfast & plunge pool"], d: ["Rates", "From $2,400 MXN (≈ US$130) / night"] } } }
+};
+let rvBiz = "rest", rvSel = 0, siteLang = "es";
 function renderReviews() {
-  $("#reviews").innerHTML = REVIEWS.map((r, i) => `<button class="review" aria-pressed="${i === rvSel}" data-i="${i}"><span class="row" style="justify-content:space-between"><b>${esc(r.name)}</b><span class="stars" aria-label="${r.stars} de 5 estrellas">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span></span><span>${esc(r.text)}</span><span class="meta">Google · ${r.when} · ${r.lang === "en" ? "en inglés" : "en español"}</span></button>`).join("");
+  const B = BIZ[rvBiz];
+  $("#rv-title").textContent = "1 · Reseñas recientes de " + B.name;
+  $("#reviews").innerHTML = B.reviews.map((r, i) => `<button class="review" aria-pressed="${i === rvSel}" data-i="${i}"><span class="row" style="justify-content:space-between"><b>${esc(r.name)}</b><span class="stars" aria-label="${r.stars} de 5 estrellas">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span></span><span>${esc(r.text)}</span><span class="meta">Google · ${r.when} · ${r.lang === "en" ? "en inglés" : "en español"}</span></button>`).join("");
   $$("#reviews .review").forEach(b => b.addEventListener("click", () => { rvSel = +b.dataset.i; renderReviews(); }));
 }
-renderReviews();
+function setBiz(k) {
+  rvBiz = k; rvSel = 0;
+  $("#rv-biz-rest").setAttribute("aria-pressed", String(k === "rest")); $("#rv-biz-hotel").setAttribute("aria-pressed", String(k === "hotel"));
+  const ph = $("#rv-photo"); ph.classList.remove("missing"); ph.src = BIZ[k].img;
+  $("#rv-out").textContent = "Elige una reseña y pulsa “Redactar respuesta”."; $("#rv-out").classList.remove("filled"); $("#rv-src").innerHTML = "";
+  renderReviews(); renderSite(siteLang);
+}
+$("#rv-biz-rest").addEventListener("click", () => setBiz("rest")); $("#rv-biz-hotel").addEventListener("click", () => setBiz("hotel"));
 $("#rv-go").addEventListener("click", async e => {
-  const r = REVIEWS[rvSel]; const tone = $("#rv-tone").value; e.currentTarget.disabled = true; const btn = e.currentTarget;
-  const data = { review: r.text, stars: r.stars, name: r.name, lang: r.lang, tone };
-  const prompt = `Eres el dueño de "Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57). Responde esta reseña de Google en el MISMO idioma de la reseña (${r.lang === "en" ? "inglés" : "español"}), tono ${TONES[tone]}, máximo 70 palabras. Agradece; si hay queja, reconócela sin excusas y di qué se hizo; invita a volver; firma como el equipo. No inventes descuentos ni datos que no estén aquí. Solo el texto de la respuesta.\n\nReseña (${r.stars} estrellas) de ${r.name}: "${r.text}"`;
+  const btn = e.currentTarget; const B = BIZ[rvBiz]; const r = B.reviews[rvSel]; const tone = $("#rv-tone").value; btn.disabled = true;
+  const data = { biz: rvBiz, review: r.text, stars: r.stars, name: r.name, lang: r.lang, tone };
+  const prompt = `Eres el dueño de ${B.ctx}. Responde esta reseña de Google en el MISMO idioma de la reseña (${r.lang === "en" ? "inglés" : "español"}), tono ${TONES[tone]}, máximo 70 palabras. Agradece; si hay queja, reconócela sin excusas y di qué se hizo; invita a volver; firma como el equipo. No inventes descuentos ni datos que no estén aquí. Solo el texto de la respuesta.\n\nReseña (${r.stars} estrellas) de ${r.name}: "${r.text}"`;
   await askAI("resena", data, prompt, $("#rv-out"), $("#rv-src"), r.reply[tone]);
   btn.disabled = false;
 });
 $("#rv-copy").addEventListener("click", e => copyText($("#rv-out").textContent, e.currentTarget));
-const SITE = {
-  es: { tag: "Cocina yucateca de casa desde 1998", h: "Cocina Doña Elvira", cta: "Reservar por WhatsApp", a: ["Horario", "Lun a dom, 8:00 a 23:00"], b: ["Dirección", "Calle 60 #482, Centro"], c: ["Especialidad", "Cochinita pibil y panuchos"], d: ["Cómo llegar", "Estacionamiento en calle 57"] },
-  en: { tag: "Homestyle Yucatecan food since 1998", h: "Cocina Doña Elvira", cta: "Book on WhatsApp", a: ["Hours", "Mon–Sun, 8 am – 11 pm"], b: ["Address", "Calle 60 #482, Downtown"], c: ["Signature dish", "Cochinita pibil & panuchos"], d: ["Getting here", "Parking on Calle 57"] }
-};
 function renderSite(l) {
-  const s = SITE[l];
-  $("#minisite").innerHTML = `<div class="bar"><i></i><i></i><i></i><span>donaelvira.com.mx/${l}</span></div><div class="hero2"><span class="mono" style="font-size:.72rem;opacity:.85">${s.tag}</span><h3>${s.h}</h3><span class="chip" style="justify-self:start;background:var(--yellow);color:var(--yellow-ink)">${s.cta}</span></div><div class="info">${[s.a, s.b, s.c, s.d].map(x => `<div><b>${x[0]}</b>${x[1]}</div>`).join("")}</div>`;
+  siteLang = l; const B = BIZ[rvBiz]; const s = B.site[l];
+  $("#minisite").innerHTML = `<div class="bar"><i></i><i></i><i></i><span>${B.domain}/${l}</span></div><div class="hero2" style="--site-img:url('${B.img}')"><span class="mono" style="font-size:.72rem;opacity:.9">${s.tag}</span><h3>${s.h}</h3><span class="chip" style="justify-self:start;background:var(--accent);color:var(--accent-ink)">${s.cta}</span></div><div class="info">${[s.a, s.b, s.c, s.d].map(x => `<div><b>${x[0]}</b>${x[1]}</div>`).join("")}</div>`;
   $("#ms-es").setAttribute("aria-pressed", String(l === "es")); $("#ms-en").setAttribute("aria-pressed", String(l === "en"));
 }
-$("#ms-es").addEventListener("click", () => renderSite("es")); $("#ms-en").addEventListener("click", () => renderSite("en")); renderSite("es");
+$("#ms-es").addEventListener("click", () => renderSite("es")); $("#ms-en").addEventListener("click", () => renderSite("en"));
+renderReviews(); renderSite("es");
 
 /* ============ 2. CFDI ============ */
 const CF_SAMPLES = {
@@ -891,74 +941,118 @@ const CF_SAMPLES = {
   <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="90101501" Cantidad="1" ClaveUnidad="E48" Descripcion="Consumo de alimentos" ValorUnitario="862.07" Importe="862.07" ObjetoImp="02"/></cfdi:Conceptos>
 </cfdi:Comprobante>`
 };
-const CATS = [["151015", "Combustible"], ["4321", "Equipo de cómputo"], ["901015", "Alimentos y restaurantes"], ["8111", "Servicios de software"], ["7810", "Transporte"], ["8012", "Servicios profesionales"], ["5310", "Papelería y oficina"], ["4410", "Papelería y oficina"], ["8310", "Servicios de luz, agua o teléfono"], ["8011", "Servicios profesionales"]];
+const CATS = [["151015", "Combustible"], ["4321", "Equipo de cómputo"], ["901015", "Alimentos y restaurantes"], ["8111", "Software y sistemas"], ["7810", "Fletes y transporte"], ["7811", "Fletes y transporte"], ["8012", "Servicios profesionales"], ["8011", "Servicios profesionales"], ["5310", "Papelería y oficina"], ["4412", "Papelería y oficina"], ["4410", "Papelería y oficina"], ["8311", "Teléfono e internet"], ["8310", "Luz, agua y gas"], ["8411", "Pagos y servicios financieros"]];
+const REGIMEN = { "601": "General de Ley PM", "612": "Actividad empresarial", "626": "RESICO", "616": "Sin obligaciones", "605": "Sueldos y salarios", "606": "Arrendamiento" };
 let cfRows = [], cfSel = "Gasolina";
 function byLocal(doc, name) { return [...doc.getElementsByTagName("*")].filter(el => el.localName === name); }
 function parseCFDI(xml) {
   const doc = new DOMParser().parseFromString(xml, "application/xml");
-  if (doc.getElementsByTagName("parsererror").length) throw new Error("El archivo no es un XML válido.");
-  const c = byLocal(doc, "Comprobante")[0]; if (!c) throw new Error("No parece un CFDI: falta el nodo Comprobante.");
+  if (doc.getElementsByTagName("parsererror").length) throw new Error("no es un XML válido (archivo dañado o incompleto).");
+  const c = byLocal(doc, "Comprobante")[0]; if (!c) throw new Error("no es una factura CFDI (falta el nodo Comprobante).");
   const em = byLocal(doc, "Emisor")[0], re = byLocal(doc, "Receptor")[0], tfd = byLocal(doc, "TimbreFiscalDigital")[0];
   const conceptos = byLocal(doc, "Concepto");
   const clave = conceptos[0]?.getAttribute("ClaveProdServ") || "";
-  const cat = (CATS.find(([p]) => clave.startsWith(p)) || [, "Otros gastos"])[1];
+  const tipo = c.getAttribute("TipoDeComprobante");
+  const cat = tipo === "P" ? "Complemento de pago" : (CATS.find(([p]) => clave.startsWith(p)) || [, "Otros gastos"])[1];
   return {
     version: c.getAttribute("Version"), folio: [c.getAttribute("Serie"), c.getAttribute("Folio")].filter(Boolean).join("-") || "s/folio",
     fecha: (c.getAttribute("Fecha") || "").slice(0, 10), total: parseFloat(c.getAttribute("Total") || "0"),
-    metodo: c.getAttribute("MetodoPago"), tipo: c.getAttribute("TipoDeComprobante"),
+    metodo: c.getAttribute("MetodoPago") || "", tipo,
     emisor: em?.getAttribute("Nombre") || em?.getAttribute("Rfc") || "¿?", emisorRfc: em?.getAttribute("Rfc") || "",
-    receptorRfc: re?.getAttribute("Rfc") || "", uso: re?.getAttribute("UsoCFDI") || "",
-    uuid: tfd?.getAttribute("UUID") || "", desc: conceptos[0]?.getAttribute("Descripcion") || "", cat
+    receptorRfc: (re?.getAttribute("Rfc") || "").toUpperCase(), receptor: re?.getAttribute("Nombre") || "", regimen: re?.getAttribute("RegimenFiscalReceptor") || "", uso: re?.getAttribute("UsoCFDI") || "",
+    uuid: (tfd?.getAttribute("UUID") || "").toUpperCase(), desc: conceptos[0]?.getAttribute("Descripcion") || "", cat,
+    related: byLocal(doc, "DoctoRelacionado").map(d => (d.getAttribute("IdDocumento") || "").toUpperCase()).filter(Boolean)
   };
 }
-function flagsFor(r, rfc) {
-  const f = [];
+const cfClients = () => $("#cf-rfc").value.toUpperCase().split(/[\s,;]+/).filter(Boolean);
+function flagsFor(r) {
+  const f = [], cl = cfClients();
   if (!r.uuid) f.push(["bad", "Sin timbre del SAT"]);
-  if (rfc && r.receptorRfc.toUpperCase() !== rfc.toUpperCase()) f.push(["bad", "No es de tu cliente (" + r.receptorRfc + ")"]);
+  if (cl.length && !cl.includes(r.receptorRfc)) f.push(["bad", "No es de tus clientes (" + r.receptorRfc + ")"]);
   if (r.uso === "S01") f.push(["warn", "Sin efectos fiscales"]);
-  if (r.metodo === "PPD") f.push(["warn", "PPD: pedir complemento de pago"]);
-  if (r.version !== "4.0") f.push(["warn", "Versión " + r.version]);
-  if (r.tipo && r.tipo !== "I") f.push(["info", r.tipo === "E" ? "Nota de crédito" : r.tipo === "P" ? "Complemento de pago" : "Tipo " + r.tipo]);
-  if (!f.length) f.push(["ok", "Correcta"]);
+  if (r.metodo === "PPD") {
+    const paid = cfRows.find(x => x.tipo === "P" && x.related.includes(r.uuid));
+    f.push(paid ? ["ok", "PPD: pago recibido (" + paid.folio + ")"] : ["warn", "PPD: pedir complemento de pago"]);
+  }
+  if (r.version !== "4.0") f.push(["warn", "Versión " + r.version + " (ya no vigente)"]);
+  if (r.tipo === "E") f.push(["info", "Nota de crédito"]);
+  if (r.tipo === "P") { const rel = cfRows.filter(x => r.related.includes(x.uuid)).map(x => x.folio); f.push(["info", rel.length ? "Paga la factura " + rel.join(", ") : "Pago de factura no cargada"]); }
+  if (!f.some(([k]) => k === "bad" || k === "warn")) f.unshift(["ok", "Correcta"]);
   return f;
 }
+const needsReview = r => flagsFor(r).some(([k]) => k === "bad" || k === "warn");
+const signedTotal = r => r.tipo === "E" ? -r.total : r.tipo === "P" ? 0 : r.total;
+function cfVisible() {
+  const v = $("#cf-filter").value, cl = cfClients();
+  if (v === "*") return cfRows;
+  if (v === "otros") return cfRows.filter(r => !cl.includes(r.receptorRfc));
+  if (v === "revisar") return cfRows.filter(needsReview);
+  return cfRows.filter(r => r.receptorRfc === v);
+}
+function renderFilter() {
+  const sel = $("#cf-filter"), cur = sel.value || "*", cl = cfClients();
+  const name = rfc => (cfRows.find(r => r.receptorRfc === rfc) || {}).receptor;
+  sel.innerHTML = `<option value="*">Todas</option><option value="revisar">Solo por revisar</option>` + cl.map(r => `<option value="${esc(r)}">${esc(name(r) ? name(r) + " · " : "")}${esc(r)}</option>`).join("") + `<option value="otros">Fuera de mis clientes</option>`;
+  sel.value = [...sel.options].some(o => o.value === cur) ? cur : "*";
+}
 function renderCF() {
-  const rfc = $("#cf-rfc").value.trim();
-  const body = $("#cf-body");
-  if (!cfRows.length) body.innerHTML = '<tr><td colspan="4" class="muted">Aún no hay facturas.</td></tr>';
-  else body.innerHTML = cfRows.map(r => { const f = flagsFor(r, rfc); return `<tr><td><b>${esc(r.emisor)}</b><br><span class="note mono">${esc(r.folio)} · ${esc(r.fecha)}</span></td><td>${esc(r.cat)}<br><span class="note">${esc(r.desc)}</span></td><td class="num">${money(r.total)}</td><td><div class="flags">${f.map(([k, t]) => `<span class="chip ${k}">${esc(t)}</span>`).join("")}</div></td></tr>`; }).join("");
-  $("#cf-k1").textContent = cfRows.length;
-  $("#cf-k2").textContent = money(cfRows.reduce((a, r) => a + r.total, 0));
-  $("#cf-k3").textContent = cfRows.filter(r => flagsFor(r, rfc).some(([k]) => k === "bad" || k === "warn")).length;
+  renderFilter();
+  const rows = cfVisible(), body = $("#cf-body");
+  if (!rows.length) body.innerHTML = `<tr><td colspan="4" class="muted">${cfRows.length ? "No hay facturas con este filtro." : "Aún no hay facturas. Sube XML o el ZIP de prueba."}</td></tr>`;
+  else body.innerHTML = rows.map(r => { const f = flagsFor(r); const reg = REGIMEN[r.regimen] ? " · " + REGIMEN[r.regimen] : ""; return `<tr><td><b>${esc(r.emisor)}</b><br><span class="note mono">${esc(r.folio)} · ${esc(r.fecha)}</span></td><td>${esc(r.receptor || r.receptorRfc)}<span class="note">${esc(reg)}</span><br><span class="note">${esc(r.cat)} · ${esc(r.desc)}</span></td><td class="num">${r.tipo === "P" ? "—" : (r.tipo === "E" ? "−" : "") + money(r.total)}</td><td><div class="flags">${f.map(([k, t]) => `<span class="chip ${k}">${esc(t)}</span>`).join("")}</div></td></tr>`; }).join("");
+  $("#cf-k1").textContent = rows.length;
+  $("#cf-k2").textContent = money(rows.reduce((a, r) => a + signedTotal(r), 0));
+  $("#cf-k3").textContent = rows.filter(needsReview).length;
 }
 function addXML(xml, name) {
-  const msg = $("#cf-msg");
   try {
     const r = parseCFDI(xml);
-    if (r.uuid && cfRows.some(x => x.uuid === r.uuid)) { say(msg, (name ? name + ": " : "") + "esa factura ya está en la bandeja (mismo UUID).", "errmsg"); return false; }
-    cfRows.push(r); renderCF(); say(msg, (name ? name + ": " : "") + "factura agregada.", "okmsg"); return true;
-  } catch (e) { say(msg, (name ? name + ": " : "") + e.message, "errmsg"); return false; }
+    if (r.uuid && cfRows.some(x => x.uuid === r.uuid)) return { ok: false, dup: true, msg: (name ? name + ": " : "") + "ya estaba en la bandeja (mismo UUID)." };
+    cfRows.push(r); return { ok: true };
+  } catch (e) { return { ok: false, msg: (name ? name + ": " : "La factura ") + e.message }; }
+}
+let zipPromise = null;
+function loadJSZip() {
+  if (window.JSZip) return Promise.resolve(window.JSZip);
+  if (zipPromise) return zipPromise;
+  const add = src => new Promise((ok, fail) => { const s = document.createElement("script"); s.src = src; s.onload = () => window.JSZip ? ok(window.JSZip) : fail(); s.onerror = fail; document.head.append(s); });
+  zipPromise = add("vendor/jszip.min.js").catch(() => add("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"))
+    .catch(() => { zipPromise = null; throw new Error("No se pudo cargar el lector de ZIP. Revisa tu conexión."); });
+  return zipPromise;
+}
+async function ingest(files) {
+  const msg = $("#cf-msg"); let added = 0, dups = 0; const errs = [];
+  say(msg, "Leyendo…");
+  for (const f of files) {
+    if (/\.zip$/i.test(f.name)) {
+      try {
+        const Z = await loadJSZip(); const zip = await Z.loadAsync(await f.arrayBuffer());
+        const xmls = Object.values(zip.files).filter(z => !z.dir && /\.xml$/i.test(z.name));
+        if (!xmls.length) errs.push(f.name + ": el ZIP no trae archivos .xml.");
+        for (const z of xmls) { const r = addXML(await z.async("string"), z.name.split("/").pop()); r.ok ? added++ : r.dup ? dups++ : errs.push(r.msg); }
+      } catch (e) { errs.push(f.name + ": " + (e.message || "no se pudo abrir el ZIP.")); }
+    } else { const r = addXML(await f.text(), f.name); r.ok ? added++ : r.dup ? dups++ : errs.push(r.msg); }
+  }
+  renderCF();
+  const parts = [`${added} factura${added === 1 ? "" : "s"} agregada${added === 1 ? "" : "s"}`];
+  if (dups) parts.push(`${dups} repetida${dups === 1 ? "" : "s"} (mismo UUID)`);
+  say(msg, parts.join(", ") + "." + (errs.length ? " No se pudieron leer: " + errs.join(" ") : ""), added ? "okmsg" : "errmsg");
 }
 const cfSeg = $("#cf-samples");
 Object.keys(CF_SAMPLES).forEach(k => { const b = document.createElement("button"); b.type = "button"; b.textContent = k; b.setAttribute("aria-pressed", String(k === cfSel)); b.addEventListener("click", () => { cfSel = k; $$("#cf-samples button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); $("#cf-xml").value = CF_SAMPLES[k]; }); cfSeg.append(b); });
 $("#cf-xml").value = CF_SAMPLES[cfSel];
-$("#cf-add").addEventListener("click", () => addXML($("#cf-xml").value));
-$("#cf-file").addEventListener("change", async e => {
-  const files = [...e.target.files]; let ok = 0;
-  for (const f of files) { if (addXML(await f.text(), files.length > 1 ? f.name : "")) ok++; }
-  if (files.length > 1) say($("#cf-msg"), `${ok} de ${files.length} archivos agregados.`, ok ? "okmsg" : "errmsg");
-  e.target.value = "";
-});
-$("#cf-reset").addEventListener("click", () => { cfRows = []; say($("#cf-msg"), "Bandeja vacía. Agrega facturas para probar."); renderCF(); });
+$("#cf-add").addEventListener("click", () => { const r = addXML($("#cf-xml").value); renderCF(); say($("#cf-msg"), r.ok ? "Factura agregada." : r.msg, r.ok ? "okmsg" : "errmsg"); });
+$("#cf-file").addEventListener("change", async e => { const files = [...e.target.files]; e.target.value = ""; if (files.length) await ingest(files); });
+$("#cf-reset").addEventListener("click", () => { cfRows = []; $("#cf-filter").value = "*"; say($("#cf-msg"), "Bandeja vacía. Sube facturas para probar."); renderCF(); });
 $("#cf-rfc").addEventListener("input", renderCF);
+$("#cf-filter").addEventListener("change", renderCF);
 $("#cf-dl-sample").addEventListener("click", e => { e.preventDefault(); downloadText(`ejemplo-${norm(cfSel).replace(/[^a-z0-9]+/g, "-")}.xml`, CF_SAMPLES[cfSel], "application/xml"); });
 function cfTable() {
-  const rfc = $("#cf-rfc").value.trim();
-  return cfRows.map(r => ({ Fecha: r.fecha, Folio: r.folio, Emisor: r.emisor, "RFC emisor": r.emisorRfc, "RFC receptor": r.receptorRfc, Categoría: r.cat, Concepto: r.desc, "Método de pago": r.metodo || "", Total: r.total, UUID: r.uuid, Avisos: flagsFor(r, rfc).map(x => x[1]).join("; ") }));
+  return cfVisible().map(r => ({ Fecha: r.fecha, Folio: r.folio, Tipo: { I: "Ingreso", E: "Egreso", P: "Pago" }[r.tipo] || r.tipo, Emisor: r.emisor, "RFC emisor": r.emisorRfc, Cliente: r.receptor, "RFC cliente": r.receptorRfc, Régimen: REGIMEN[r.regimen] || r.regimen, "Uso CFDI": r.uso, Categoría: r.cat, Concepto: r.desc, "Método de pago": r.metodo, Total: signedTotal(r), UUID: r.uuid, Avisos: flagsFor(r).map(x => x[1]).join("; ") }));
 }
 $("#cf-xlsx").addEventListener("click", async () => {
-  if (!cfRows.length) return say($("#cf-msg"), "Agrega al menos una factura.", "errmsg");
-  try { await downloadXLSX("bandeja-cfdi.xlsx", "Facturas", cfTable(), [11, 12, 30, 15, 15, 24, 30, 10, 12, 38, 40]); say($("#cf-msg"), "Excel descargado.", "okmsg"); }
+  if (!cfVisible().length) return say($("#cf-msg"), "No hay facturas para exportar.", "errmsg");
+  try { await downloadXLSX("bandeja-cfdi.xlsx", "Facturas", cfTable(), [11, 12, 9, 28, 15, 24, 15, 20, 9, 22, 30, 10, 12, 38, 44]); say($("#cf-msg"), "Excel descargado.", "okmsg"); }
   catch (err) { say($("#cf-msg"), err.message, "errmsg"); }
 });
 $("#cf-csv").addEventListener("click", e => {
@@ -966,7 +1060,7 @@ $("#cf-csv").addEventListener("click", e => {
   const head = Object.keys(t[0]);
   copyText([head.join("\t"), ...t.map(r => head.map(h => r[h]).join("\t"))].join("\n"), e.currentTarget);
 });
-Object.values(CF_SAMPLES).forEach(x => { try { cfRows.push(parseCFDI(x)); } catch {} });
+Object.values(CF_SAMPLES).forEach(x => addXML(x));
 renderCF();
 
 /* ============ 3. Cobranza ============ */
@@ -1132,22 +1226,32 @@ $("#mn-go").addEventListener("click", runManual);
 $("#mn-q").addEventListener("keydown", e => { if (e.key === "Enter") runManual(); });
 
 /* ============ 5. Inmuebles ============ */
-const RE_DEFAULT_EXTRA = $("#re-extra").value;
-const RE_EN_DEFAULT = "Restored in 2024 with high beamed ceilings, original pasta tile floors, a pool and a garden with a mango tree, three blocks from Santa Ana park.";
 const TYPE_EN = { "Casa colonial": "Colonial home", "Departamento": "Apartment", "Casa de playa": "Beach house", "Terreno": "Land" };
 const USD_RATE = 18.5;
+const RE_PRESETS = [
+  { label: "Casa colonial en Santiago", v: { type: "Casa colonial", zone: "Barrio de Santiago, Centro", bed: 3, bath: 2.5, lot: 420, built: 260, price: 6950000, extra: "Restaurada en 2024, techos altos con vigas, pisos de pasta originales, alberca, jardín con árbol de mango, a 3 cuadras del mercado de Santiago." },
+    en: "Restored in 2024 with high beamed ceilings, original pasta tile floors, a pool and a garden with a mango tree, three blocks from Santiago market." },
+  { label: "Casa de playa en Chicxulub", v: { type: "Casa de playa", zone: "Chicxulub Puerto, Progreso", bed: 3, bath: 3, lot: 300, built: 210, price: 8400000, extra: "Frente al mar, terraza en azotea con vista al atardecer, alberca, a 10 minutos del malecón de Progreso y a 40 de Mérida." },
+    en: "Beachfront, with a rooftop terrace for sunset views and a pool, 10 minutes from the Progreso boardwalk and 40 minutes from Mérida." },
+  { label: "Departamento en Temozón", v: { type: "Departamento", zone: "Temozón Norte, Mérida", bed: 2, bath: 2, lot: 0, built: 115, price: 3650000, extra: "Torre nueva con gimnasio, alberca, seguridad 24 horas y dos cajones de estacionamiento; cerca de plazas comerciales y hospitales del norte." },
+    en: "New tower with gym, pool, 24-hour security and two parking spaces; close to shopping centers and hospitals in north Mérida." }
+];
 let reLang = "es", reData = null;
+function setRE(v) { $("#re-type").value = v.type; $("#re-zone").value = v.zone; $("#re-bed").value = v.bed; $("#re-bath").value = v.bath; $("#re-lot").value = v.lot; $("#re-built").value = v.built; $("#re-price").value = v.price; $("#re-extra").value = v.extra; }
+$("#re-presets").innerHTML = RE_PRESETS.map((p, i) => `<button type="button" class="btn ghost small" data-i="${i}">${esc(p.label)}</button>`).join("");
+$$("#re-presets button").forEach(b => b.addEventListener("click", () => { setRE(RE_PRESETS[+b.dataset.i].v); $("#re-go").click(); }));
+setRE(RE_PRESETS[0].v);
 function reVals() { return { type: $("#re-type").value, zone: $("#re-zone").value.trim(), bed: +$("#re-bed").value || 0, bath: +$("#re-bath").value || 0, lot: +$("#re-lot").value || 0, built: +$("#re-built").value || 0, price: +$("#re-price").value || 0, extra: $("#re-extra").value.trim() }; }
 function reFallback(v) {
   const usd = Math.round(v.price / USD_RATE / 1000) * 1000;
   const isLand = v.type === "Terreno";
   const featEs = [!isLand && v.bed && `${v.bed} recámaras`, !isLand && v.bath && `${v.bath} baños`, v.lot && `${v.lot.toLocaleString("es-MX")} m² de terreno`, !isLand && v.built && `${v.built.toLocaleString("es-MX")} m² de construcción`].filter(Boolean).join(" · ");
   const featEn = [!isLand && v.bed && `${v.bed} bedrooms`, !isLand && v.bath && `${v.bath} bathrooms`, v.lot && `${v.lot.toLocaleString("en-US")} m² lot (${Math.round(v.lot * 10.764).toLocaleString("en-US")} sq ft)`, !isLand && v.built && `${v.built.toLocaleString("en-US")} m² built (${Math.round(v.built * 10.764).toLocaleString("en-US")} sq ft)`].filter(Boolean).join(" · ");
-  const sameExtra = v.extra === RE_DEFAULT_EXTRA;
+  const preset = RE_PRESETS.find(p => p.v.extra === v.extra);
   return {
     es: `${v.type} en ${v.zone}\n${money(v.price)} MXN\n\n${featEs}\n\n${v.extra}\n\nAgenda tu visita y recibe el plano y los documentos por correo.`,
-    en: `${TYPE_EN[v.type] || v.type} in ${v.zone}\n${money(v.price)} MXN (approx. US$${usd.toLocaleString("en-US")})\n\n${featEn}\n\n${sameExtra ? RE_EN_DEFAULT + "\n\n" : ""}Book a visit and get the floor plan and documents by email.`,
-    partial: !sameExtra
+    en: `${TYPE_EN[v.type] || v.type} in ${v.zone}\n${money(v.price)} MXN (approx. US$${usd.toLocaleString("en-US")})\n\n${featEn}\n\n${preset ? preset.en + "\n\n" : ""}Book a visit and get the floor plan and documents by email.`,
+    partial: !preset
   };
 }
 function renderRE() {
@@ -1160,7 +1264,7 @@ function renderRE() {
 }
 $("#re-es").addEventListener("click", () => { reLang = "es"; renderRE(); }); $("#re-en").addEventListener("click", () => { reLang = "en"; renderRE(); });
 $("#re-go").addEventListener("click", async e => {
-  const btn = e.currentTarget; const v = reVals(); const fb = reFallback(v); btn.disabled = true;
+  const btn = $("#re-go"); const v = reVals(); const fb = reFallback(v); btn.disabled = true;
   if (aiMode === "none") { reData = fb; $("#re-src").innerHTML = badge(false); renderRE(); btn.disabled = false; return; }
   $("#re-out").textContent = "Escribiendo…";
   try {
@@ -1173,39 +1277,51 @@ $("#re-go").addEventListener("click", async e => {
 $("#re-copy").addEventListener("click", e => copyText($("#re-out").textContent, e.currentTarget));
 
 /* ============ 6. Agenda ============ */
-const SVCS = [["Limpieza dental", 40, 600], ["Valoración de ortodoncia", 30, 0], ["Blanqueamiento", 60, 2800], ["Resina (caries)", 45, 900]];
-const CLINIC = { name: "Clínica Dental Montejo", addr: "Calle 31 #210, col. México, Mérida" };
-$("#ag-svc").innerHTML = SVCS.map(([n, m, p], i) => `<option value="${i}">${n} · ${m} min · ${p ? money(p) : "sin costo"}</option>`).join("");
+const SVCS = [["Limpieza dental", "Dental cleaning", 40, 600], ["Valoración de implante", "Implant consultation", 45, 800], ["Blanqueamiento", "Teeth whitening", 60, 2800], ["Resina (caries)", "Tooth-colored filling", 45, 900]];
+const CLINIC = { name: "Clínica Dental Montejo (ejemplo)", addr: "Calle 31, col. México, Mérida" };
+const DEFAULT_NAME = { es: "Mariana Pech", en: "Mary Johnson" };
+let agLang = "es", agPick = null, agReply = 0;
+const loc = () => agLang === "en" ? "en-US" : "es-MX";
+function renderSvcs() { const cur = $("#ag-svc").value || "0"; $("#ag-svc").innerHTML = SVCS.map(([es, en, m, p], i) => `<option value="${i}">${agLang === "en" ? en : es} · ${m} min · ${money(p)} MXN${agLang === "en" ? ` (≈ US$${Math.round(p / USD_RATE)})` : ""}</option>`).join(""); $("#ag-svc").value = cur; }
 const taken = new Set(["1-10:30", "1-12:00", "2-09:00", "3-16:30", "3-17:30"]);
 const TIMES = ["09:00", "10:30", "12:00", "16:30", "17:30"];
-let agPick = null, agReply = 0;
 function bizDays(n) { const out = []; const d = new Date(today); while (out.length < n) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0) out.push(new Date(d)); } return out; }
 const DAYS = bizDays(3);
 function renderAG() {
-  $("#ag-days").innerHTML = DAYS.map((d, di) => `<p class="day-label">${d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })}</p><div class="slots">${TIMES.map(t => { const k = (di + 1) + "-" + t; const dis = taken.has(k); const on = agPick && agPick.k === k; return `<button type="button" class="slot" data-k="${k}" data-d="${di}" data-t="${t}" ${dis ? `disabled aria-label="${t} ocupado"` : ""} aria-pressed="${on}">${t}</button>`; }).join("")}</div>`).join("");
+  $("#ag-days").innerHTML = DAYS.map((d, di) => `<p class="day-label">${d.toLocaleDateString(loc(), { weekday: "long", day: "numeric", month: "long" })}</p><div class="slots">${TIMES.map(t => { const k = (di + 1) + "-" + t; const dis = taken.has(k); const on = agPick && agPick.k === k; return `<button type="button" class="slot" data-k="${k}" data-d="${di}" data-t="${t}" ${dis ? `disabled aria-label="${t} ocupado"` : ""} aria-pressed="${on}">${t}</button>`; }).join("")}</div>`).join("");
   $$("#ag-days .slot:not([disabled])").forEach(b => b.addEventListener("click", () => { agPick = { k: b.dataset.k, d: DAYS[+b.dataset.d], t: b.dataset.t }; agReply = 0; renderAG(); renderWA(); }));
 }
 function agTimes() {
-  const [svc, mins] = SVCS[+$("#ag-svc").value]; const [h, m] = agPick.t.split(":").map(Number);
+  const s = SVCS[+$("#ag-svc").value]; const [h, m] = agPick.t.split(":").map(Number);
   const start = new Date(agPick.d); start.setHours(h, m, 0, 0);
-  const end = new Date(start.getTime() + mins * 60000);
+  const end = new Date(start.getTime() + s[2] * 60000);
   const f = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
-  return { svc, start: f(start), end: f(end) };
+  return { svc: agLang === "en" ? s[1] : s[0], start: f(start), end: f(end) };
 }
 function renderWA() {
   if (!agPick) return;
-  const [svc, , price] = SVCS[+$("#ag-svc").value]; const name = $("#ag-name").value.trim() || "Paciente";
-  const fecha = agPick.d.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" });
+  const s = SVCS[+$("#ag-svc").value]; const en = agLang === "en"; const svc = en ? s[1] : s[0]; const price = s[3];
+  const name = $("#ag-name").value.trim() || (en ? "Patient" : "Paciente");
+  const fecha = agPick.d.toLocaleDateString(loc(), { weekday: "long", day: "numeric", month: "long" });
   const prev = new Date(agPick.d); prev.setDate(prev.getDate() - 1);
-  let html = `<div class="bubble">¡Hola ${esc(name)}! Tu cita de <b>${esc(svc)}</b> quedó agendada para el <b>${fecha} a las ${agPick.t}</b> en ${CLINIC.name}, ${CLINIC.addr}.${price ? " Costo: " + money(price) + "." : ""}<time>ahora</time></div>`;
-  html += `<div class="bubble">Recordatorio: mañana a las ${agPick.t} tienes tu ${esc(svc.toLowerCase())}. Responde 1 para confirmar o 2 para cambiar la cita.\nEscribe BAJA para no recibir mensajes.<time>${prev.toLocaleDateString("es-MX", { day: "numeric", month: "short" })} · 10:00</time></div>`;
-  if (agReply === 1) html += `<div class="bubble me">1<time>10:02</time></div><div class="bubble">¡Gracias! Tu cita está confirmada. Te esperamos 10 minutos antes. 😊<time>10:02</time></div>`;
-  if (agReply === 2) html += `<div class="bubble me">2<time>10:03</time></div><div class="bubble">Sin problema. Liberamos tu horario y en unos minutos te escribe nuestra recepción para elegir uno nuevo.<time>10:03</time></div>`;
+  const prevTxt = prev.toLocaleDateString(loc(), { day: "numeric", month: "short" });
+  let html = en
+    ? `<div class="bubble">Hi ${esc(name)}! Your <b>${esc(svc.toLowerCase())}</b> is booked for <b>${fecha} at ${agPick.t}</b> at ${CLINIC.name}, ${CLINIC.addr}. Cost: ${money(price)} MXN (≈ US$${Math.round(price / USD_RATE)}).<time>now</time></div>`
+      + `<div class="bubble">Reminder: tomorrow at ${agPick.t} you have your ${esc(svc.toLowerCase())}. Reply 1 to confirm or 2 to reschedule.\nReply STOP to opt out.<time>${prevTxt} · 10:00</time></div>`
+    : `<div class="bubble">¡Hola ${esc(name)}! Tu cita de <b>${esc(svc)}</b> quedó agendada para el <b>${fecha} a las ${agPick.t}</b> en ${CLINIC.name}, ${CLINIC.addr}. Costo: ${money(price)}.<time>ahora</time></div>`
+      + `<div class="bubble">Recordatorio: mañana a las ${agPick.t} tienes tu ${esc(svc.toLowerCase())}. Responde 1 para confirmar o 2 para cambiar la cita.\nEscribe BAJA para no recibir mensajes.<time>${prevTxt} · 10:00</time></div>`;
+  if (agReply === 1) html += `<div class="bubble me">1<time>10:02</time></div><div class="bubble">${en ? "Thank you! Your appointment is confirmed. Please arrive 10 minutes early. 😊" : "¡Gracias! Tu cita está confirmada. Te esperamos 10 minutos antes. 😊"}<time>10:02</time></div>`;
+  if (agReply === 2) html += `<div class="bubble me">2<time>10:03</time></div><div class="bubble">${en ? "No problem. We've released your slot, and our front desk will message you shortly to pick a new time." : "Sin problema. Liberamos tu horario y en unos minutos te escribe nuestra recepción para elegir uno nuevo."}<time>10:03</time></div>`;
   $("#ag-wa").innerHTML = html;
   const t = agTimes();
-  const details = `Paciente: ${name}. Servicio: ${svc}. Confirmación por WhatsApp.`;
-  $("#ag-gcal").href = "https://calendar.google.com/calendar/render?" + new URLSearchParams({ action: "TEMPLATE", text: `${svc} · ${name}`, dates: `${t.start}/${t.end}`, ctz: "America/Merida", details, location: CLINIC.name + ", " + CLINIC.addr }).toString();
+  $("#ag-gcal").href = "https://calendar.google.com/calendar/render?" + new URLSearchParams({ action: "TEMPLATE", text: `${t.svc} · ${name}`, dates: `${t.start}/${t.end}`, ctz: "America/Merida", details: `${en ? "Patient" : "Paciente"}: ${name}. ${en ? "Confirmed via WhatsApp." : "Confirmación por WhatsApp."}`, location: CLINIC.name + ", " + CLINIC.addr }).toString();
 }
+function setAgLang(l) {
+  const nameEl = $("#ag-name"); if (!nameEl.value.trim() || nameEl.value === DEFAULT_NAME[agLang]) nameEl.value = DEFAULT_NAME[l];
+  agLang = l; $("#ag-es").setAttribute("aria-pressed", String(l === "es")); $("#ag-en").setAttribute("aria-pressed", String(l === "en"));
+  renderSvcs(); renderAG(); renderWA();
+}
+$("#ag-es").addEventListener("click", () => setAgLang("es")); $("#ag-en").addEventListener("click", () => setAgLang("en"));
 function pickFirst() { if (!agPick) { const b = $("#ag-days .slot:not([disabled])"); b && b.click(); } }
 $("#ag-svc").addEventListener("change", () => renderWA()); $("#ag-name").addEventListener("input", () => renderWA());
 $("#ag-r1").addEventListener("click", () => { pickFirst(); agReply = 1; renderWA(); });
@@ -1223,7 +1339,7 @@ $("#ag-ics").addEventListener("click", () => {
     "END:VEVENT", "END:VCALENDAR"].join("\r\n");
   downloadText("cita.ics", ics, "text/calendar");
 });
-renderAG();
+renderSvcs(); renderAG();
 { const first = $("#ag-days .slot:not([disabled])"); if (first) first.click(); }
 
 /* ============ Contacto ============ */

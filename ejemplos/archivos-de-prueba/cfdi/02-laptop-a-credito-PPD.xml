@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="A" Folio="1311" Fecha="2026-10-30T10:00:00" FormaPago="99" MetodoPago="PPD" SubTotal="15500.00" Moneda="MXN" Total="17980.00" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="CACX7605101P8" Nombre="XOCHILT CASAS CHAVEZ" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="612" UsoCFDI="I04"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="43211503" Cantidad="1" ClaveUnidad="E48" Descripcion="Computadora portátil 14 pulgadas" ValorUnitario="15500.00" Importe="15500.00" ObjetoImp="02"/></cfdi:Conceptos>
+  <cfdi:Complemento><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="6513270E-269E-0D37-F2A7-4DE452E6B438" FechaTimbrado="2026-10-30T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>

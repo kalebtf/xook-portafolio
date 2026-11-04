@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cfdi:Comprobante xmlns:cfdi="http://www.sat.gob.mx/cfd/4" Version="4.0" Serie="SW" Folio="450" Fecha="2026-10-05T10:00:00" FormaPago="04" MetodoPago="PUE" SubTotal="4800.00" Moneda="MXN" Total="5568.00" TipoDeComprobante="I" Exportacion="01" LugarExpedicion="97000">
+  <cfdi:Emisor Rfc="XIA190128J61" Nombre="XENON INDUSTRIAL ARTICLES" RegimenFiscal="601"/>
+  <cfdi:Receptor Rfc="FUNK671228PH6" Nombre="KARLA FUENTE NOLASCO" DomicilioFiscalReceptor="97000" RegimenFiscalReceptor="626" UsoCFDI="G03"/>
+  <cfdi:Conceptos><cfdi:Concepto ClaveProdServ="81112501" Cantidad="1" ClaveUnidad="E48" Descripcion="Licencia anual de software contable" ValorUnitario="4800.00" Importe="4800.00" ObjetoImp="02"/></cfdi:Conceptos>
+  <cfdi:Complemento><tfd:TimbreFiscalDigital xmlns:tfd="http://www.sat.gob.mx/TimbreFiscalDigital" Version="1.1" UUID="90C192CF-D3AC-94AF-0F21-DDB66CAD4A26" FechaTimbrado="2026-10-05T12:00:00"/></cfdi:Complemento>
+</cfdi:Comprobante>
