@@ -19,7 +19,7 @@ Software con inteligencia artificial para negocios de Yucatán y México.
 
 ## Carpetas
 
-- `index.html` — la página de portafolio y los demos (un solo archivo, sin servidor).
+- `index.html` — la página de portafolio y los demos (un solo archivo, sin servidor). `src/pagina.html` es la misma página en formato de artifact de Claude.
 - `agente-correos/` — agente en Python que extrae datos de correos con Claude (tool use + Pydantic + SQLite) y su evaluación. Base de la Bandeja CFDI.
 - `docs/` — investigación y guías: oportunidades en Mérida y México (español) y el plan de negocio (inglés).
 - Proyecto relacionado: [DocuBot](https://github.com/kalebtf/docubot) — asistente RAG sobre documentos, evaluación 16/16.
