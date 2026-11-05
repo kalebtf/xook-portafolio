@@ -319,3 +319,32 @@ td.num,th.num{text-align:right}
 .contact-list div::before{content:"✓";color:#9FD9D1;font-weight:700}
 footer{padding-block:34px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+
+/* Inmuebles: visual listing card (rendered to PNG at 1080x1350) */
+.re-card-wrap{width:100%;max-width:420px;aspect-ratio:4/5;position:relative;overflow:hidden;border-radius:14px;box-shadow:var(--shadow)}
+.re-card{position:absolute;left:0;top:0;width:1080px;height:1350px;transform-origin:0 0;background:#F6F4EF;color:#101C1B;font-family:var(--sans);display:grid;grid-template-rows:760px auto 1fr}
+.re-card .ph{display:grid;gap:8px;background:linear-gradient(135deg,#0A2E2B,#0B4F4A 60%,#C98A12);position:relative}
+.re-card .ph.n2{grid-template-columns:2fr 1fr}
+.re-card .ph.n3,.re-card .ph.n4{grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr}
+.re-card .ph.n3 .p0,.re-card .ph.n4 .p0{grid-row:span 2}
+.re-card .ph.n4 .p3{display:none}
+.re-card .ph div{background-size:cover;background-position:center}
+.re-card .ph .empty{display:grid;place-items:center;color:rgb(255 255 255 / .8);font:500 34px var(--sans)}
+.re-card .badge{position:absolute;left:44px;top:44px;background:#fff;color:#101C1B;font:600 26px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:12px 22px;border-radius:99px}
+.re-card .body{padding:48px 56px 0;display:grid;gap:14px}
+.re-card .ttl{font:600 60px/1.05 var(--sans);letter-spacing:-.02em}
+.re-card .zone{font:500 32px var(--sans);color:#5E6A67}
+.re-card .pr{display:flex;align-items:baseline;gap:20px;margin-top:6px}
+.re-card .pr b{font:600 68px var(--sans);color:#0B4F4A;letter-spacing:-.02em}
+.re-card .pr span{font:500 32px var(--sans);color:#5E6A67}
+.re-card .specs{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.re-card .specs span{background:#E1EEEB;color:#0B4F4A;font:600 28px var(--sans);padding:10px 20px;border-radius:12px}
+.re-card .foot{display:flex;justify-content:space-between;align-items:flex-end;padding:0 56px 48px;align-self:end}
+.re-card .foot .cta{font:600 30px var(--sans);max-width:620px;line-height:1.25}
+.re-card .foot .cta small{display:block;font:500 24px var(--mono);color:#5E6A67;margin-top:8px}
+.re-card .qr{width:170px;height:170px;background:#fff;border-radius:14px;padding:10px;display:grid;place-items:center}
+.re-card .qr img{width:150px;height:150px;image-rendering:pixelated}
+input[type=tel],input[type=email]{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:10px 12px}
+a.btn.is-off{opacity:.5}
+.re-card .badge,.re-card .specs span{line-height:1.3;display:inline-block}
+.re-card .badge{padding:14px 24px 12px}

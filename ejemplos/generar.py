@@ -54,15 +54,15 @@ def xlsx(path, headers, rows, date_cols=(), money_cols=()):
         for cell in ws[col][1:]: cell.number_format = "dd/mm/yyyy"
     for col in money_cols:
         for cell in ws[col][1:]: cell.number_format = '"$"#,##0.00'
-    for i, w in enumerate([44, 24, 12, 14, 14][:len(headers)]):
-        ws.column_dimensions["ABCDE"[i]].width = w
+    for i, w in enumerate([44, 24, 12, 14, 14, 16, 28][:len(headers)]):
+        ws.column_dimensions["ABCDEFG"[i]].width = w
     ws.freeze_panes = "A2"
     path.parent.mkdir(parents=True, exist_ok=True); wb.save(path)
 
 cob = OUT / "cobranza"
 rows = [fila(i, c) for i, c in enumerate(CLIENTES)]
-xlsx(cob / "1-cartera-distribuidora.xlsx", ["Cliente", "Contacto", "Folio", "Saldo", "Vence"],
-     [[r["Cliente"], r["Contacto"], r["Folio"], r["Saldo"], r["Vence"]] for r in rows], date_cols="E", money_cols="D")
+xlsx(cob / "1-cartera-distribuidora.xlsx", ["Cliente", "Contacto", "Folio", "Saldo", "Vence", "WhatsApp", "Correo"],
+     [[r["Cliente"], r["Contacto"], r["Folio"], r["Saldo"], r["Vence"], "", ""] for r in rows], date_cols="E", money_cols="D")
 # Otro formato: otros nombres de columna, montos como texto con $, fechas como texto dd/mm/aaaa
 xlsx(cob / "2-cartera-otro-formato.xlsx", ["Razón social", "Atención", "No. factura", "Importe pendiente", "Fecha de vencimiento"],
      [[r["Cliente"], r["Contacto"], r["Folio"], f"${r['Saldo']:,.2f}", r["Vence"].strftime("%d/%m/%Y")] for r in rows[:12]])
@@ -128,6 +128,31 @@ for name, xml in FACTURAS.items(): (cf / name).write_text(xml, encoding="utf-8")
 (cf / "12-xml-que-no-es-factura.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<pedido><cliente>Ejemplo</cliente><total>100</total></pedido>\n', encoding="utf-8")
 with zipfile.ZipFile(cf / "descarga-masiva-SAT-octubre.zip", "w", zipfile.ZIP_DEFLATED) as z:
     for name, xml in FACTURAS.items(): z.writestr(name, xml)
+
+
+# ---------------- Manuales (Word, PDF y texto) ----------------
+MANUAL_HOTEL = [
+    ("1. Check-in y check-out", "El check-in es a partir de las 15:00 y el check-out a las 12:00. Guardamos maletas sin costo desde las 10:00 del día de llegada y hasta las 18:00 del día de salida. La salida tardía hasta las 14:00 cuesta $500 y depende de disponibilidad."),
+    ("2. Cancelaciones", "Las reservas directas se pueden cancelar sin costo hasta 72 horas antes de la llegada. Después se cobra la primera noche. En temporada alta (diciembre y Semana Santa) el plazo es de 7 días."),
+    ("3. Mascotas", "Aceptamos perros de hasta 10 kg en las habitaciones de planta baja, con un cargo de $350 por noche. No se permiten mascotas en la alberca ni en el área de desayuno."),
+    ("4. Desayuno y alberca", "El desayuno se sirve de 7:30 a 10:30 en el patio. La alberca abre de 8:00 a 21:00; no hay salvavidas y los menores deben estar acompañados por un adulto."),
+    ("5. Facturación", "Si el huésped necesita factura (CFDI), debe pedirla con su constancia de situación fiscal antes de terminar el mes de su estancia. Las facturas se envían por correo en un máximo de 48 horas."),
+    ("6. Objetos olvidados", "Los objetos olvidados se guardan 30 días en recepción. El envío por paquetería corre por cuenta del huésped."),
+    ("7. Estacionamiento", "No contamos con estacionamiento propio. Hay un estacionamiento público en la Calle 57, a una cuadra, abierto de 7:00 a 23:00, con tarifa preferencial para huéspedes."),
+]
+man = OUT / "manuales"; man.mkdir(parents=True, exist_ok=True)
+txt = "MANUAL DE OPERACIÓN · HOTEL CASA EJEMPLO (FICTICIO)\n\n" + "\n\n".join(f"{t}\n{b}" for t, b in MANUAL_HOTEL) + "\n"
+(man / "manual-hotel.txt").write_text(txt, encoding="utf-8")
+import docx as _docx
+d = _docx.Document(); d.add_heading("Manual de operación · Hotel Casa Ejemplo (ficticio)", 0)
+for t, b in MANUAL_HOTEL: d.add_heading(t, 1); d.add_paragraph(b)
+d.save(man / "manual-hotel.docx")
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+st = getSampleStyleSheet(); story = [Paragraph("Manual de operación · Hotel Casa Ejemplo (ficticio)", st["Title"])]
+for t, b in MANUAL_HOTEL: story += [Paragraph(t, st["Heading2"]), Paragraph(b, st["BodyText"]), Spacer(1, 6)]
+SimpleDocTemplate(str(man / "manual-hotel.pdf"), pagesize=letter).build(story)
 
 # ---------------- Paquete completo ----------------
 guia = Path(__file__).parent / "GUIA-DE-PRUEBA.pdf"

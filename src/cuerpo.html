@@ -143,7 +143,7 @@
                 <input type="text" id="cf-rfc" value="CACX7605101P8, FUNK671228PH6" autocomplete="off">
               </label>
               <div class="row">
-                <span class="btn primary filebtn">Subir .xml o .zip<input type="file" id="cf-file" accept=".xml,.zip,text/xml,application/zip" multiple aria-label="Subir facturas XML o ZIP"></span>
+                <label class="btn primary" for="cf-file">Subir .xml o .zip</label><input type="file" id="cf-file" class="sr" accept=".xml,.zip,text/xml,application/xml,application/zip,application/x-zip-compressed" multiple>
                 <button class="btn ghost small" id="cf-reset">Vaciar</button>
               </div>
               <p class="note">Tus archivos no salen de tu navegador. ¿No tienes a la mano? <a href="ejemplos/archivos-de-prueba-xook.zip" download>Descarga los de prueba</a> (incluye un ZIP como el de la descarga masiva del SAT).</p>
@@ -179,11 +179,11 @@
             <div class="pane">
               <span class="pane-label" id="cb-title">1 · Cartera de Materiales del Sureste (ejemplo)</span>
               <div class="row">
-                <span class="btn primary small filebtn">Subir mi Excel o CSV<input type="file" id="cb-file" accept=".xlsx,.xls,.csv" aria-label="Subir Excel de cartera"></span>
+                <label class="btn primary small" for="cb-file">Subir mi Excel o CSV</label><input type="file" id="cb-file" class="sr" accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv">
                 <button class="btn ghost small" id="cb-template">Descargar plantilla</button>
                 <button class="btn ghost small" id="cb-reset">Volver al ejemplo</button>
               </div>
-              <p class="note" id="cb-msg" role="status">Columnas: Cliente, Contacto, Folio, Saldo, Vence (también entiende “Razón social”, “Importe”, “Fecha de vencimiento”). Tu archivo no sale de tu navegador.</p>
+              <p class="note" id="cb-msg" role="status">Columnas: Cliente, Contacto, Folio, Saldo, Vence y, si quieres, WhatsApp y Correo (también entiende “Razón social”, “Importe”, “Fecha de vencimiento”). Tu archivo no sale de tu navegador.</p>
               <div class="kpis"><div class="kpi"><small>Por cobrar</small><b id="cb-k1">$0</b></div><div class="kpi"><small>Vencido</small><b id="cb-k2">$0</b></div><div class="kpi"><small>Atraso promedio</small><b id="cb-k3">0 d</b></div></div>
               <div><div class="aging" id="cb-aging" aria-hidden="true"></div><p class="note" id="cb-aging-l" style="margin-top:6px"></p></div>
               <div class="tbl-wrap" style="max-height:420px;overflow:auto"><table><thead><tr><th>Cliente</th><th class="num">Saldo</th><th><span class="sr">Acción</span></th></tr></thead><tbody id="cb-body"></tbody></table></div>
@@ -193,7 +193,9 @@
               <span class="pane-label">2 · Recordatorio <span id="cb-src"></span></span>
               <div class="seg" role="group" aria-label="Canal"><button id="cb-ch-mail" aria-pressed="true">Correo</button><button id="cb-ch-wa" aria-pressed="false">WhatsApp</button></div>
               <div id="cb-out" class="out">Pulsa “Recordar” en un cliente.</div>
-              <div class="row"><button class="btn ghost small" id="cb-ai" hidden>Mejorar con IA</button><button class="btn ghost small" id="cb-copy">Copiar</button></div>
+              <div class="grid2"><label>WhatsApp del cliente<input type="tel" id="cb-phone" inputmode="tel" placeholder="Para probar, pon tu número" autocomplete="off"></label><label>Correo del cliente<input type="email" id="cb-email" placeholder="Para probar, pon tu correo" autocomplete="off"></label></div>
+              <div class="row"><a class="btn primary small" id="cb-send-wa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a><a class="btn accent small" id="cb-send-mail" href="#">Enviar por correo</a><button class="btn ghost small" id="cb-ai" hidden>Mejorar con IA</button><button class="btn ghost small" id="cb-copy">Copiar</button></div>
+              <p class="note" id="cb-send-msg" role="status">En el demo, el botón abre tu WhatsApp o tu correo con el mensaje listo y tú lo envías. En la versión instalada, los recordatorios salen solos a la hora que elijas.</p>
               <p class="note">El tono sube poco a poco: aviso amable, recordatorio, propuesta de pagos, llamada del gerente. Nunca amenaza. Cada WhatsApp incluye “BAJA” para dejar de recibir mensajes.</p>
             </div>
           </div>
@@ -205,13 +207,15 @@
             <div class="photo"><img src="img/equipo.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
             <div class="who"><p class="eyebrow">Pregúntale a tus manuales</p><h3>Tu equipo pregunta y la IA contesta solo con lo que dicen tus documentos, citando la sección.</h3>
               <div class="psr"><div><b>Problema</b>Siempre le preguntan lo mismo a la misma persona.</div><div><b>Qué hace</b>Busca en tus políticas y contesta citando la sección exacta.</div><div><b>Ganas</b>Respuestas en segundos; si no está escrito, lo dice.</div></div>
-              <ol class="try"><li>Pulsa una pregunta sugerida</li><li>Escribe la tuya</li><li>Prueba algo que no esté (Cancún)</li></ol>
+              <ol class="try"><li>Pulsa una pregunta sugerida</li><li>Escribe la tuya</li><li>Sube tu propio manual en Word o PDF</li></ol>
             </div>
             <div class="price"><span class="note">Piloto por área</span><b>desde $30,000</b><span class="note">+ $5,000 / mes</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
-              <span class="pane-label">1 · Manual de Distribuidora Peninsular (ejemplo)</span>
+              <span class="pane-label" id="mn-title">1 · Manual de Distribuidora Peninsular (ejemplo)</span>
+              <div class="row"><label class="btn primary small" for="mn-file">Subir mi manual (Word, PDF o texto)</label><input type="file" id="mn-file" class="sr" accept=".docx,.pdf,.txt,.md,application/pdf,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><button class="btn ghost small" id="mn-reset" hidden>Volver al ejemplo</button></div>
+              <p class="note" id="mn-msg" role="status">Tu documento se lee aquí, en tu navegador; no se sube a ningún servidor. ¿No tienes uno a la mano? Usa los manuales de los <a href="ejemplos/archivos-de-prueba-xook.zip" download>archivos de prueba</a>.</p>
               <div class="row" id="mn-sugg"></div>
               <label>Tu pregunta<input type="text" id="mn-q" value="¿Cuántos días tiene un cliente para devolver material?" autocomplete="off"></label>
               <div class="row"><button class="btn primary" id="mn-go">Preguntar</button></div>
@@ -230,16 +234,17 @@
         <div class="demo" id="demo-inmuebles" role="tabpanel" aria-labelledby="tab-inmuebles" hidden>
           <div class="demo-top">
             <div class="photo"><img src="img/inmueble.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
-            <div class="who"><p class="eyebrow">Fichas de inmuebles bilingües</p><h3>Escribe los datos de la propiedad. Recibe la ficha lista para portales, en español y en inglés.</h3>
-              <div class="psr"><div><b>Problema</b>Compradores de fuera (en la costa, sobre todo extranjeros) y fichas solo en español.</div><div><b>Qué hace</b>Escribe la ficha en ES y EN con precio en USD y sq ft, sin inventar.</div><div><b>Ganas</b>Publicas más rápido y llegas a compradores de otros estados y países.</div></div>
-              <ol class="try"><li>Elige un ejemplo o escribe los datos</li><li>Pulsa “Crear ficha”</li><li>Cambia a English</li></ol>
+            <div class="who"><p class="eyebrow">Kit de publicación para inmobiliarias</p><h3>Sube las fotos y los datos. Recibe la ficha visual, el texto para portales en español e inglés, el post para redes y el mensaje de WhatsApp.</h3>
+              <div class="psr"><div><b>Problema</b>Cada propiedad toma horas: fotos, fichas, traducción, post, mensajes.</div><div><b>Qué hace</b>Arma todo en un minuto, sin inventar datos, con precio en USD y sq ft.</div><div><b>Ganas</b>Publicas el mismo día y llegas a compradores de fuera y del extranjero.</div></div>
+              <ol class="try"><li>Elige un ejemplo o sube tus fotos</li><li>Pulsa “Crear kit”</li><li>Descarga la ficha visual</li></ol>
             </div>
-            <div class="price"><span class="note">Desde</span><b>$1,490 / mes</b><span class="note">fichas ilimitadas</span></div>
+            <div class="price"><span class="note">Desde</span><b>$1,490 / mes</b><span class="note">propiedades ilimitadas</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
               <span class="pane-label">1 · Datos de la propiedad</span>
               <div class="presets" id="re-presets"></div>
+              <div class="row"><label class="btn primary small" for="re-photos">Subir fotos (hasta 4)</label><input type="file" id="re-photos" class="sr" accept="image/*" multiple><span class="note" id="re-photo-msg">Las fotos no salen de tu celular.</span></div>
               <div class="grid2">
                 <label>Tipo<select id="re-type"><option>Casa colonial</option><option>Departamento</option><option>Casa de playa</option><option>Terreno</option></select></label>
                 <label>Zona<input type="text" id="re-zone" value="Barrio de Santiago, Centro"></label>
@@ -247,15 +252,20 @@
                 <label>Baños<input type="number" id="re-bath" value="2.5" min="0" step="0.5"></label>
                 <label>Terreno (m²)<input type="number" id="re-lot" value="420" min="0"></label>
                 <label>Construcción (m²)<input type="number" id="re-built" value="260" min="0"></label>
+                <label>Precio (MXN)<input type="number" id="re-price" value="6950000" min="0" step="50000"></label>
+                <label>Tu WhatsApp (para el QR)<input type="tel" id="re-agent" inputmode="tel" placeholder="999 123 4567" autocomplete="off"></label>
               </div>
-              <label>Precio (MXN)<input type="number" id="re-price" value="6950000" min="0" step="50000"></label>
               <label>Detalles<textarea id="re-extra"></textarea></label>
-              <div class="row"><button class="btn primary" id="re-go">Crear ficha ES / EN</button></div>
+              <div class="row"><button class="btn primary" id="re-go">Crear kit</button></div>
             </div>
             <div class="pane">
-              <span class="pane-label">2 · Ficha lista <span id="re-src"></span></span>
-              <div class="seg" role="group" aria-label="Idioma de la ficha"><button id="re-es" aria-pressed="true">Español</button><button id="re-en" aria-pressed="false">English</button></div>
-              <div id="re-out" class="out">Pulsa “Crear ficha ES / EN”.</div>
+              <span class="pane-label">2 · Ficha visual <span id="re-src"></span></span>
+              <div class="seg" role="group" aria-label="Idioma de la ficha visual"><button id="re-card-es" aria-pressed="true">Español</button><button id="re-card-en" aria-pressed="false">English</button></div>
+              <div class="re-card-wrap"><div id="re-card" class="re-card"></div></div>
+              <div class="row"><button class="btn accent small" id="re-png">Descargar imagen para redes</button><span class="note" id="re-png-msg" role="status"></span></div>
+              <span class="pane-label" style="margin-top:6px">3 · Textos listos</span>
+              <div class="seg" role="group" aria-label="Tipo de texto"><button id="re-es" aria-pressed="true">Portal ES</button><button id="re-en" aria-pressed="false">Portal EN</button><button id="re-ig" aria-pressed="false">Instagram</button><button id="re-wa" aria-pressed="false">WhatsApp</button></div>
+              <div id="re-out" class="out">Pulsa “Crear kit”.</div>
               <p class="note" id="re-note" hidden></p>
               <div class="row"><button class="btn ghost small" id="re-copy">Copiar</button></div>
             </div>
@@ -284,6 +294,9 @@
               <span class="pane-label">2 · Lo que recibe el paciente</span>
               <div class="wa" id="ag-wa"><div class="bubble">Elige un horario para ver la confirmación.</div></div>
               <div class="row"><button class="btn ghost small" id="ag-r1">Paciente responde “1”</button><button class="btn ghost small" id="ag-r2">Paciente responde “2”</button></div>
+              <div class="grid2"><label>WhatsApp del paciente<input type="tel" id="ag-phone" inputmode="tel" placeholder="Para probar, pon tu número" autocomplete="off"></label><label>Correo del paciente<input type="email" id="ag-email" placeholder="Para probar, pon tu correo" autocomplete="off"></label></div>
+              <div class="row"><a class="btn primary small" id="ag-send-wa" href="#" target="_blank" rel="noopener">Enviar confirmación por WhatsApp</a><a class="btn accent small" id="ag-send-mail" href="#">Enviar por correo</a></div>
+              <p class="note" id="ag-send-msg" role="status">En el demo tú pulsas enviar. En la versión instalada, la confirmación y el recordatorio salen solos, sin que nadie intervenga.</p>
               <span class="pane-label" style="margin-top:6px">3 · En tu calendario</span>
               <div class="cal-row"><a class="btn ghost small" id="ag-gcal" href="#" target="_blank" rel="noopener">Agregar a Google Calendar</a><button class="btn ghost small" id="ag-ics">Descargar .ics (iPhone, Outlook)</button></div>
               <p class="note">En la versión real, la cita entra sola al Google Calendar de la clínica.</p>

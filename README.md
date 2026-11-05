@@ -25,7 +25,7 @@ Sin el servidor de IA, los textos de IA son respuestas de muestra. Lo demás fun
 - `ejemplos/`: archivos para probar los demos al 100% (Excel de cartera en 5 variantes, 12 XML CFDI, ZIP tipo descarga masiva del SAT) y `GUIA-DE-PRUEBA.pdf`. Se regeneran con `python ejemplos/generar.py`.
 - `img/`: fotos del sitio (Unsplash e imágenes generadas con IA). Si falta una, se muestra un degradado.
 - `og.png`: la imagen que se ve al compartir la liga por WhatsApp o redes.
-- `vendor/`: SheetJS 0.18.5 (Apache 2.0) para Excel y JSZip 3.10.1 (MIT) para ZIP, ambos en el navegador.
+- `vendor/`: librerías que corren en el navegador: SheetJS 0.18.5 (Excel), JSZip 3.10.1 (ZIP), mammoth 1.8.0 (Word), pdf.js 3.11.174 (PDF), html2canvas 1.4.1 (imagen de la ficha) y qrcode-generator 1.4.4 (QR). Cada una trae su licencia.
 - `servidor-ia/`: Cloudflare Worker opcional que activa la IA en vivo en el sitio. Pasos en su README.
 - `agente-correos/` — agente en Python que extrae datos de correos con Claude (tool use + Pydantic + SQLite) y su evaluación. Base de la Bandeja CFDI.
 - `docs/` — investigación y guías: oportunidades en Mérida y México (español) y el plan de negocio (inglés).

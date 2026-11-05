@@ -39,9 +39,11 @@ function buildPrompt(task, d) {
     return { max: 350, json: false, prompt: `Mejora este recordatorio de cobranza de una empresa de Mérida. Mantén TODOS los datos exactos (nombre, folio, monto, fecha, días), tono respetuoso y cercano, en español de México, sin amenazas ni presión indebida, ${d.channel === "wa" ? "máximo 60 palabras y conserva la línea final para responder BAJA" : "formato correo con asunto"}. Solo el mensaje final.\n\n${cut(d.base, 900)}` };
   }
   if (task === "manual") {
+    // Manual de ejemplo (por número de sección) o manual que subió el visitante (máx. 3 secciones cortas)
     const ids = (Array.isArray(d.sections) ? d.sections : []).filter(i => Number.isInteger(i) && MANUAL[i]).slice(0, 3);
-    const ctx = ids.map(i => `[${MANUAL[i][0]}] ${MANUAL[i][1]}`).join("\n") || "(ninguna)";
-    return { max: 250, json: false, prompt: `Responde la pregunta de un empleado usando SOLO estas secciones del manual de una distribuidora de materiales en Mérida. Si la respuesta no está en las secciones, di exactamente que no aparece en el manual. Responde en español, máximo 60 palabras, y termina citando la sección entre paréntesis.\n\nSecciones:\n${ctx}\n\nPregunta: ${cut(d.question, 300)}` };
+    const custom = (Array.isArray(d.custom) ? d.custom : []).slice(0, 3).map(x => [cut(x?.[0], 120), cut(x?.[1], 1500)]);
+    const ctx = (custom.length ? custom : ids.map(i => MANUAL[i])).map(([t, b]) => `[${t}] ${b}`).join("\n") || "(ninguna)";
+    return { max: 250, json: false, prompt: `Responde la pregunta de un empleado usando SOLO estas secciones del manual de una empresa en Mérida. Si la respuesta no está en las secciones, di exactamente que no aparece en el manual. Responde en español, máximo 60 palabras, y termina citando la sección entre paréntesis.\n\nSecciones:\n${ctx}\n\nPregunta: ${cut(d.question, 300)}` };
   }
   if (task === "inmueble") {
     const v = { type: cut(d.type, 40), zone: cut(d.zone, 80), bed: num(d.bed, 50), bath: num(d.bath, 50), lot: num(d.lot, 1e6), built: num(d.built, 1e6), price: num(d.price, 1e10), extra: cut(d.extra, 700) };

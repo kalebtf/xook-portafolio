@@ -325,6 +325,35 @@ td.num,th.num{text-align:right}
 footer{padding-block:34px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem}
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 
+/* Inmuebles: visual listing card (rendered to PNG at 1080x1350) */
+.re-card-wrap{width:100%;max-width:420px;aspect-ratio:4/5;position:relative;overflow:hidden;border-radius:14px;box-shadow:var(--shadow)}
+.re-card{position:absolute;left:0;top:0;width:1080px;height:1350px;transform-origin:0 0;background:#F6F4EF;color:#101C1B;font-family:var(--sans);display:grid;grid-template-rows:760px auto 1fr}
+.re-card .ph{display:grid;gap:8px;background:linear-gradient(135deg,#0A2E2B,#0B4F4A 60%,#C98A12);position:relative}
+.re-card .ph.n2{grid-template-columns:2fr 1fr}
+.re-card .ph.n3,.re-card .ph.n4{grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr}
+.re-card .ph.n3 .p0,.re-card .ph.n4 .p0{grid-row:span 2}
+.re-card .ph.n4 .p3{display:none}
+.re-card .ph div{background-size:cover;background-position:center}
+.re-card .ph .empty{display:grid;place-items:center;color:rgb(255 255 255 / .8);font:500 34px var(--sans)}
+.re-card .badge{position:absolute;left:44px;top:44px;background:#fff;color:#101C1B;font:600 26px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:12px 22px;border-radius:99px}
+.re-card .body{padding:48px 56px 0;display:grid;gap:14px}
+.re-card .ttl{font:600 60px/1.05 var(--sans);letter-spacing:-.02em}
+.re-card .zone{font:500 32px var(--sans);color:#5E6A67}
+.re-card .pr{display:flex;align-items:baseline;gap:20px;margin-top:6px}
+.re-card .pr b{font:600 68px var(--sans);color:#0B4F4A;letter-spacing:-.02em}
+.re-card .pr span{font:500 32px var(--sans);color:#5E6A67}
+.re-card .specs{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.re-card .specs span{background:#E1EEEB;color:#0B4F4A;font:600 28px var(--sans);padding:10px 20px;border-radius:12px}
+.re-card .foot{display:flex;justify-content:space-between;align-items:flex-end;padding:0 56px 48px;align-self:end}
+.re-card .foot .cta{font:600 30px var(--sans);max-width:620px;line-height:1.25}
+.re-card .foot .cta small{display:block;font:500 24px var(--mono);color:#5E6A67;margin-top:8px}
+.re-card .qr{width:170px;height:170px;background:#fff;border-radius:14px;padding:10px;display:grid;place-items:center}
+.re-card .qr img{width:150px;height:150px;image-rendering:pixelated}
+input[type=tel],input[type=email]{width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:10px 12px}
+a.btn.is-off{opacity:.5}
+.re-card .badge,.re-card .specs span{line-height:1.3;display:inline-block}
+.re-card .badge{padding:14px 24px 12px}
+
 </style>
 <header class="top">
   <div class="wrap">
@@ -471,7 +500,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
                 <input type="text" id="cf-rfc" value="CACX7605101P8, FUNK671228PH6" autocomplete="off">
               </label>
               <div class="row">
-                <span class="btn primary filebtn">Subir .xml o .zip<input type="file" id="cf-file" accept=".xml,.zip,text/xml,application/zip" multiple aria-label="Subir facturas XML o ZIP"></span>
+                <label class="btn primary" for="cf-file">Subir .xml o .zip</label><input type="file" id="cf-file" class="sr" accept=".xml,.zip,text/xml,application/xml,application/zip,application/x-zip-compressed" multiple>
                 <button class="btn ghost small" id="cf-reset">Vaciar</button>
               </div>
               <p class="note">Tus archivos no salen de tu navegador. ¿No tienes a la mano? <a href="ejemplos/archivos-de-prueba-xook.zip" download>Descarga los de prueba</a> (incluye un ZIP como el de la descarga masiva del SAT).</p>
@@ -507,11 +536,11 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
             <div class="pane">
               <span class="pane-label" id="cb-title">1 · Cartera de Materiales del Sureste (ejemplo)</span>
               <div class="row">
-                <span class="btn primary small filebtn">Subir mi Excel o CSV<input type="file" id="cb-file" accept=".xlsx,.xls,.csv" aria-label="Subir Excel de cartera"></span>
+                <label class="btn primary small" for="cb-file">Subir mi Excel o CSV</label><input type="file" id="cb-file" class="sr" accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv">
                 <button class="btn ghost small" id="cb-template">Descargar plantilla</button>
                 <button class="btn ghost small" id="cb-reset">Volver al ejemplo</button>
               </div>
-              <p class="note" id="cb-msg" role="status">Columnas: Cliente, Contacto, Folio, Saldo, Vence (también entiende “Razón social”, “Importe”, “Fecha de vencimiento”). Tu archivo no sale de tu navegador.</p>
+              <p class="note" id="cb-msg" role="status">Columnas: Cliente, Contacto, Folio, Saldo, Vence y, si quieres, WhatsApp y Correo (también entiende “Razón social”, “Importe”, “Fecha de vencimiento”). Tu archivo no sale de tu navegador.</p>
               <div class="kpis"><div class="kpi"><small>Por cobrar</small><b id="cb-k1">$0</b></div><div class="kpi"><small>Vencido</small><b id="cb-k2">$0</b></div><div class="kpi"><small>Atraso promedio</small><b id="cb-k3">0 d</b></div></div>
               <div><div class="aging" id="cb-aging" aria-hidden="true"></div><p class="note" id="cb-aging-l" style="margin-top:6px"></p></div>
               <div class="tbl-wrap" style="max-height:420px;overflow:auto"><table><thead><tr><th>Cliente</th><th class="num">Saldo</th><th><span class="sr">Acción</span></th></tr></thead><tbody id="cb-body"></tbody></table></div>
@@ -521,7 +550,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
               <span class="pane-label">2 · Recordatorio <span id="cb-src"></span></span>
               <div class="seg" role="group" aria-label="Canal"><button id="cb-ch-mail" aria-pressed="true">Correo</button><button id="cb-ch-wa" aria-pressed="false">WhatsApp</button></div>
               <div id="cb-out" class="out">Pulsa “Recordar” en un cliente.</div>
-              <div class="row"><button class="btn ghost small" id="cb-ai" hidden>Mejorar con IA</button><button class="btn ghost small" id="cb-copy">Copiar</button></div>
+              <div class="grid2"><label>WhatsApp del cliente<input type="tel" id="cb-phone" inputmode="tel" placeholder="Para probar, pon tu número" autocomplete="off"></label><label>Correo del cliente<input type="email" id="cb-email" placeholder="Para probar, pon tu correo" autocomplete="off"></label></div>
+              <div class="row"><a class="btn primary small" id="cb-send-wa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a><a class="btn accent small" id="cb-send-mail" href="#">Enviar por correo</a><button class="btn ghost small" id="cb-ai" hidden>Mejorar con IA</button><button class="btn ghost small" id="cb-copy">Copiar</button></div>
+              <p class="note" id="cb-send-msg" role="status">En el demo, el botón abre tu WhatsApp o tu correo con el mensaje listo y tú lo envías. En la versión instalada, los recordatorios salen solos a la hora que elijas.</p>
               <p class="note">El tono sube poco a poco: aviso amable, recordatorio, propuesta de pagos, llamada del gerente. Nunca amenaza. Cada WhatsApp incluye “BAJA” para dejar de recibir mensajes.</p>
             </div>
           </div>
@@ -533,13 +564,15 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
             <div class="photo"><img src="img/equipo.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
             <div class="who"><p class="eyebrow">Pregúntale a tus manuales</p><h3>Tu equipo pregunta y la IA contesta solo con lo que dicen tus documentos, citando la sección.</h3>
               <div class="psr"><div><b>Problema</b>Siempre le preguntan lo mismo a la misma persona.</div><div><b>Qué hace</b>Busca en tus políticas y contesta citando la sección exacta.</div><div><b>Ganas</b>Respuestas en segundos; si no está escrito, lo dice.</div></div>
-              <ol class="try"><li>Pulsa una pregunta sugerida</li><li>Escribe la tuya</li><li>Prueba algo que no esté (Cancún)</li></ol>
+              <ol class="try"><li>Pulsa una pregunta sugerida</li><li>Escribe la tuya</li><li>Sube tu propio manual en Word o PDF</li></ol>
             </div>
             <div class="price"><span class="note">Piloto por área</span><b>desde $30,000</b><span class="note">+ $5,000 / mes</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
-              <span class="pane-label">1 · Manual de Distribuidora Peninsular (ejemplo)</span>
+              <span class="pane-label" id="mn-title">1 · Manual de Distribuidora Peninsular (ejemplo)</span>
+              <div class="row"><label class="btn primary small" for="mn-file">Subir mi manual (Word, PDF o texto)</label><input type="file" id="mn-file" class="sr" accept=".docx,.pdf,.txt,.md,application/pdf,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><button class="btn ghost small" id="mn-reset" hidden>Volver al ejemplo</button></div>
+              <p class="note" id="mn-msg" role="status">Tu documento se lee aquí, en tu navegador; no se sube a ningún servidor. ¿No tienes uno a la mano? Usa los manuales de los <a href="ejemplos/archivos-de-prueba-xook.zip" download>archivos de prueba</a>.</p>
               <div class="row" id="mn-sugg"></div>
               <label>Tu pregunta<input type="text" id="mn-q" value="¿Cuántos días tiene un cliente para devolver material?" autocomplete="off"></label>
               <div class="row"><button class="btn primary" id="mn-go">Preguntar</button></div>
@@ -558,16 +591,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
         <div class="demo" id="demo-inmuebles" role="tabpanel" aria-labelledby="tab-inmuebles" hidden>
           <div class="demo-top">
             <div class="photo"><img src="img/inmueble.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
-            <div class="who"><p class="eyebrow">Fichas de inmuebles bilingües</p><h3>Escribe los datos de la propiedad. Recibe la ficha lista para portales, en español y en inglés.</h3>
-              <div class="psr"><div><b>Problema</b>Compradores de fuera (en la costa, sobre todo extranjeros) y fichas solo en español.</div><div><b>Qué hace</b>Escribe la ficha en ES y EN con precio en USD y sq ft, sin inventar.</div><div><b>Ganas</b>Publicas más rápido y llegas a compradores de otros estados y países.</div></div>
-              <ol class="try"><li>Elige un ejemplo o escribe los datos</li><li>Pulsa “Crear ficha”</li><li>Cambia a English</li></ol>
+            <div class="who"><p class="eyebrow">Kit de publicación para inmobiliarias</p><h3>Sube las fotos y los datos. Recibe la ficha visual, el texto para portales en español e inglés, el post para redes y el mensaje de WhatsApp.</h3>
+              <div class="psr"><div><b>Problema</b>Cada propiedad toma horas: fotos, fichas, traducción, post, mensajes.</div><div><b>Qué hace</b>Arma todo en un minuto, sin inventar datos, con precio en USD y sq ft.</div><div><b>Ganas</b>Publicas el mismo día y llegas a compradores de fuera y del extranjero.</div></div>
+              <ol class="try"><li>Elige un ejemplo o sube tus fotos</li><li>Pulsa “Crear kit”</li><li>Descarga la ficha visual</li></ol>
             </div>
-            <div class="price"><span class="note">Desde</span><b>$1,490 / mes</b><span class="note">fichas ilimitadas</span></div>
+            <div class="price"><span class="note">Desde</span><b>$1,490 / mes</b><span class="note">propiedades ilimitadas</span></div>
           </div>
           <div class="demo-body">
             <div class="pane">
               <span class="pane-label">1 · Datos de la propiedad</span>
               <div class="presets" id="re-presets"></div>
+              <div class="row"><label class="btn primary small" for="re-photos">Subir fotos (hasta 4)</label><input type="file" id="re-photos" class="sr" accept="image/*" multiple><span class="note" id="re-photo-msg">Las fotos no salen de tu celular.</span></div>
               <div class="grid2">
                 <label>Tipo<select id="re-type"><option>Casa colonial</option><option>Departamento</option><option>Casa de playa</option><option>Terreno</option></select></label>
                 <label>Zona<input type="text" id="re-zone" value="Barrio de Santiago, Centro"></label>
@@ -575,15 +609,20 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
                 <label>Baños<input type="number" id="re-bath" value="2.5" min="0" step="0.5"></label>
                 <label>Terreno (m²)<input type="number" id="re-lot" value="420" min="0"></label>
                 <label>Construcción (m²)<input type="number" id="re-built" value="260" min="0"></label>
+                <label>Precio (MXN)<input type="number" id="re-price" value="6950000" min="0" step="50000"></label>
+                <label>Tu WhatsApp (para el QR)<input type="tel" id="re-agent" inputmode="tel" placeholder="999 123 4567" autocomplete="off"></label>
               </div>
-              <label>Precio (MXN)<input type="number" id="re-price" value="6950000" min="0" step="50000"></label>
               <label>Detalles<textarea id="re-extra"></textarea></label>
-              <div class="row"><button class="btn primary" id="re-go">Crear ficha ES / EN</button></div>
+              <div class="row"><button class="btn primary" id="re-go">Crear kit</button></div>
             </div>
             <div class="pane">
-              <span class="pane-label">2 · Ficha lista <span id="re-src"></span></span>
-              <div class="seg" role="group" aria-label="Idioma de la ficha"><button id="re-es" aria-pressed="true">Español</button><button id="re-en" aria-pressed="false">English</button></div>
-              <div id="re-out" class="out">Pulsa “Crear ficha ES / EN”.</div>
+              <span class="pane-label">2 · Ficha visual <span id="re-src"></span></span>
+              <div class="seg" role="group" aria-label="Idioma de la ficha visual"><button id="re-card-es" aria-pressed="true">Español</button><button id="re-card-en" aria-pressed="false">English</button></div>
+              <div class="re-card-wrap"><div id="re-card" class="re-card"></div></div>
+              <div class="row"><button class="btn accent small" id="re-png">Descargar imagen para redes</button><span class="note" id="re-png-msg" role="status"></span></div>
+              <span class="pane-label" style="margin-top:6px">3 · Textos listos</span>
+              <div class="seg" role="group" aria-label="Tipo de texto"><button id="re-es" aria-pressed="true">Portal ES</button><button id="re-en" aria-pressed="false">Portal EN</button><button id="re-ig" aria-pressed="false">Instagram</button><button id="re-wa" aria-pressed="false">WhatsApp</button></div>
+              <div id="re-out" class="out">Pulsa “Crear kit”.</div>
               <p class="note" id="re-note" hidden></p>
               <div class="row"><button class="btn ghost small" id="re-copy">Copiar</button></div>
             </div>
@@ -612,6 +651,9 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
               <span class="pane-label">2 · Lo que recibe el paciente</span>
               <div class="wa" id="ag-wa"><div class="bubble">Elige un horario para ver la confirmación.</div></div>
               <div class="row"><button class="btn ghost small" id="ag-r1">Paciente responde “1”</button><button class="btn ghost small" id="ag-r2">Paciente responde “2”</button></div>
+              <div class="grid2"><label>WhatsApp del paciente<input type="tel" id="ag-phone" inputmode="tel" placeholder="Para probar, pon tu número" autocomplete="off"></label><label>Correo del paciente<input type="email" id="ag-email" placeholder="Para probar, pon tu correo" autocomplete="off"></label></div>
+              <div class="row"><a class="btn primary small" id="ag-send-wa" href="#" target="_blank" rel="noopener">Enviar confirmación por WhatsApp</a><a class="btn accent small" id="ag-send-mail" href="#">Enviar por correo</a></div>
+              <p class="note" id="ag-send-msg" role="status">En el demo tú pulsas enviar. En la versión instalada, la confirmación y el recordatorio salen solos, sin que nadie intervenga.</p>
               <span class="pane-label" style="margin-top:6px">3 · En tu calendario</span>
               <div class="cal-row"><a class="btn ghost small" id="ag-gcal" href="#" target="_blank" rel="noopener">Agregar a Google Calendar</a><button class="btn ghost small" id="ag-ics">Descargar .ics (iPhone, Outlook)</button></div>
               <p class="note">En la versión real, la cita entra sola al Google Calendar de la clínica.</p>
@@ -727,7 +769,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
 /* ============ Configuración ============
    AI_URL: dirección del servidor de IA (Cloudflare Worker, ver /servidor-ia). Vacío = respuestas de muestra.
    WHATSAPP: número con lada de país, solo dígitos (ej. "529991234567"). Vacío = se oculta el botón. */
-const CONFIG = { AI_URL: "", WHATSAPP: "", EMAIL: "kalebtf@gmail.com" };
+const CONFIG = { AI_URL: "", WHATSAPP: "523321886217", EMAIL: "kalebtf@gmail.com" };
 
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -745,10 +787,10 @@ let dlCap = null;
 if (window.claude) window.claude.use("downloads").then(d => { dlCap = d; }).catch(() => {});
 async function saveFile(name, data, type) {
   if (dlCap) {
-    try { await dlCap.save({ filename: name, data: new Blob([data], { type }) }); return; }
+    try { await dlCap.save({ filename: name, data: data instanceof Blob ? data : new Blob([data], { type }) }); return; }
     catch (e) { if (e && e.code === "declined") throw new Error("Descarga cancelada."); }
   }
-  const url = URL.createObjectURL(new Blob([data], { type }));
+  const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data], { type }));
   const a = Object.assign(document.createElement("a"), { href: url, download: name });
   document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
@@ -776,6 +818,24 @@ async function downloadXLSX(name, sheetName, rows, widths, dateCols = []) {
   }
   const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, sheetName);
   await saveFile(name, X.write(wb, { type: "array", bookType: "xlsx" }), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+}
+
+/* ============ Carga de librerías bajo demanda (local primero, CDN de respaldo) ============ */
+const libCache = {};
+function loadLib(globalName, local, cdn) {
+  if (window[globalName]) return Promise.resolve(window[globalName]);
+  if (libCache[globalName]) return libCache[globalName];
+  const add = src => new Promise((ok, fail) => { const sc = document.createElement("script"); sc.src = src; sc.onload = () => window[globalName] ? ok(window[globalName]) : fail(); sc.onerror = fail; document.head.append(sc); });
+  libCache[globalName] = add(local).catch(() => add(cdn)).catch(() => { delete libCache[globalName]; throw new Error("No se pudo cargar una herramienta del navegador. Revisa tu conexión."); });
+  return libCache[globalName];
+}
+// WhatsApp: acepta 10 dígitos de México o con lada de país
+const waNumber = v => { const d = String(v || "").replace(/\D/g, ""); if (d.length === 10) return "52" + d; if (d.length === 12 && d.startsWith("52")) return d; if (d.length === 13 && d.startsWith("521")) return "52" + d.slice(3); return d.length >= 11 ? d : ""; };
+const waLink = (phone, text) => { const n = waNumber(phone); return n ? `https://wa.me/${n}?text=${encodeURIComponent(text)}` : ""; };
+const mailLink = (to, subject, body) => `mailto:${encodeURIComponent(String(to || "").trim())}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+function armLink(a, href, msgEl, missing) {
+  a.classList.toggle("is-off", !href); a.href = href || "#";
+  a.onclick = href ? null : e => { e.preventDefault(); if (msgEl) say(msgEl, missing, "errmsg"); };
 }
 
 /* ============ IA: servidor propio, cuenta de Claude del visitante, o respuestas de muestra ============ */
@@ -828,6 +888,7 @@ function showDemo(name, scroll) {
   $$(".demo").forEach(d => d.hidden = d.id !== "demo-" + name);
   const strip = $(".tabs"), tab = $("#tab-" + name);
   if (strip && tab && strip.scrollWidth > strip.clientWidth) strip.scrollLeft = tab.offsetLeft - strip.offsetLeft - 16;
+  if (name === "inmuebles") requestAnimationFrame(fitCard);
   if (scroll) $("#demos").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 $$(".tab").forEach(t => t.addEventListener("click", () => { showDemo(t.dataset.demo); try { history.replaceState(null, "", "#" + t.dataset.demo); } catch {} }));
@@ -1112,7 +1173,21 @@ function template(i, ch) {
 function writeReminder() {
   if (cbSel === null || !INV[cbSel]) return; const i = INV[cbSel];
   $("#cb-out").textContent = template(i, cbCh); $("#cb-out").classList.add("filled"); $("#cb-src").innerHTML = '<span class="ai-badge">plantilla · ' + stage(-i.due)[2].toLowerCase() + "</span>";
+  if (i.phone !== undefined) $("#cb-phone").value = i.phone || $("#cb-phone").value;
+  if (i.email !== undefined) $("#cb-email").value = i.email || $("#cb-email").value;
+  updateCbSend();
 }
+function updateCbSend() {
+  const i = cbSel !== null ? INV[cbSel] : null, msg = $("#cb-send-msg");
+  if (!i) { armLink($("#cb-send-wa"), "", msg, "Primero pulsa “Recordar” en un cliente."); armLink($("#cb-send-mail"), "", msg, "Primero pulsa “Recordar” en un cliente."); return; }
+  const out = $("#cb-out").textContent;
+  const waText = /Asunto:/.test(out) ? template(i, "wa") : out;
+  const mailText = /Asunto:/.test(out) ? out : template(i, "mail");
+  const subject = (mailText.match(/^Asunto: (.*)$/m) || [, "Recordatorio de pago"])[1];
+  armLink($("#cb-send-wa"), waLink($("#cb-phone").value, waText), msg, "Escribe el WhatsApp del cliente (para probar, el tuyo: 10 dígitos).");
+  armLink($("#cb-send-mail"), $("#cb-email").value.includes("@") ? mailLink($("#cb-email").value, subject, mailText.replace(/^Asunto: .*\n\n/, "")) : "", msg, "Escribe el correo del cliente (para probar, el tuyo).");
+}
+$("#cb-phone").addEventListener("input", updateCbSend); $("#cb-email").addEventListener("input", updateCbSend);
 $("#cb-ch-mail").addEventListener("click", () => { cbCh = "mail"; $("#cb-ch-mail").setAttribute("aria-pressed", "true"); $("#cb-ch-wa").setAttribute("aria-pressed", "false"); writeReminder(); });
 $("#cb-ch-wa").addEventListener("click", () => { cbCh = "wa"; $("#cb-ch-wa").setAttribute("aria-pressed", "true"); $("#cb-ch-mail").setAttribute("aria-pressed", "false"); writeReminder(); });
 $("#cb-ai").addEventListener("click", async e => {
@@ -1142,17 +1217,17 @@ async function importCartera(file) {
     const rows = X.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: "", raw: true });
     if (!rows.length) throw new Error("El archivo está vacío.");
     const keys = Object.keys(rows[0]); const find = re => keys.find(k => re.test(norm(k)));
-    const K = { cli: find(/cliente|razon|nombre/), contacto: find(/contacto|atencion|responsable/), folio: find(/folio|factura|documento/), saldo: find(/saldo|monto|importe|total|adeudo/), vence: find(/venc|fecha/) };
+    const K = { cli: find(/cliente|razon|nombre/), contacto: find(/contacto|atencion|responsable/), folio: find(/folio|factura|documento/), saldo: find(/saldo|monto|importe|total|adeudo/), vence: find(/venc|fecha/), tel: find(/whats|telefono|tel\b|celular|movil/), mail: find(/correo|mail/) };
     const missing = [["Cliente", K.cli], ["Saldo", K.saldo], ["Vence", K.vence]].filter(x => !x[1]).map(x => x[0]);
     if (missing.length) throw new Error("Faltan columnas: " + missing.join(", ") + ". Descarga la plantilla para ver el formato.");
     let skipped = 0;
     const list = rows.slice(0, 500).map(r => {
       const date = toDate(r[K.vence]), saldo = toNum(r[K.saldo]);
       if (!String(r[K.cli]).trim() || !date || !(saldo > 0)) { skipped++; return null; }
-      return { cli: String(r[K.cli]).trim(), contacto: K.contacto ? String(r[K.contacto]).trim() : "", folio: K.folio ? String(r[K.folio]).trim() || "s/folio" : "s/folio", saldo, date, due: Math.round((date - today) / DAY) };
+      return { cli: String(r[K.cli]).trim(), contacto: K.contacto ? String(r[K.contacto]).trim() : "", folio: K.folio ? String(r[K.folio]).trim() || "s/folio" : "s/folio", saldo, date, due: Math.round((date - today) / DAY), phone: K.tel ? String(r[K.tel]).trim() : "", email: K.mail ? String(r[K.mail]).trim() : "" };
     }).filter(Boolean);
     if (!list.length) throw new Error("No encontré filas con cliente, saldo mayor a 0 y fecha de vencimiento válida.");
-    INV = list; cbCompany = "Tu empresa"; cbSel = null;
+    INV = list; cbCompany = "Tu empresa"; cbSel = null; updateCbSend();
     $("#cb-title").textContent = "1 · Tu cartera: " + file.name;
     $("#cb-out").textContent = "Pulsa “Recordar” en un cliente."; $("#cb-out").classList.remove("filled"); $("#cb-src").innerHTML = "";
     renderCB();
@@ -1162,7 +1237,7 @@ async function importCartera(file) {
 $("#cb-file").addEventListener("change", e => { const f = e.target.files[0]; if (f) importCartera(f); e.target.value = ""; });
 $("#cb-reset").addEventListener("click", () => { INV = SAMPLE_INV.slice(); cbCompany = "Materiales del Sureste"; cbSel = null; $("#cb-title").textContent = "1 · Cartera de Materiales del Sureste (ejemplo)"; say($("#cb-msg"), "Volviste al ejemplo."); renderCB(); });
 $("#cb-template").addEventListener("click", async () => {
-  try { await downloadXLSX("plantilla-cartera.xlsx", "Cartera", SAMPLE_INV.map(i => ({ Cliente: i.cli, Contacto: i.contacto, Folio: i.folio, Saldo: i.saldo, Vence: xlDate(i.date) })), [30, 22, 10, 12, 12], ["Vence"]); say($("#cb-msg"), "Plantilla descargada. Llénala con tus clientes y súbela.", "okmsg"); }
+  try { await downloadXLSX("plantilla-cartera.xlsx", "Cartera", SAMPLE_INV.map(i => ({ Cliente: i.cli, Contacto: i.contacto, Folio: i.folio, Saldo: i.saldo, Vence: xlDate(i.date), WhatsApp: "", Correo: "" })), [30, 22, 10, 12, 12, 16, 26], ["Vence"]); say($("#cb-msg"), "Plantilla descargada. Llénala con tus clientes y súbela.", "okmsg"); }
   catch (e) { say($("#cb-msg"), e.message, "errmsg"); }
 });
 $("#cb-xlsx").addEventListener("click", async () => {
@@ -1172,10 +1247,10 @@ $("#cb-xlsx").addEventListener("click", async () => {
     say($("#cb-msg"), "Reporte descargado con un mensaje listo para cada cliente.", "okmsg");
   } catch (e) { say($("#cb-msg"), e.message, "errmsg"); }
 });
-renderCB();
+renderCB(); updateCbSend();
 
 /* ============ 4. Manuales ============ */
-const MANUAL = [
+const DEFAULT_MANUAL = [
   ["1. Horario de atención", "El almacén atiende de lunes a viernes de 7:00 a 18:00 y sábados de 7:00 a 13:00. Los pedidos recibidos después de las 15:00 se surten al día siguiente hábil."],
   ["2. Devoluciones de material", "El cliente puede devolver material en los 15 días naturales siguientes a la entrega, con su factura y en empaque original. No se aceptan devoluciones de material cortado a la medida ni de cemento con más de 30 días de fabricación. La nota de crédito se emite en un máximo de 3 días hábiles."],
   ["3. Crédito a clientes", "El crédito se otorga a clientes con 6 meses de compras continuas. El plazo estándar es de 30 días. Con más de 60 días de atraso se suspende el crédito hasta regularizar el saldo. El gerente de cobranza autoriza convenios de pago."],
@@ -1184,8 +1259,8 @@ const MANUAL = [
   ["6. Viáticos", "Los viajes fuera de Mérida tienen viáticos de $650 por día para alimentos. Se comprueban con CFDI a nombre de la empresa en los 5 días hábiles siguientes al viaje."],
   ["7. Seguridad en almacén", "Es obligatorio usar casco, chaleco y zapato de seguridad en el patio de carga. Los montacargas solo los operan personas con certificación vigente."]
 ];
-const STOP = new Set("el la los las un una unos unas de del al a y o u que en con por para es son se su sus lo como cual cuales cuanto cuanta cuantos cuantas cuando donde mi me tiene tienen tengo tenemos hay puede pueden puedo debe deben debo si no hace hacer usted ustedes ellos esta este estan esto eso algo alguna alguno algun sobre mas menos muy ser estar quiero necesito saber pasa tambien".split(" "));
-const SUFFIXES = ["aciones", "acion", "iones", "mente", "iendo", "ando", "idos", "idas", "ados", "adas", "ido", "ida", "ado", "ada", "an", "en", "ar", "er", "ir", "es", "os", "as", "o", "a", "e", "s"];
+const STOP = new Set("el la los las un una unos unas de del al a y o u que en con por para es son se su sus lo como cual cuales cuanto cuanta cuantos cuantas cuando donde mi me tiene tienen tengo tenemos hay puede pueden puedo debe deben debo si no hace hacer usted ustedes ellos esta este estan esto eso algo alguna alguno algun sobre mas menos muy ser estar quiero necesito saber pasa tambien cuesta cuestan costo cobran precio".split(" "));
+const SUFFIXES = ["ieron", "aron", "amos", "emos", "imos", "aciones", "acion", "iones", "mente", "iendo", "ando", "idos", "idas", "ados", "adas", "ido", "ida", "ado", "ada", "an", "en", "ar", "er", "ir", "es", "os", "as", "o", "a", "e", "s"];
 const stem = w => { for (const s of SUFFIXES) if (w.endsWith(s) && w.length - s.length >= 3) return w.slice(0, -s.length); return w; };
 const toks = s => norm(s).replace(/[^a-z0-9ñ\s]/g, " ").split(/\s+/).filter(w => w.length > 2 && !STOP.has(w)).map(stem);
 const same = (a, b) => a === b;
@@ -1208,75 +1283,202 @@ function bestSentences(q, text) {
   if (max === 0) return text;
   return sents.filter((s, i) => sc[i] === max || (sc[i] > 0 && sc[i] >= max - 1)).slice(0, 2).join(" ");
 }
-const SUGG = ["¿Cuántos días tiene un cliente para devolver material?", "¿Cuánto cuesta la entrega a Progreso?", "¿Cuántos días de vacaciones me tocan el primer año?", "¿Tienen sucursal en Cancún?"];
-$("#mn-sugg").innerHTML = SUGG.map(s => `<button class="btn ghost small" type="button">${esc(s)}</button>`).join("");
-$$("#mn-sugg button").forEach(b => b.addEventListener("click", () => { $("#mn-q").value = b.textContent; runManual(); }));
-$("#mn-doc").innerHTML = MANUAL.map(([t, b]) => `<div><b>${esc(t)}</b><br>${esc(b)}</div>`).join("");
+const DEFAULT_SUGG = ["¿Cuántos días tiene un cliente para devolver material?", "¿Cuánto cuesta la entrega a Progreso?", "¿Cuántos días de vacaciones me tocan el primer año?", "¿Tienen sucursal en Cancún?"];
+let MANUAL = DEFAULT_MANUAL, mnName = "Distribuidora Peninsular (ejemplo)", mnCustom = false;
+function renderManual(sugg) {
+  $("#mn-title").textContent = "1 · Manual de " + mnName;
+  $("#mn-sugg").innerHTML = sugg.map(x => `<button class="btn ghost small" type="button">${esc(x)}</button>`).join("");
+  $$("#mn-sugg button").forEach(b => b.addEventListener("click", () => { $("#mn-q").value = b.textContent; runManual(); }));
+  $("#mn-doc").innerHTML = MANUAL.map(([t, b]) => `<div><b>${esc(t)}</b><br>${esc(b.length > 600 ? b.slice(0, 600) + "…" : b)}</div>`).join("");
+  $("#mn-reset").hidden = !mnCustom;
+}
+renderManual(DEFAULT_SUGG);
+// Convierte texto en secciones: usa títulos (# , "1. Título", MAYÚSCULAS) o, si no hay, párrafos.
+function textToSections(text) {
+  const lines = String(text).replace(/\r/g, "").split("\n").map(l => l.trim());
+  const isHead = l => l && l.length <= 90 && (/^#{1,4}\s+\S/.test(l) || /^(\d+(\.\d+)*[.)]|[IVX]+\.)\s+\S/.test(l) && !/[.:;]$/.test(l) || (l === l.toUpperCase() && /[A-ZÁÉÍÓÚÑ]{4}/.test(l) && l.length <= 60));
+  const out = []; let cur = null;
+  for (const l of lines) {
+    if (isHead(l)) { cur = [l.replace(/^#{1,4}\s+/, ""), ""]; out.push(cur); }
+    else if (l) { if (!cur) { cur = ["Introducción", ""]; out.push(cur); } cur[1] += (cur[1] ? " " : "") + l.replace(/^[-•*]\s+/, "• "); }
+  }
+  let secs = out.filter(([, b]) => b.trim().length > 15);
+  if (secs.length > 2) secs = secs.filter(([t, b]) => !(t === "Introducción" && b.length < 120));
+  if (secs.length < 2) {
+    const paras = String(text).split(/\n\s*\n/).map(p => p.replace(/\s+/g, " ").trim()).filter(p => p.length > 30);
+    secs = paras.map((p, i) => ["Parte " + (i + 1), p]);
+  }
+  return secs.slice(0, 300).map(([t, b]) => [t.slice(0, 120), b.slice(0, 4000)]);
+}
+async function readManual(file) {
+  const name = file.name.toLowerCase();
+  if (name.endsWith(".docx")) {
+    const M = await loadLib("mammoth", "vendor/mammoth.browser.min.js", "https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js");
+    const { value: html } = await M.convertToHtml({ arrayBuffer: await file.arrayBuffer() });
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return [...doc.body.children].map(el => (/^H[1-6]$/.test(el.tagName) ? "# " : "") + (el.tagName === "UL" || el.tagName === "OL" ? [...el.children].map(li => "- " + li.textContent).join("\n") : el.textContent)).join("\n");
+  }
+  if (name.endsWith(".pdf")) {
+    const P = await loadLib("pdfjsLib", "vendor/pdf.min.js", "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js");
+    P.GlobalWorkerOptions.workerSrc = document.querySelector('script[src*="pdf.min.js"]')?.src.replace("pdf.min.js", "pdf.worker.min.js") || "vendor/pdf.worker.min.js";
+    const pdf = await P.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+    let text = "";
+    for (let n = 1; n <= Math.min(pdf.numPages, 80); n++) {
+      const c = await (await pdf.getPage(n)).getTextContent(); let lastY = null;
+      for (const it of c.items) { const y = it.transform ? Math.round(it.transform[5]) : null; if (lastY !== null && y !== lastY) text += "\n"; text += it.str; lastY = y; if (it.hasEOL) { text += "\n"; lastY = null; } }
+      text += "\n\n";
+    }
+    return text;
+  }
+  if (/\.(txt|md)$/.test(name) || file.type.startsWith("text/")) return await file.text();
+  throw new Error("Formato no soportado. Usa Word (.docx), PDF o texto (.txt).");
+}
+$("#mn-file").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  const msg = $("#mn-msg"); say(msg, "Leyendo " + f.name + "…");
+  try {
+    const secs = textToSections(await readManual(f));
+    if (!secs.length) throw new Error("No encontré texto. Si el PDF es una foto escaneada, necesita OCR (lo hacemos en la versión instalada).");
+    MANUAL = secs; mnCustom = true; mnName = f.name;
+    const sugg = secs.filter(([t]) => !/^Parte \d|Introducción/.test(t)).slice(0, 4).map(([t]) => "¿Qué dice sobre " + t.replace(/^[\dIVX.)\s]+/, "").toLowerCase() + "?");
+    renderManual(sugg.length ? sugg : ["¿De qué trata este documento?"]);
+    $("#mn-q").value = ""; $("#mn-out").textContent = "Listo. Escribe una pregunta sobre tu documento."; $("#mn-out").classList.remove("filled"); $("#mn-frags").innerHTML = ""; $("#mn-src").innerHTML = "";
+    say(msg, `Leí ${secs.length} secciones de ${f.name}. Pregunta lo que quieras.`, "okmsg");
+  } catch (err) { say(msg, err.message || "No pude leer ese archivo.", "errmsg"); }
+});
+$("#mn-reset").addEventListener("click", () => { MANUAL = DEFAULT_MANUAL; mnCustom = false; mnName = "Distribuidora Peninsular (ejemplo)"; renderManual(DEFAULT_SUGG); say($("#mn-msg"), "Volviste al manual de ejemplo."); });
 async function runManual() {
   const q = $("#mn-q").value.trim(); if (!q) return;
   const hits = search(q);
   $("#mn-frags").innerHTML = hits.length ? hits.map(h => `<div class="frag"><b>${esc(h.t)}</b>${esc(h.b)}</div>`).join("") : '<div class="frag"><b>Sin coincidencias</b>Ninguna sección del manual habla de esto.</div>';
   const fallback = hits.length ? `${bestSentences(q, hits[0].b)}\n\n(Fuente: sección “${hits[0].t}”)` : "No encontré esa información en el manual. Te sugiero preguntar a tu jefe directo o a Recursos Humanos.";
   const ctx = hits.map(h => `[${h.t}] ${h.b}`).join("\n");
-  const prompt = `Responde la pregunta de un empleado usando SOLO estas secciones del manual de una distribuidora de materiales en Mérida. Si la respuesta no está en las secciones, di exactamente que no aparece en el manual. Responde en español, máximo 60 palabras, y termina citando la sección entre paréntesis.\n\nSecciones:\n${ctx}\n\nPregunta: ${q}`;
+  const prompt = `Responde la pregunta de un empleado usando SOLO estas secciones del manual de ${mnCustom ? "su empresa" : "una distribuidora de materiales en Mérida"}. Si la respuesta no está en las secciones, di exactamente que no aparece en el manual. Responde en español, máximo 60 palabras, y termina citando la sección entre paréntesis.\n\nSecciones:\n${ctx}\n\nPregunta: ${q}`;
   const btn = $("#mn-go"); btn.disabled = true;
   if (!hits.length) { $("#mn-out").textContent = fallback; $("#mn-out").classList.add("filled"); $("#mn-src").innerHTML = '<span class="ai-badge">no está en el manual</span>'; }
-  else await askAI("manual", { question: q, sections: hits.map(h => h.i) }, prompt, $("#mn-out"), $("#mn-src"), fallback);
+  else await askAI("manual", mnCustom ? { question: q, custom: hits.map(h => [h.t, h.b.slice(0, 1500)]) } : { question: q, sections: hits.map(h => h.i) }, prompt, $("#mn-out"), $("#mn-src"), fallback);
   btn.disabled = false;
 }
 $("#mn-go").addEventListener("click", runManual);
 $("#mn-q").addEventListener("keydown", e => { if (e.key === "Enter") runManual(); });
 
-/* ============ 5. Inmuebles ============ */
+/* ============ 5. Inmuebles: kit de publicación ============ */
 const TYPE_EN = { "Casa colonial": "Colonial home", "Departamento": "Apartment", "Casa de playa": "Beach house", "Terreno": "Land" };
 const USD_RATE = 18.5;
+const COAST = /progreso|chicxulub|telchac|sisal|celest[uú]n|chelem|chuburn|uaymit|san crisanto|dzilam|r[ií]o lagartos|las coloradas|costa|playa|puerto/i;
 const RE_PRESETS = [
-  { label: "Casa colonial en Santiago", v: { type: "Casa colonial", zone: "Barrio de Santiago, Centro", bed: 3, bath: 2.5, lot: 420, built: 260, price: 6950000, extra: "Restaurada en 2024, techos altos con vigas, pisos de pasta originales, alberca, jardín con árbol de mango, a 3 cuadras del mercado de Santiago." },
+  { label: "Casa colonial en Santiago", photos: ["img/inmueble.jpg", "img/hotel.jpg"], v: { type: "Casa colonial", zone: "Barrio de Santiago, Centro", bed: 3, bath: 2.5, lot: 420, built: 260, price: 6950000, extra: "Restaurada en 2024, techos altos con vigas, pisos de pasta originales, alberca, jardín con árbol de mango, a 3 cuadras del mercado de Santiago." },
     en: "Restored in 2024 with high beamed ceilings, original pasta tile floors, a pool and a garden with a mango tree, three blocks from Santiago market." },
-  { label: "Casa de playa en Chicxulub", v: { type: "Casa de playa", zone: "Chicxulub Puerto, Progreso", bed: 3, bath: 3, lot: 300, built: 210, price: 8400000, extra: "Frente al mar, terraza en azotea con vista al atardecer, alberca, a 10 minutos del malecón de Progreso y a 40 de Mérida." },
+  { label: "Casa de playa en Chicxulub", photos: [], v: { type: "Casa de playa", zone: "Chicxulub Puerto, Progreso", bed: 3, bath: 3, lot: 300, built: 210, price: 8400000, extra: "Frente al mar, terraza en azotea con vista al atardecer, alberca, a 10 minutos del malecón de Progreso y a 40 de Mérida." },
     en: "Beachfront, with a rooftop terrace for sunset views and a pool, 10 minutes from the Progreso boardwalk and 40 minutes from Mérida." },
-  { label: "Departamento en Temozón", v: { type: "Departamento", zone: "Temozón Norte, Mérida", bed: 2, bath: 2, lot: 0, built: 115, price: 3650000, extra: "Torre nueva con gimnasio, alberca, seguridad 24 horas y dos cajones de estacionamiento; cerca de plazas comerciales y hospitales del norte." },
+  { label: "Departamento en Temozón", photos: [], v: { type: "Departamento", zone: "Temozón Norte, Mérida", bed: 2, bath: 2, lot: 0, built: 115, price: 3650000, extra: "Torre nueva con gimnasio, alberca, seguridad 24 horas y dos cajones de estacionamiento; cerca de plazas comerciales y hospitales del norte." },
     en: "New tower with gym, pool, 24-hour security and two parking spaces; close to shopping centers and hospitals in north Mérida." }
 ];
-let reLang = "es", reData = null;
+let reView = "es", reCardLang = "es", reData = null, rePhotos = RE_PRESETS[0].photos.slice(), reUploaded = false;
 function setRE(v) { $("#re-type").value = v.type; $("#re-zone").value = v.zone; $("#re-bed").value = v.bed; $("#re-bath").value = v.bath; $("#re-lot").value = v.lot; $("#re-built").value = v.built; $("#re-price").value = v.price; $("#re-extra").value = v.extra; }
 $("#re-presets").innerHTML = RE_PRESETS.map((p, i) => `<button type="button" class="btn ghost small" data-i="${i}">${esc(p.label)}</button>`).join("");
-$$("#re-presets button").forEach(b => b.addEventListener("click", () => { setRE(RE_PRESETS[+b.dataset.i].v); $("#re-go").click(); }));
+$$("#re-presets button").forEach(b => b.addEventListener("click", () => { const p = RE_PRESETS[+b.dataset.i]; setRE(p.v); if (!reUploaded) rePhotos = p.photos.slice(); $("#re-go").click(); }));
 setRE(RE_PRESETS[0].v);
 function reVals() { return { type: $("#re-type").value, zone: $("#re-zone").value.trim(), bed: +$("#re-bed").value || 0, bath: +$("#re-bath").value || 0, lot: +$("#re-lot").value || 0, built: +$("#re-built").value || 0, price: +$("#re-price").value || 0, extra: $("#re-extra").value.trim() }; }
+const isLand = v => v.type === "Terreno";
+const usdOf = v => Math.round(v.price / USD_RATE / 1000) * 1000;
+const coastal = v => v.type === "Casa de playa" || COAST.test(v.zone);
+function reSpecs(v, lang) {
+  const en = lang === "en";
+  return [!isLand(v) && v.bed && `${v.bed} ${en ? "bed" : "rec"}`, !isLand(v) && v.bath && `${v.bath} ${en ? "bath" : "baños"}`, v.built && !isLand(v) && `${v.built.toLocaleString(en ? "en-US" : "es-MX")} m² ${en ? "built" : "const."}`, v.lot && `${v.lot.toLocaleString(en ? "en-US" : "es-MX")} m² ${en ? "lot" : "terreno"}`].filter(Boolean);
+}
+const hashtag = s => "#" + norm(s.split(",")[0]).replace(/[^a-z0-9]+/g, " ").trim().split(" ").map(w => w[0].toUpperCase() + w.slice(1)).join("");
 function reFallback(v) {
-  const usd = Math.round(v.price / USD_RATE / 1000) * 1000;
-  const isLand = v.type === "Terreno";
-  const featEs = [!isLand && v.bed && `${v.bed} recámaras`, !isLand && v.bath && `${v.bath} baños`, v.lot && `${v.lot.toLocaleString("es-MX")} m² de terreno`, !isLand && v.built && `${v.built.toLocaleString("es-MX")} m² de construcción`].filter(Boolean).join(" · ");
-  const featEn = [!isLand && v.bed && `${v.bed} bedrooms`, !isLand && v.bath && `${v.bath} bathrooms`, v.lot && `${v.lot.toLocaleString("en-US")} m² lot (${Math.round(v.lot * 10.764).toLocaleString("en-US")} sq ft)`, !isLand && v.built && `${v.built.toLocaleString("en-US")} m² built (${Math.round(v.built * 10.764).toLocaleString("en-US")} sq ft)`].filter(Boolean).join(" · ");
+  const usd = usdOf(v);
+  const featEs = [!isLand(v) && v.bed && `${v.bed} recámaras`, !isLand(v) && v.bath && `${v.bath} baños`, v.lot && `${v.lot.toLocaleString("es-MX")} m² de terreno`, !isLand(v) && v.built && `${v.built.toLocaleString("es-MX")} m² de construcción`].filter(Boolean).join(" · ");
+  const featEn = [!isLand(v) && v.bed && `${v.bed} bedrooms`, !isLand(v) && v.bath && `${v.bath} bathrooms`, v.lot && `${v.lot.toLocaleString("en-US")} m² lot (${Math.round(v.lot * 10.764).toLocaleString("en-US")} sq ft)`, !isLand(v) && v.built && `${v.built.toLocaleString("en-US")} m² built (${Math.round(v.built * 10.764).toLocaleString("en-US")} sq ft)`].filter(Boolean).join(" · ");
   const preset = RE_PRESETS.find(p => p.v.extra === v.extra);
+  const fideEs = coastal(v) ? "\n\nCompradores extranjeros: al estar a menos de 50 km de la costa, la compra se hace mediante fideicomiso bancario." : "";
+  const fideEn = coastal(v) ? "\n\nForeign buyers: properties within 50 km of the coast are purchased through a Mexican bank trust (fideicomiso). We guide you through the process." : "";
   return {
-    es: `${v.type} en ${v.zone}\n${money(v.price)} MXN\n\n${featEs}\n\n${v.extra}\n\nAgenda tu visita y recibe el plano y los documentos por correo.`,
-    en: `${TYPE_EN[v.type] || v.type} in ${v.zone}\n${money(v.price)} MXN (approx. US$${usd.toLocaleString("en-US")})\n\n${featEn}\n\n${preset ? preset.en + "\n\n" : ""}Book a visit and get the floor plan and documents by email.`,
+    es: `${v.type} en ${v.zone}\n${money(v.price)} MXN\n\n${featEs}\n\n${v.extra}${fideEs}\n\nAgenda tu visita y recibe el plano y los documentos por correo.`,
+    en: `${TYPE_EN[v.type] || v.type} in ${v.zone}\n${money(v.price)} MXN (approx. US$${usd.toLocaleString("en-US")})\n\n${featEn}\n\n${preset ? preset.en + "\n\n" : ""}${fideEn ? fideEn.trim() + "\n\n" : ""}Book a visit and get the floor plan and documents by email.`,
     partial: !preset
   };
 }
+function reSocial(v) {
+  const sp = reSpecs(v, "es").join(" · "), spEn = reSpecs(v, "en").join(" · ");
+  const first = (v.extra.split(/(?<=\.)\s/)[0] || "").trim();
+  const ig = `🏡 ${v.type} en ${v.zone}\n💰 ${money(v.price)} MXN (≈ US$${usdOf(v).toLocaleString("en-US")})\n📐 ${sp}\n\n${first}\n\n📲 Escríbenos por WhatsApp para agendar tu visita.\n🇺🇸 English? Just message us.\n\n#Mérida #Yucatán #BienesRaícesMérida #CasasEnMérida #MeridaRealEstate ${hashtag(v.zone)}`;
+  const wa = `Hola 👋 Te comparto una propiedad que puede interesarte:\n\n*${v.type} en ${v.zone}*\n${sp}\nPrecio: ${money(v.price)} MXN\n\n¿Te mando fotos y agendamos una visita esta semana?`;
+  const waEn = `\n\n— EN —\nHi! A new listing you may like: ${TYPE_EN[v.type] || v.type} in ${v.zone}, ${spEn}, ${money(v.price)} MXN (≈ US$${usdOf(v).toLocaleString("en-US")}). Want photos or a visit?`;
+  return { ig, wa: wa + waEn };
+}
 function renderRE() {
   if (!reData) return;
-  $("#re-out").textContent = reData[reLang]; $("#re-out").classList.add("filled");
-  $("#re-es").setAttribute("aria-pressed", String(reLang === "es")); $("#re-en").setAttribute("aria-pressed", String(reLang === "en"));
+  const map = { es: reData.es, en: reData.en, ig: reData.ig, wa: reData.wa };
+  $("#re-out").textContent = map[reView]; $("#re-out").classList.add("filled");
+  ["es", "en", "ig", "wa"].forEach(k => $("#re-" + k).setAttribute("aria-pressed", String(reView === k)));
   const note = $("#re-note");
-  note.hidden = !(reData.partial && reLang === "en");
+  note.hidden = !(reData.partial && reView === "en");
   note.textContent = "En modo muestra traducimos los datos fijos (tipo, medidas, precio). Los “Detalles” que escribiste se traducen con la IA en vivo.";
 }
-$("#re-es").addEventListener("click", () => { reLang = "es"; renderRE(); }); $("#re-en").addEventListener("click", () => { reLang = "en"; renderRE(); });
-$("#re-go").addEventListener("click", async e => {
-  const btn = $("#re-go"); const v = reVals(); const fb = reFallback(v); btn.disabled = true;
-  if (aiMode === "none") { reData = fb; $("#re-src").innerHTML = badge(false); renderRE(); btn.disabled = false; return; }
+let qrReady = null;
+async function qrDataURL(text) {
+  const Q = await loadLib("qrcode", "vendor/qrcode.js", "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js");
+  const q = Q(0, "M"); q.addData(text); q.make(); return q.createDataURL(6, 0);
+}
+async function renderCard() {
+  const v = reVals(), en = reCardLang === "en";
+  const ph = rePhotos.slice(0, 4);
+  const cls = ph.length >= 3 ? "n" + Math.min(ph.length, 4) : ph.length === 2 ? "n2" : "n1";
+  const photos = ph.length ? ph.map((src, i) => `<div class="p${i}" style="background-image:url('${src}')"></div>`).join("") : `<div class="empty">${en ? "Add your photos" : "Sube tus fotos"}</div>`;
+  const agent = waNumber($("#re-agent").value) || CONFIG.WHATSAPP;
+  const msg = en ? `Hi! I'm interested in the ${TYPE_EN[v.type] || v.type} in ${v.zone}.` : `Hola, me interesa: ${v.type} en ${v.zone}.`;
+  let qr = ""; try { qr = await qrDataURL(`https://wa.me/${agent}?text=${encodeURIComponent(msg)}`); } catch {}
+  $("#re-card").innerHTML = `<div class="ph ${cls}">${photos}<span class="badge">${en ? "For sale" : "En venta"}${coastal(v) ? (en ? " · Coast" : " · Costa") : ""}</span></div>
+    <div class="body"><div class="ttl">${esc(en ? (TYPE_EN[v.type] || v.type) : v.type)}</div><div class="zone">${esc(v.zone)}, Yucatán</div>
+    <div class="pr"><b>${money(v.price)} MXN</b><span>≈ US$${usdOf(v).toLocaleString("en-US")}</span></div>
+    <div class="specs">${reSpecs(v, en ? "en" : "es").map(x => `<span>${esc(x)}</span>`).join("")}</div></div>
+    <div class="foot"><div class="cta">${en ? "Scan to message us on WhatsApp and book a visit." : "Escanea y escríbenos por WhatsApp para agendar tu visita."}<small>${en ? "Information in English & Spanish" : "Atención en español e inglés"}</small></div>${qr ? `<div class="qr"><img src="${qr}" alt="QR de WhatsApp"></div>` : ""}</div>`;
+  ["es", "en"].forEach(k => $("#re-card-" + k).setAttribute("aria-pressed", String(reCardLang === k)));
+  fitCard();
+}
+function fitCard() { const w = $(".re-card-wrap"); if (w) $("#re-card").style.transform = `scale(${w.clientWidth / 1080})`; }
+window.addEventListener("resize", fitCard);
+$("#re-card-es").addEventListener("click", () => { reCardLang = "es"; renderCard(); }); $("#re-card-en").addEventListener("click", () => { reCardLang = "en"; renderCard(); });
+["es", "en", "ig", "wa"].forEach(k => $("#re-" + k).addEventListener("click", () => { reView = k; renderRE(); }));
+$("#re-photos").addEventListener("change", e => {
+  const files = [...e.target.files].filter(f => f.type.startsWith("image/")).slice(0, 4); e.target.value = "";
+  if (!files.length) return;
+  rePhotos.forEach(u => u.startsWith("blob:") && URL.revokeObjectURL(u));
+  rePhotos = files.map(f => URL.createObjectURL(f)); reUploaded = true;
+  say($("#re-photo-msg"), `${files.length} foto${files.length > 1 ? "s" : ""} lista${files.length > 1 ? "s" : ""}. No salen de tu celular.`, "okmsg");
+  renderCard();
+});
+$("#re-agent").addEventListener("change", renderCard);
+$("#re-go").addEventListener("click", async () => {
+  const btn = $("#re-go"); const v = reVals(); const fb = reFallback(v); const soc = reSocial(v); btn.disabled = true;
+  renderCard();
+  if (aiMode === "none") { reData = { ...fb, ...soc }; $("#re-src").innerHTML = badge(false); renderRE(); btn.disabled = false; return; }
   $("#re-out").textContent = "Escribiendo…";
   try {
-    const r = await runAI("inmueble", v, `Escribe una ficha inmobiliaria atractiva y honesta para un portal, en español de México y en inglés de EE. UU. No inventes datos que no estén aquí. En inglés agrega el precio aproximado en USD (tipo de cambio ${USD_RATE}) y los m² en sq ft. Cada versión: título en la primera línea, precio en la segunda, luego características y 2-3 frases de descripción, máximo 110 palabras. Responde solo con JSON {"es": string, "en": string}.\n\nDatos: ${JSON.stringify(v)}`, true);
-    if (r && typeof r.es === "string" && typeof r.en === "string") { reData = { es: r.es, en: r.en, partial: false }; $("#re-src").innerHTML = badge(true); }
+    const r = await runAI("inmueble", v, `Escribe una ficha inmobiliaria atractiva y honesta para un portal, en español de México y en inglés de EE. UU. No inventes datos que no estén aquí. En inglés agrega el precio aproximado en USD (tipo de cambio ${USD_RATE}) y los m² en sq ft.${coastal(v) ? " Menciona que los extranjeros compran mediante fideicomiso bancario por estar a menos de 50 km de la costa." : ""} Cada versión: título en la primera línea, precio en la segunda, luego características y 2-3 frases de descripción, máximo 120 palabras. Responde solo con JSON {"es": string, "en": string}.\n\nDatos: ${JSON.stringify(v)}`, true);
+    if (r && typeof r.es === "string" && typeof r.en === "string") { reData = { es: r.es, en: r.en, partial: false, ...soc }; $("#re-src").innerHTML = badge(true); }
     else throw 0;
-  } catch { reData = fb; $("#re-src").innerHTML = badge(false); }
+  } catch { reData = { ...fb, ...soc }; $("#re-src").innerHTML = badge(false); }
   renderRE(); btn.disabled = false;
 });
 $("#re-copy").addEventListener("click", e => copyText($("#re-out").textContent, e.currentTarget));
+$("#re-png").addEventListener("click", async () => {
+  const msg = $("#re-png-msg"); say(msg, "Creando imagen…");
+  try {
+    const H = await loadLib("html2canvas", "vendor/html2canvas.min.js", "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
+    const card = $("#re-card"); const prev = card.style.transform; card.style.transform = "none";
+    const canvas = await H(card, { width: 1080, height: 1350, scale: 1, useCORS: true, backgroundColor: "#F6F4EF" });
+    card.style.transform = prev;
+    const blob = await new Promise(ok => canvas.toBlob(ok, "image/png"));
+    if (!blob) throw new Error("No se pudo crear la imagen.");
+    await saveFile("ficha-" + norm($("#re-zone").value).replace(/[^a-z0-9]+/g, "-").slice(0, 40) + ".png", blob, "image/png");
+    say(msg, "Imagen lista (1080 × 1350, formato de Instagram).", "okmsg");
+  } catch (e) { fitCard(); say(msg, e.message || "No se pudo crear la imagen.", "errmsg"); }
+});
+renderCard();
 
 /* ============ 6. Agenda ============ */
 const SVCS = [["Limpieza dental", "Dental cleaning", 40, 600], ["Valoración de implante", "Implant consultation", 45, 800], ["Blanqueamiento", "Teeth whitening", 60, 2800], ["Resina (caries)", "Tooth-colored filling", 45, 900]];
@@ -1315,6 +1517,10 @@ function renderWA() {
   if (agReply === 1) html += `<div class="bubble me">1<time>10:02</time></div><div class="bubble">${en ? "Thank you! Your appointment is confirmed. Please arrive 10 minutes early. 😊" : "¡Gracias! Tu cita está confirmada. Te esperamos 10 minutos antes. 😊"}<time>10:02</time></div>`;
   if (agReply === 2) html += `<div class="bubble me">2<time>10:03</time></div><div class="bubble">${en ? "No problem. We've released your slot, and our front desk will message you shortly to pick a new time." : "Sin problema. Liberamos tu horario y en unos minutos te escribe nuestra recepción para elegir uno nuevo."}<time>10:03</time></div>`;
   $("#ag-wa").innerHTML = html;
+  const plain = [...$("#ag-wa").querySelectorAll(".bubble:not(.me)")].slice(0, 1).map(b => b.firstChild ? b.innerText.replace(/\n?(ahora|now)$/, "").trim() : "").join("");
+  const remind = en ? `\n\nWe'll send you a reminder one day before. Reply 2 if you need to reschedule.` : `\n\nTe mandaremos un recordatorio un día antes. Si necesitas cambiarla, responde 2.`;
+  armLink($("#ag-send-wa"), waLink($("#ag-phone").value, plain + remind), $("#ag-send-msg"), en ? "Type the patient's WhatsApp (to test, use yours)." : "Escribe el WhatsApp del paciente (para probar, el tuyo: 10 dígitos).");
+  armLink($("#ag-send-mail"), $("#ag-email").value.includes("@") ? mailLink($("#ag-email").value, en ? "Appointment confirmation · " + CLINIC.name : "Confirmación de cita · " + CLINIC.name, plain + remind) : "", $("#ag-send-msg"), "Escribe el correo del paciente (para probar, el tuyo).");
   const t = agTimes();
   $("#ag-gcal").href = "https://calendar.google.com/calendar/render?" + new URLSearchParams({ action: "TEMPLATE", text: `${t.svc} · ${name}`, dates: `${t.start}/${t.end}`, ctz: "America/Merida", details: `${en ? "Patient" : "Paciente"}: ${name}. ${en ? "Confirmed via WhatsApp." : "Confirmación por WhatsApp."}`, location: CLINIC.name + ", " + CLINIC.addr }).toString();
 }
@@ -1325,7 +1531,7 @@ function setAgLang(l) {
 }
 $("#ag-es").addEventListener("click", () => setAgLang("es")); $("#ag-en").addEventListener("click", () => setAgLang("en"));
 function pickFirst() { if (!agPick) { const b = $("#ag-days .slot:not([disabled])"); b && b.click(); } }
-$("#ag-svc").addEventListener("change", () => renderWA()); $("#ag-name").addEventListener("input", () => renderWA());
+$("#ag-svc").addEventListener("change", () => renderWA()); $("#ag-name").addEventListener("input", () => renderWA()); $("#ag-phone").addEventListener("input", () => renderWA()); $("#ag-email").addEventListener("input", () => renderWA());
 $("#ag-r1").addEventListener("click", () => { pickFirst(); agReply = 1; renderWA(); });
 $("#ag-r2").addEventListener("click", () => { pickFirst(); agReply = 2; renderWA(); });
 $("#ag-ics").addEventListener("click", () => {
