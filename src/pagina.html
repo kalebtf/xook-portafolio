@@ -826,6 +826,8 @@ function showDemo(name, scroll) {
   if (!DEMOS.includes(name)) return;
   $$(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.demo === name)));
   $$(".demo").forEach(d => d.hidden = d.id !== "demo-" + name);
+  const strip = $(".tabs"), tab = $("#tab-" + name);
+  if (strip && tab && strip.scrollWidth > strip.clientWidth) strip.scrollLeft = tab.offsetLeft - strip.offsetLeft - 16;
   if (scroll) $("#demos").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 $$(".tab").forEach(t => t.addEventListener("click", () => { showDemo(t.dataset.demo); try { history.replaceState(null, "", "#" + t.dataset.demo); } catch {} }));
