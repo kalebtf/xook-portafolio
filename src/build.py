@@ -4,6 +4,7 @@ Uso:  python src/build.py
 Piezas: estilos.css (diseño), cuerpo.html (contenido), app.js (demos).
 """
 from pathlib import Path
+import sitios  # webs bilingües de demostración
 
 SRC = Path(__file__).parent
 ROOT = SRC.parent
@@ -57,3 +58,5 @@ artifact = (f'<title>{TITLE}</title>\n<meta name="description" content="{DESC}">
             + "\n<script>\n" + (SRC / "app.js").read_text(encoding="utf-8") + "</script>\n")
 (SRC / "pagina.html").write_text(artifact, encoding="utf-8")
 print(f"src/pagina.html (artifact) lista: {len(artifact):,} bytes")
+
+sitios.build()

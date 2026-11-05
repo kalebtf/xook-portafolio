@@ -354,6 +354,14 @@ a.btn.is-off{opacity:.5}
 .re-card .badge,.re-card .specs span{line-height:1.3;display:inline-block}
 .re-card .badge{padding:14px 24px 12px}
 
+/* Embedded bilingual site */
+.site-frame{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);height:560px}
+.site-frame iframe{width:100%;height:100%;border:0;display:block}
+.review .done{font:600 .74rem var(--sans);color:var(--ok)}
+.review .my-reply{background:var(--sunk);border-radius:8px;padding:8px 10px;font-size:.86rem}
+.review .my-reply b{display:block;font-size:.72rem;color:var(--muted)}
+[contenteditable="true"].out:focus{outline:2px solid var(--brand);outline-offset:1px}
+
 </style>
 <header class="top">
   <div class="wrap">
@@ -458,7 +466,7 @@ a.btn.is-off{opacity:.5}
           <div class="demo-top">
             <div class="photo"><img id="rv-photo" src="img/restaurante.jpg" alt="" loading="lazy" onerror="this.classList.add('missing')"></div>
             <div class="who"><p class="eyebrow">Presencia local con IA</p><h3>Cada reseña de Google contestada en minutos, en el idioma del cliente</h3>
-              <div class="psr"><div><b>Problema</b>Reseñas sin contestar, sobre todo las de turistas en inglés.</div><div><b>Qué hace</b>Redacta la respuesta con el tono de tu negocio; tú la apruebas.</div><div><b>Ganas</b>Mejor imagen en Google y más turistas que te eligen.</div></div>
+              <div class="psr"><div><b>Problema</b>Reseñas sin contestar y una web que no sirve a turistas.</div><div><b>Qué hace</b>Lee tus reseñas de Google, redacta la respuesta y tú la publicas con un clic. Más una web bilingüe con menú y reservas.</div><div><b>Ganas</b>Mejor imagen en Google y reservas directas por WhatsApp.</div></div>
               <ol class="try"><li>Elige el tipo de negocio y una reseña</li><li>Elige el tono</li><li>Pulsa “Redactar respuesta”</li></ol>
             </div>
             <div class="price"><span class="note">Desde</span><b>$490 / mes</b><span class="note">+ instalación $3,000</span></div>
@@ -475,10 +483,11 @@ a.btn.is-off{opacity:.5}
             </div>
             <div class="pane">
               <span class="pane-label">2 · Respuesta sugerida <span id="rv-src"></span></span>
-              <div id="rv-out" class="out">Elige una reseña y pulsa “Redactar respuesta”.</div>
-              <span class="pane-label" style="margin-top:8px">3 · Tu web bilingüe</span>
-              <div class="seg" role="group" aria-label="Idioma de la web"><button id="ms-es" aria-pressed="true">Español</button><button id="ms-en" aria-pressed="false">English</button></div>
-              <div class="minisite" id="minisite"></div>
+              <div id="rv-out" class="out" contenteditable="true" spellcheck="true" aria-label="Respuesta (puedes editarla)">Elige una reseña y pulsa “Redactar respuesta”.</div>
+              <div class="row"><button class="btn primary small" id="rv-pub">Aprobar y publicar en Google</button><span class="note" id="rv-pub-msg" role="status">Puedes editar el texto antes de publicar.</span></div>
+              <span class="pane-label" style="margin-top:8px">3 · Tu web bilingüe (funciona: pruébala aquí)</span>
+              <div class="row" style="justify-content:space-between"><div class="seg" role="group" aria-label="Idioma de la web"><button id="ms-es" aria-pressed="true">Español</button><button id="ms-en" aria-pressed="false">English</button></div><a class="note" id="ms-open" href="sitios/dona-elvira.html" target="_blank" rel="noopener">Abrir la web completa ↗</a></div>
+              <div class="site-frame"><iframe id="ms-frame" title="Web bilingüe de ejemplo" loading="lazy" src="sitios/dona-elvira.html"></iframe></div>
             </div>
           </div>
         </div>
@@ -905,7 +914,7 @@ $$("[data-go]").forEach(a => a.addEventListener("click", e => { e.preventDefault
 /* ============ 1. Reseñas ============ */
 const TONES = { calido: "cálido y cercano", profesional: "profesional y formal (usted)", breve: "muy breve, máximo 30 palabras" };
 const BIZ = {
-  rest: { name: "Cocina Doña Elvira (ejemplo)", img: "img/restaurante.jpg", domain: "donaelvira.example",
+  rest: { name: "Cocina Doña Elvira (ejemplo)", img: "img/restaurante.jpg", page: "sitios/dona-elvira.html", domain: "donaelvira.example",
     ctx: `"Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57, el turno de cocina de fin de semana se reforzó y el mesero ahora avisa el tiempo estimado)`,
     reviews: [
       { name: "Jennifer M.", stars: 5, lang: "en", when: "hace 2 días", text: "Amazing cochinita pibil and the best horchata we had in Mérida! The courtyard is beautiful. Only wish they had an English menu.",
@@ -927,7 +936,7 @@ const BIZ = {
     site: {
       es: { tag: "Cocina yucateca de casa desde 1998", h: "Cocina Doña Elvira", cta: "Reservar por WhatsApp", a: ["Horario", "Lun a dom, 8:00 a 23:00"], b: ["Dirección", "Calle 60, Centro"], c: ["Especialidad", "Cochinita pibil y panuchos"], d: ["Cómo llegar", "Estacionamiento en calle 57"] },
       en: { tag: "Homestyle Yucatecan food since 1998", h: "Cocina Doña Elvira", cta: "Book on WhatsApp", a: ["Hours", "Mon–Sun, 8 am – 11 pm"], b: ["Address", "Calle 60, Downtown"], c: ["Signature dish", "Cochinita pibil & panuchos"], d: ["Getting here", "Parking on Calle 57"] } } },
-  hotel: { name: "Casa Ejemplo Hotel Boutique", img: "img/hotel.jpg", domain: "casaejemplo.example",
+  hotel: { name: "Casa Ejemplo Hotel Boutique", img: "img/hotel.jpg", page: "sitios/casa-ejemplo.html", domain: "casaejemplo.example",
     ctx: `"Casa Ejemplo Hotel Boutique", hotel en una casona de 1890 en la Calle 55, a una cuadra del parque de Santa Lucía, Centro de Mérida (check-in 15:00, guarda maletas desde las 10:00, ingreso anticipado si avisan por WhatsApp, desayuno incluido, alberca pequeña, el aire acondicionado de las habitaciones se revisó esta semana, reserva directa por WhatsApp y precios aproximados en USD en la web)`,
     reviews: [
       { name: "Thomas & Claire", stars: 5, lang: "en", when: "hace 3 días", text: "Gorgeous colonial house, the plunge pool was perfect after a hot day exploring. Breakfast was amazing. Only issue: our room's AC was a bit noisy at night.",
@@ -950,11 +959,13 @@ const BIZ = {
       es: { tag: "Hotel boutique en una casona de 1890", h: "Casa Ejemplo", cta: "Reservar por WhatsApp", a: ["Check-in", "15:00 · maletas desde 10:00"], b: ["Dirección", "Calle 55, a una cuadra de Santa Lucía"], c: ["Incluye", "Desayuno y alberca"], d: ["Tarifas", "Desde $2,400 MXN por noche"] },
       en: { tag: "Boutique hotel in an 1890 mansion", h: "Casa Ejemplo", cta: "Book on WhatsApp", a: ["Check-in", "3 pm · luggage from 10 am"], b: ["Address", "Calle 55, one block from Santa Lucía park"], c: ["Includes", "Breakfast & plunge pool"], d: ["Rates", "From $2,400 MXN (≈ US$130) / night"] } } }
 };
-let rvBiz = "rest", rvSel = 0, siteLang = "es";
+let rvBiz = "rest", rvSel = 0, siteLang = "es"; const PUB = {};
 function renderReviews() {
   const B = BIZ[rvBiz];
   $("#rv-title").textContent = "1 · Reseñas recientes de " + B.name;
-  $("#reviews").innerHTML = B.reviews.map((r, i) => `<button class="review" aria-pressed="${i === rvSel}" data-i="${i}"><span class="row" style="justify-content:space-between"><b>${esc(r.name)}</b><span class="stars" aria-label="${r.stars} de 5 estrellas">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span></span><span>${esc(r.text)}</span><span class="meta">Google · ${r.when} · ${r.lang === "en" ? "en inglés" : "en español"}</span></button>`).join("");
+  const pend = B.reviews.filter((r, i) => !PUB[rvBiz + i]).length;
+  $("#rv-title").textContent = `1 · Reseñas de Google de ${B.name} · ${pend ? pend + " sin responder" : "todas respondidas ✓"}`;
+  $("#reviews").innerHTML = B.reviews.map((r, i) => { const pub = PUB[rvBiz + i]; return `<button class="review" aria-pressed="${i === rvSel}" data-i="${i}"><span class="row" style="justify-content:space-between"><b>${esc(r.name)}</b><span class="stars" aria-label="${r.stars} de 5 estrellas">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</span></span><span>${esc(r.text)}</span><span class="meta">Google · ${r.when} · ${r.lang === "en" ? "en inglés" : "en español"}${pub ? ' · <span class="done">Respondida ✓</span>' : ""}</span>${pub ? `<span class="my-reply"><b>Tu respuesta publicada</b>${esc(pub)}</span>` : ""}</button>`; }).join("");
   $$("#reviews .review").forEach(b => b.addEventListener("click", () => { rvSel = +b.dataset.i; renderReviews(); }));
 }
 function setBiz(k) {
@@ -973,9 +984,20 @@ $("#rv-go").addEventListener("click", async e => {
   btn.disabled = false;
 });
 $("#rv-copy").addEventListener("click", e => copyText($("#rv-out").textContent, e.currentTarget));
+$("#rv-pub").addEventListener("click", () => {
+  const txt = $("#rv-out").textContent.trim(), msg = $("#rv-pub-msg");
+  if (!$("#rv-out").classList.contains("filled") || txt.length < 10) return say(msg, "Primero pulsa “Redactar respuesta”.", "errmsg");
+  PUB[rvBiz + rvSel] = txt;
+  const next = BIZ[rvBiz].reviews.findIndex((r, i) => !PUB[rvBiz + i]);
+  say(msg, "Publicada (simulación). Con tu cuenta conectada, aparece en Google en segundos." + (next >= 0 ? " Sigue la siguiente reseña." : " ¡Todas respondidas!"), "okmsg");
+  if (next >= 0) rvSel = next;
+  renderReviews();
+  $("#rv-out").textContent = next >= 0 ? "Pulsa “Redactar respuesta” para la siguiente reseña." : "Todas las reseñas tienen respuesta."; $("#rv-out").classList.remove("filled"); $("#rv-src").innerHTML = "";
+});
 function renderSite(l) {
-  siteLang = l; const B = BIZ[rvBiz]; const s = B.site[l];
-  $("#minisite").innerHTML = `<div class="bar"><i></i><i></i><i></i><span>${B.domain}/${l}</span></div><div class="hero2" style="--site-img:url('${B.img}')"><span class="mono" style="font-size:.72rem;opacity:.9">${s.tag}</span><h3>${s.h}</h3><span class="chip" style="justify-self:start;background:var(--accent);color:var(--accent-ink)">${s.cta}</span></div><div class="info">${[s.a, s.b, s.c, s.d].map(x => `<div><b>${x[0]}</b>${x[1]}</div>`).join("")}</div>`;
+  siteLang = l; const B = BIZ[rvBiz]; const url = `${B.page}?lang=${l}`;
+  const fr = $("#ms-frame"); if (fr.getAttribute("src") !== url) fr.setAttribute("src", url);
+  $("#ms-open").href = url;
   $("#ms-es").setAttribute("aria-pressed", String(l === "es")); $("#ms-en").setAttribute("aria-pressed", String(l === "en"));
 }
 $("#ms-es").addEventListener("click", () => renderSite("es")); $("#ms-en").addEventListener("click", () => renderSite("en"));
