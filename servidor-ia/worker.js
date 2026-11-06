@@ -68,31 +68,65 @@ function cors(origin) {
 }
 const json = (obj, status, h) => new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json; charset=utf-8", ...h } });
 
+// Caché: misma tarea + mismos datos = misma respuesta, sin volver a pagarle a la IA (7 días).
+const CACHE_TTL = 7 * 24 * 3600;
+async function cacheKey(task, prompt) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(MODEL + "|" + task + "|" + prompt));
+  return "cache:" + [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+// Monitoreo: una línea JSON por solicitud. Se ve en Cloudflare → Workers → xook-ia → Logs (activar "Workers Logs").
+function log(level, event, fields) {
+  const line = JSON.stringify({ t: new Date().toISOString(), event, ...fields });
+  (level === "error" ? console.error : console.log)(line);
+}
+
 export default {
   async fetch(req, env) {
+    const started = Date.now();
     const origin = req.headers.get("Origin") || "";
     const h = cors(origin);
     const url = new URL(req.url);
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: h });
-    if (url.pathname === "/salud") return json({ ok: !!env.ANTHROPIC_API_KEY }, env.ANTHROPIC_API_KEY ? 200 : 503, h);
+    if (url.pathname === "/salud") return json({ ok: !!env.ANTHROPIC_API_KEY, cache: !!env.LIMITES }, env.ANTHROPIC_API_KEY ? 200 : 503, h);
     if (url.pathname !== "/ia" || req.method !== "POST") return json({ error: "no encontrado" }, 404, h);
-    if (origin && !ALLOWED_ORIGINS.includes(origin) && !/^http:\/\/localhost/.test(origin)) return json({ error: "origen no permitido" }, 403, h);
+    if (origin && !ALLOWED_ORIGINS.includes(origin) && !/^http:\/\/localhost/.test(origin)) { log("warn", "origen_bloqueado", { origin }); return json({ error: "origen no permitido" }, 403, h); }
 
     let body; try { body = await req.json(); } catch { return json({ error: "JSON inválido" }, 400, h); }
-    const p = buildPrompt(body?.task, body?.data || {});
-    if (!p) return json({ error: "tarea desconocida" }, 400, h);
-    if (await overLimit(env, req.headers.get("CF-Connecting-IP") || "?")) return json({ error: "límite diario alcanzado" }, 429, h);
+    const task = body?.task;
+    const p = buildPrompt(task, body?.data || {});
+    if (!p) { log("warn", "tarea_desconocida", { task: String(task).slice(0, 30) }); return json({ error: "tarea desconocida" }, 400, h); }
 
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-      body: JSON.stringify({ model: MODEL, max_tokens: p.max, messages: [{ role: "user", content: p.prompt }] })
-    });
-    if (!r.ok) return json({ error: "IA no disponible" }, 502, h);
+    // 1) Caché primero: las respuestas repetidas no gastan saldo ni cuentan para el límite diario.
+    let key = null;
+    if (env.LIMITES) {
+      key = await cacheKey(task, p.prompt);
+      const hit = await env.LIMITES.get(key);
+      if (hit) { log("info", "ia_ok", { task, cached: true, ms: Date.now() - started }); return new Response(hit, { status: 200, headers: { "content-type": "application/json; charset=utf-8", "x-cache": "HIT", ...h } }); }
+    }
+    // 2) Límite diario por persona y total.
+    if (await overLimit(env, req.headers.get("CF-Connecting-IP") || "?")) { log("warn", "limite", { task }); return json({ error: "límite diario alcanzado" }, 429, h); }
+
+    // 3) Llamada a Claude.
+    let r;
+    try {
+      r = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+        body: JSON.stringify({ model: MODEL, max_tokens: p.max, messages: [{ role: "user", content: p.prompt }] })
+      });
+    } catch (e) { log("error", "ia_red", { task, msg: String(e).slice(0, 200) }); return json({ error: "IA no disponible" }, 502, h); }
+    if (!r.ok) { log("error", "ia_http", { task, status: r.status, body: (await r.text()).slice(0, 300) }); return json({ error: "IA no disponible" }, 502, h); }
     const out = await r.json();
     const text = (out.content || []).filter(c => c.type === "text").map(c => c.text).join("").trim();
-    if (!p.json) return json({ text }, 200, h);
-    try { const m = text.match(/\{[\s\S]*\}/); const j = JSON.parse(m ? m[0] : text); return json({ json: j }, 200, h); }
-    catch { return json({ error: "respuesta sin formato" }, 502, h); }
+    let payload;
+    if (!p.json) payload = { text };
+    else {
+      try { const m = text.match(/\{[\s\S]*\}/); payload = { json: JSON.parse(m ? m[0] : text) }; }
+      catch { log("error", "ia_formato", { task, sample: text.slice(0, 120) }); return json({ error: "respuesta sin formato" }, 502, h); }
+    }
+    const res = JSON.stringify(payload);
+    if (key) await env.LIMITES.put(key, res, { expirationTtl: CACHE_TTL });
+    log("info", "ia_ok", { task, cached: false, ms: Date.now() - started, in: out.usage?.input_tokens, out: out.usage?.output_tokens });
+    return new Response(res, { status: 200, headers: { "content-type": "application/json; charset=utf-8", "x-cache": "MISS", ...h } });
   }
 };

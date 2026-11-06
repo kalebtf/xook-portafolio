@@ -3,8 +3,9 @@
 Uso: python src/sitios.py  (también lo llama build.py)
 Salida: sitios/dona-elvira.html y sitios/casa-ejemplo.html
 """
-import json
+import json, re
 from pathlib import Path
+import minify
 
 SRC = Path(__file__).parent
 OUT = SRC.parent / "sitios"
@@ -132,6 +133,8 @@ HOTEL = {
 
 def build():
     tpl = (SRC / "sitio-plantilla.html").read_text(encoding="utf-8")
+    tpl = re.sub(r"<style>(.*?)</style>", lambda m: "<style>" + minify.css(m.group(1)) + "</style>", tpl, count=1, flags=re.S)
+    tpl = re.sub(r"<script>(.*?)</script>", lambda m: "<script>" + minify.js(m.group(1)) + "</script>", tpl, count=1, flags=re.S)
     OUT.mkdir(exist_ok=True)
     for slug, d, brand, accent in [("dona-elvira", REST, "#8E3B26", "#B5651D"), ("casa-ejemplo", HOTEL, "#0B4F4A", "#B08A3E")]:
         data = {**d, "t": {**COMMON, **d["t"]}}

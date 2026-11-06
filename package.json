@@ -1,0 +1,8 @@
+{
+  "name": "xook-portafolio",
+  "private": true,
+  "description": "Herramientas para armar el sitio. Uso: npm install && python src/build.py",
+  "devDependencies": {
+    "esbuild": "0.24.2"
+  }
+}

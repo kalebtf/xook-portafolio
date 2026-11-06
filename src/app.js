@@ -139,7 +139,7 @@ $$("[data-go]").forEach(a => a.addEventListener("click", e => { e.preventDefault
 /* ============ 1. Reseñas ============ */
 const TONES = { calido: "cálido y cercano", profesional: "profesional y formal (usted)", breve: "muy breve, máximo 30 palabras" };
 const BIZ = {
-  rest: { name: "Cocina Doña Elvira (ejemplo)", img: "img/restaurante.jpg", page: "sitios/dona-elvira.html", domain: "donaelvira.example",
+  rest: { name: "Cocina Doña Elvira (ejemplo)", img: "img/s/restaurante.jpg", page: "sitios/dona-elvira.html", domain: "donaelvira.example",
     ctx: `"Cocina Doña Elvira", restaurante de comida yucateca en la Calle 60, Centro de Mérida (horario 8:00-23:00, tiene patio, menú en inglés recién hecho, estacionamiento público en la calle 57, el turno de cocina de fin de semana se reforzó y el mesero ahora avisa el tiempo estimado)`,
     reviews: [
       { name: "Jennifer M.", stars: 5, lang: "en", when: "hace 2 días", text: "Amazing cochinita pibil and the best horchata we had in Mérida! The courtyard is beautiful. Only wish they had an English menu.",
@@ -161,7 +161,7 @@ const BIZ = {
     site: {
       es: { tag: "Cocina yucateca de casa desde 1998", h: "Cocina Doña Elvira", cta: "Reservar por WhatsApp", a: ["Horario", "Lun a dom, 8:00 a 23:00"], b: ["Dirección", "Calle 60, Centro"], c: ["Especialidad", "Cochinita pibil y panuchos"], d: ["Cómo llegar", "Estacionamiento en calle 57"] },
       en: { tag: "Homestyle Yucatecan food since 1998", h: "Cocina Doña Elvira", cta: "Book on WhatsApp", a: ["Hours", "Mon–Sun, 8 am – 11 pm"], b: ["Address", "Calle 60, Downtown"], c: ["Signature dish", "Cochinita pibil & panuchos"], d: ["Getting here", "Parking on Calle 57"] } } },
-  hotel: { name: "Casa Ejemplo Hotel Boutique", img: "img/hotel.jpg", page: "sitios/casa-ejemplo.html", domain: "casaejemplo.example",
+  hotel: { name: "Casa Ejemplo Hotel Boutique", img: "img/s/hotel.jpg", page: "sitios/casa-ejemplo.html", domain: "casaejemplo.example",
     ctx: `"Casa Ejemplo Hotel Boutique", hotel en una casona de 1890 en la Calle 55, a una cuadra del parque de Santa Lucía, Centro de Mérida (check-in 15:00, guarda maletas desde las 10:00, ingreso anticipado si avisan por WhatsApp, desayuno incluido, alberca pequeña, el aire acondicionado de las habitaciones se revisó esta semana, reserva directa por WhatsApp y precios aproximados en USD en la web)`,
     reviews: [
       { name: "Thomas & Claire", stars: 5, lang: "en", when: "hace 3 días", text: "Gorgeous colonial house, the plunge pool was perfect after a hot day exploring. Breakfast was amazing. Only issue: our room's AC was a bit noisy at night.",
