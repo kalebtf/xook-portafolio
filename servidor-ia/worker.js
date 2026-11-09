@@ -1,5 +1,5 @@
 /**
- * Xook IA: servidor pequeño para la IA en vivo del sitio (Cloudflare Worker).
+ * Pilón: servidor pequeño para la IA en vivo del sitio (Cloudflare Worker).
  *
  * Qué hace: recibe {task, data} del sitio, arma un prompt FIJO para esa tarea y llama a Claude.
  * No acepta prompts libres, así nadie puede usarlo como chatbot gratis.
@@ -7,6 +7,8 @@
  * Variables en Cloudflare:
  *   ANTHROPIC_API_KEY  (secreto, obligatorio)
  *   LIMITES            (KV namespace, opcional: límite diario por persona y total)
+ *   ORIGENES           (texto, opcional: dominios extra separados por coma,
+ *                       p. ej. "https://pilon.mx,https://www.pilon.mx")
  */
 const MODEL = "claude-haiku-5-5";
 const ALLOWED_ORIGINS = ["https://kalebtf.github.io"];
@@ -62,8 +64,11 @@ async function overLimit(env, ip) {
   return false;
 }
 
-function cors(origin) {
-  const ok = ALLOWED_ORIGINS.includes(origin) || /^http:\/\/localhost(:\d+)?$/.test(origin || "");
+// Dominios permitidos: los fijos + los de la variable ORIGENES (para agregar el dominio propio sin tocar código).
+const origins = env => [...ALLOWED_ORIGINS, ...String(env?.ORIGENES || "").split(",").map(s => s.trim().replace(/\/+$/, "")).filter(Boolean)];
+const allowed = (origin, env) => origins(env).includes(origin) || /^http:\/\/localhost(:\d+)?$/.test(origin || "");
+function cors(origin, env) {
+  const ok = allowed(origin, env);
   return { "Access-Control-Allow-Origin": ok ? origin : ALLOWED_ORIGINS[0], "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "content-type", "Vary": "Origin" };
 }
 const json = (obj, status, h) => new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json; charset=utf-8", ...h } });
@@ -74,7 +79,7 @@ async function cacheKey(task, prompt) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(MODEL + "|" + task + "|" + prompt));
   return "cache:" + [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
-// Monitoreo: una línea JSON por solicitud. Se ve en Cloudflare → Workers → xook-ia → Logs (activar "Workers Logs").
+// Monitoreo: una línea JSON por solicitud. Se ve en Cloudflare → Workers → pilon-ia → Logs (activar "Workers Logs").
 function log(level, event, fields) {
   const line = JSON.stringify({ t: new Date().toISOString(), event, ...fields });
   (level === "error" ? console.error : console.log)(line);
@@ -84,12 +89,12 @@ export default {
   async fetch(req, env) {
     const started = Date.now();
     const origin = req.headers.get("Origin") || "";
-    const h = cors(origin);
+    const h = cors(origin, env);
     const url = new URL(req.url);
     if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: h });
     if (url.pathname === "/salud") return json({ ok: !!env.ANTHROPIC_API_KEY, cache: !!env.LIMITES }, env.ANTHROPIC_API_KEY ? 200 : 503, h);
     if (url.pathname !== "/ia" || req.method !== "POST") return json({ error: "no encontrado" }, 404, h);
-    if (origin && !ALLOWED_ORIGINS.includes(origin) && !/^http:\/\/localhost/.test(origin)) { log("warn", "origen_bloqueado", { origin }); return json({ error: "origen no permitido" }, 403, h); }
+    if (origin && !allowed(origin, env)) { log("warn", "origen_bloqueado", { origin }); return json({ error: "origen no permitido" }, 403, h); }
 
     let body; try { body = await req.json(); } catch { return json({ error: "JSON inválido" }, 400, h); }
     const task = body?.task;

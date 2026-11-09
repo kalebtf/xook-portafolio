@@ -1,4 +1,4 @@
-# Xook IA · Mérida
+# Pilón · Mérida
 
 Software con inteligencia artificial para negocios de Yucatán y México.
 *AI software for small and medium businesses in Yucatán and Mexico.*

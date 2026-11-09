@@ -1,4 +1,4 @@
-# Checklist de producción · Xook IA
+# Checklist de producción · Pilón
 
 **Para qué sirve:** antes de instalar cualquier herramienta a un cliente, revisamos esta lista. Es lo que separa un demo de una app por la que alguien paga.
 Basado en los 10 puntos de "Cómo vender tu app hecha con Claude" (Enrique Rocha, TikTok, nov. 2026), más 4 puntos propios para negocios en México.

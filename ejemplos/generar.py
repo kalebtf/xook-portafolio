@@ -156,7 +156,7 @@ SimpleDocTemplate(str(man / "manual-hotel.pdf"), pagesize=letter).build(story)
 
 # ---------------- Paquete completo ----------------
 guia = Path(__file__).parent / "GUIA-DE-PRUEBA.pdf"
-pack = Path(__file__).parent / "archivos-de-prueba-xook.zip"
+pack = Path(__file__).parent / "archivos-de-prueba-pilon.zip"
 with zipfile.ZipFile(pack, "w", zipfile.ZIP_DEFLATED) as z:
     for p in sorted(OUT.rglob("*")):
         if p.is_file(): z.write(p, p.relative_to(OUT.parent))

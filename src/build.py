@@ -11,14 +11,14 @@ import sitios  # webs bilingües de demostración
 SRC = Path(__file__).parent
 ROOT = SRC.parent
 SITE_URL = "https://kalebtf.github.io/xook-portafolio/"
-TITLE = "Xook IA Mérida"
+TITLE = "Pilón · Software con IA para negocios de Mérida"
 DESC = ("Software con inteligencia artificial para negocios de Mérida y México: reseñas en inglés, "
         "facturas CFDI, cobranza, manuales, inmuebles y citas. Pruébalo gratis.")
 FONTS = ("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700"
          "&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap")
 FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E"
            "%3Crect width='32' height='32' rx='8' fill='%230D5C61'/%3E%3Ctext x='16' y='23' "
-           "text-anchor='middle' font-family='Arial' font-weight='800' font-size='19' fill='white'%3EX%3C/text%3E%3C/svg%3E")
+           "text-anchor='middle' font-family='Arial' font-weight='800' font-size='19' fill='white'%3EP%3C/text%3E%3C/svg%3E")
 
 head = f"""<!doctype html>
 <html lang="es">
@@ -31,7 +31,7 @@ head = f"""<!doctype html>
 <link rel="icon" href="{FAVICON}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
-<meta property="og:title" content="Xook IA · Software con IA para negocios de Yucatán">
+<meta property="og:title" content="Pilón · Software con IA para negocios de Yucatán">
 <meta property="og:description" content="{DESC}">
 <meta property="og:url" content="{SITE_URL}">
 <meta property="og:image" content="{SITE_URL}og.jpg">

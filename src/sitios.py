@@ -9,13 +9,13 @@ import minify
 
 SRC = Path(__file__).parent
 OUT = SRC.parent / "sitios"
-WA = "523321886217"  # demo: los mensajes llegan a Xook IA
+WA = "523321886217"  # demo: los mensajes llegan a Pilón
 
 def L(es, en): return {"es": es, "en": en}
 
 COMMON = {
-    "demobar": L("Sitio de demostración hecho por Xook IA · negocio ficticio · los mensajes de WhatsApp llegan a Xook IA",
-                 "Demo website by Xook IA · fictional business · WhatsApp messages go to Xook IA"),
+    "demobar": L("Sitio de demostración hecho por Pilón · negocio ficticio · los mensajes de WhatsApp llegan a Pilón",
+                 "Demo website by Pilón · fictional business · WhatsApp messages go to Pilón"),
     "nav2": L("Reseñas", "Reviews"), "nav3": L("Ubicación", "Location"),
     "openNow": L("Abierto ahora", "Open now"), "closedNow": L("Cerrado ahora", "Closed now"), "until": L("hasta las", "until"), "opensAt": L("abre a las", "opens at"),
     "revEy": L("Lo que dicen en Google", "What guests say on Google"), "reviewsOn": L("reseñas en Google", "reviews on Google"), "ownerReply": L("Respuesta del dueño", "Response from the owner"),
@@ -84,7 +84,7 @@ REST = {
         "notesPh": L("Cumpleaños, silla para bebé, alergias…", "Birthday, high chair, allergies…"),
         "waBook": L("Hola, quiero reservar una mesa en Cocina Doña Elvira:", "Hi! I'd like to book a table at Cocina Doña Elvira:"), "waHello": L("Hola, tengo una pregunta.", "Hi! I have a question."),
         "revH": L("4.6 de 5 con más de 300 reseñas", "Rated 4.6 out of 5 by 300+ guests"), "mapH": L("En el corazón del Centro", "In the heart of downtown"),
-        "foot": L("© Cocina Doña Elvira (negocio ficticio) · Sitio de demostración de Xook IA, Mérida.", "© Cocina Doña Elvira (fictional business) · Demo website by Xook IA, Mérida."),
+        "foot": L("© Cocina Doña Elvira (negocio ficticio) · Sitio de demostración de Pilón, Mérida.", "© Cocina Doña Elvira (fictional business) · Demo website by Pilón, Mérida."),
     },
 }
 
@@ -127,7 +127,7 @@ HOTEL = {
         "notesPh": L("Hora de llegada, cama extra, celebración…", "Arrival time, extra bed, special occasion…"),
         "waBook": L("Hola, quiero reservar en Casa Ejemplo:", "Hi! I'd like to book a stay at Casa Ejemplo:"), "waHello": L("Hola, tengo una pregunta sobre el hotel.", "Hi! I have a question about the hotel."),
         "revH": L("4.8 de 5, según nuestros huéspedes", "Rated 4.8 out of 5 by our guests"), "mapH": L("A una cuadra de Santa Lucía", "One block from Santa Lucía park"),
-        "foot": L("© Casa Ejemplo (negocio ficticio) · Sitio de demostración de Xook IA, Mérida.", "© Casa Ejemplo (fictional business) · Demo website by Xook IA, Mérida."),
+        "foot": L("© Casa Ejemplo (negocio ficticio) · Sitio de demostración de Pilón, Mérida.", "© Casa Ejemplo (fictional business) · Demo website by Pilón, Mérida."),
     },
 }
 

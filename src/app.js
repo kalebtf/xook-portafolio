@@ -785,11 +785,11 @@ $("#ag-ics").addEventListener("click", () => {
   pickFirst(); const t = agTimes(); const name = $("#ag-name").value.trim() || "Paciente";
   const icsEsc = s => String(s).replace(/([,;\\])/g, "\\$1");
   const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
-  const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Xook IA//Citas//ES", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT",
-    `UID:${t.start}-${Math.random().toString(36).slice(2)}@xook-ia`, `DTSTAMP:${stamp}`,
+  const ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Pilon//Citas//ES", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "BEGIN:VEVENT",
+    `UID:${t.start}-${Math.random().toString(36).slice(2)}@pilon`, `DTSTAMP:${stamp}`,
     `DTSTART;TZID=America/Merida:${t.start}`, `DTEND;TZID=America/Merida:${t.end}`,
     `SUMMARY:${icsEsc(t.svc + " · " + name)}`, `LOCATION:${icsEsc(CLINIC.name + ", " + CLINIC.addr)}`,
-    `DESCRIPTION:${icsEsc("Cita agendada desde el demo de Xook IA.")}`,
+    `DESCRIPTION:${icsEsc("Cita agendada desde el demo de Pilón.")}`,
     "BEGIN:VALARM", "TRIGGER:-P1D", "ACTION:DISPLAY", "DESCRIPTION:Recordatorio de cita", "END:VALARM",
     "END:VEVENT", "END:VCALENDAR"].join("\r\n");
   downloadText("cita.ics", ics, "text/calendar");

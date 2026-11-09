@@ -13,10 +13,11 @@
 - Tu llave de Anthropic se guarda como **secreto** en Cloudflare. No la pegues en el código ni la compartas en el chat.
 
 ## Pasos (unos 15 minutos)
-1. **Crea el Worker.** En [dash.cloudflare.com](https://dash.cloudflare.com) entra a *Workers & Pages → Create → Worker*, ponle de nombre `xook-ia` y pulsa *Deploy*. Luego entra a *Edit code*, borra lo que trae, pega el contenido de `worker.js` y vuelve a pulsar *Deploy*.
+1. **Crea el Worker.** En [dash.cloudflare.com](https://dash.cloudflare.com) entra a *Workers & Pages → Create → Worker*, ponle de nombre `pilon-ia` y pulsa *Deploy*. Luego entra a *Edit code*, borra lo que trae, pega el contenido de `worker.js` y vuelve a pulsar *Deploy*.
 2. **Guarda tu llave.** En *Settings → Variables and Secrets → Add*, elige el tipo *Secret*, ponle de nombre `ANTHROPIC_API_KEY` y pega tu llave de [console.anthropic.com](https://console.anthropic.com).
-3. **Límites diarios (recomendado).** En *Storage & Databases → KV → Create*, crea uno llamado `xook-limites`. Después, en el Worker, entra a *Settings → Bindings → Add → KV namespace*, ponle de nombre `LIMITES` y elige `xook-limites`.
+3. **Límites diarios (recomendado).** En *Storage & Databases → KV → Create*, crea uno llamado `pilon-limites`. Después, en el Worker, entra a *Settings → Bindings → Add → KV namespace*, ponle de nombre `LIMITES` y elige `pilon-limites`.
 4. **Pon un tope de gasto.** En la consola de Anthropic, entra a *Limits* y fija un límite mensual bajo (por ejemplo, USD 5) con la recarga automática apagada. Así nunca gastas más de lo que decidas.
 5. **Activa el registro.** En el Worker, entra a *Settings → Observability* y prende **Workers Logs**. Ahí ves cada solicitud y cada error.
-6. **Prueba.** Abre `https://xook-ia.<tu-subdominio>.workers.dev/salud`. Debe decir `{"ok":true,"cache":true}`.
-7. **Avísale a Claude la dirección.** Claude la pone en `CONFIG.AI_URL` (en `src/app.js`), vuelve a armar la página y la publica.
+6. **Prueba.** Abre `https://pilon-ia.<tu-subdominio>.workers.dev/salud`. Debe decir `{"ok":true,"cache":true}`.
+7. **Agrega tu dominio (cuando lo tengas).** En *Settings → Variables and Secrets → Add*, tipo *Text*, nombre `ORIGENES`, valor por ejemplo `https://pilon.mx,https://www.pilon.mx`. Sin esto, el servidor solo responde a kalebtf.github.io.
+8. **Avísale a Claude la dirección.** Claude la pone en `CONFIG.AI_URL` (en `src/app.js`), vuelve a armar la página y la publica.
